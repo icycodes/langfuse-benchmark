@@ -245,6 +245,7 @@ The following environment variables will be provided:
 * LANGFUSE_PRIVATE_KEY
 * LANGFUSE_BASE_URL
 
-## Notes for Task Generation
-* Prefer to use CLI interface to verify the task side-effects againts langfuse instance
+## Important notes for Task Generation
+
+* Carefully write the final `pytest` test code. When using the Langfuse Platform API to verify task side effects, you must use `webFetch` to retrieve the API reference documentation, double-check that the endpoint actually exists, and ensure the request and response match the documentation.
 
