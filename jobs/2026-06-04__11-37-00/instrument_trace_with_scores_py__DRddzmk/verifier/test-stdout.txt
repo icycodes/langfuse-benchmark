@@ -1,0 +1,100 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py .EEFFF                                         [100%]
+
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_trace_has_expected_user_and_session __________
+
+langfuse_base_url = 'https://us.cloud.langfuse.com'
+langfuse_auth = ('(*****SECRET_LEAK_DETECTED*****)', '(*****SECRET_LEAK_DETECTED*****)')
+parsed_log = {'generation_id': '58d016848b6c089d', 'session_id': 'session-zr-drddzmk', 'trace_id': 'f412516edc70e6cad116b540ebf1d92f', 'user_id': 'user-zr-drddzmk'}
+
+    @pytest.fixture(scope="module")
+    def trace_response(langfuse_base_url, langfuse_auth, parsed_log):
+        url = f"{langfuse_base_url}/api/public/traces/{parsed_log['trace_id']}"
+        resp = requests.get(url, auth=langfuse_auth, timeout=30)
+>       assert resp.status_code == 200, (
+            f"GET {url} returned status {resp.status_code}: {resp.text[:500]}"
+        )
+E       AssertionError: GET https://us.cloud.langfuse.com/api/public/traces/f412516edc70e6cad116b540ebf1d92f returned status 404: {"message":"Trace f412516edc70e6cad116b540ebf1d92f not found within authorized project","error":"LangfuseNotFoundError"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:89: AssertionError
+____ ERROR at setup of test_trace_contains_expected_generation_observation _____
+
+langfuse_base_url = 'https://us.cloud.langfuse.com'
+langfuse_auth = ('(*****SECRET_LEAK_DETECTED*****)', '(*****SECRET_LEAK_DETECTED*****)')
+parsed_log = {'generation_id': '58d016848b6c089d', 'session_id': 'session-zr-drddzmk', 'trace_id': 'f412516edc70e6cad116b540ebf1d92f', 'user_id': 'user-zr-drddzmk'}
+
+    @pytest.fixture(scope="module")
+    def trace_response(langfuse_base_url, langfuse_auth, parsed_log):
+        url = f"{langfuse_base_url}/api/public/traces/{parsed_log['trace_id']}"
+        resp = requests.get(url, auth=langfuse_auth, timeout=30)
+>       assert resp.status_code == 200, (
+            f"GET {url} returned status {resp.status_code}: {resp.text[:500]}"
+        )
+E       AssertionError: GET https://us.cloud.langfuse.com/api/public/traces/f412516edc70e6cad116b540ebf1d92f returned status 404: {"message":"Trace f412516edc70e6cad116b540ebf1d92f not found within authorized project","error":"LangfuseNotFoundError"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:89: AssertionError
+=================================== FAILURES ===================================
+________________ test_user_satisfaction_score_attached_to_trace ________________
+
+scores_response = []
+parsed_log = {'generation_id': '58d016848b6c089d', 'session_id': 'session-zr-drddzmk', 'trace_id': 'f412516edc70e6cad116b540ebf1d92f', 'user_id': 'user-zr-drddzmk'}
+
+    def test_user_satisfaction_score_attached_to_trace(scores_response, parsed_log):
+        matching = [s for s in scores_response if s.get("name") == "user_satisfaction"]
+>       assert len(matching) == 1, (
+            f"Expected exactly 1 'user_satisfaction' score on the trace, found {len(matching)}: {matching}"
+        )
+E       AssertionError: Expected exactly 1 'user_satisfaction' score on the trace, found 0: []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_final_state.py:153: AssertionError
+___________ test_hallucination_boolean_score_attached_to_generation ____________
+
+scores_response = []
+parsed_log = {'generation_id': '58d016848b6c089d', 'session_id': 'session-zr-drddzmk', 'trace_id': 'f412516edc70e6cad116b540ebf1d92f', 'user_id': 'user-zr-drddzmk'}
+
+    def test_hallucination_boolean_score_attached_to_generation(scores_response, parsed_log):
+        matching = [s for s in scores_response if s.get("name") == "hallucination"]
+>       assert len(matching) == 1, (
+            f"Expected exactly 1 'hallucination' score on the trace, found {len(matching)}: {matching}"
+        )
+E       AssertionError: Expected exactly 1 'hallucination' score on the trace, found 0: []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_final_state.py:173: AssertionError
+___________ test_relevance_categorical_score_attached_to_generation ____________
+
+scores_response = []
+parsed_log = {'generation_id': '58d016848b6c089d', 'session_id': 'session-zr-drddzmk', 'trace_id': 'f412516edc70e6cad116b540ebf1d92f', 'user_id': 'user-zr-drddzmk'}
+
+    def test_relevance_categorical_score_attached_to_generation(scores_response, parsed_log):
+        matching = [s for s in scores_response if s.get("name") == "relevance"]
+>       assert len(matching) == 1, (
+            f"Expected exactly 1 'relevance' score on the trace, found {len(matching)}: {matching}"
+        )
+E       AssertionError: Expected exactly 1 'relevance' score on the trace, found 0: []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_final_state.py:193: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_well_formed
+ERROR tests/test_final_state.py::test_trace_has_expected_user_and_session - A...
+ERROR tests/test_final_state.py::test_trace_contains_expected_generation_observation
+FAILED tests/test_final_state.py::test_user_satisfaction_score_attached_to_trace
+FAILED tests/test_final_state.py::test_hallucination_boolean_score_attached_to_generation
+FAILED tests/test_final_state.py::test_relevance_categorical_score_attached_to_generation
+==================== 3 failed, 1 passed, 2 errors in 1.14s =====================

@@ -1,0 +1,152 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py FFFFFFF                                        [100%]
+
+=================================== FAILURES ===================================
+________________________ test_log_contains_dataset_name ________________________
+
+    def test_log_contains_dataset_name():
+        dataset_name = _expected_dataset_name()
+>       value = _find_log_line("Dataset name:")
+
+tests/test_final_state.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:40: in _find_log_line
+    for line in _read_log_lines():
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:18: AssertionError
+_________________________ test_log_contains_dataset_id _________________________
+
+    def test_log_contains_dataset_id():
+>       value = _find_log_line("Dataset id:")
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:40: in _find_log_line
+    for line in _read_log_lines():
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:18: AssertionError
+_________________________ test_log_contains_item_count _________________________
+
+    def test_log_contains_item_count():
+>       value = _find_log_line("Item count:")
+
+tests/test_final_state.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:40: in _find_log_line
+    for line in _read_log_lines():
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:18: AssertionError
+_______________________ test_log_contains_three_item_ids _______________________
+
+    def test_log_contains_three_item_ids():
+        ids = []
+>       for line in _read_log_lines():
+
+tests/test_final_state.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_lines():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:18: AssertionError
+_____________________ test_dataset_exists_via_langfuse_api _____________________
+
+    def test_dataset_exists_via_langfuse_api():
+        dataset_name = _expected_dataset_name()
+        auth, host = _langfuse_auth_and_host()
+        url = f"{host}/api/public/v2/datasets/{dataset_name}"
+        response = requests.get(url, auth=auth, timeout=30)
+>       assert response.status_code == 200, (
+            f"GET {url} failed: status={response.status_code}, body={response.text}"
+        )
+E       AssertionError: GET https://us.cloud.langfuse.com/api/public/v2/datasets/geography-quiz-zr-pnqfww6 failed: status=404, body={"message":"Dataset not found","error":"LangfuseNotFoundError"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:83: AssertionError
+__________________ test_dataset_items_exist_via_langfuse_api ___________________
+
+    def test_dataset_items_exist_via_langfuse_api():
+        dataset_name = _expected_dataset_name()
+        auth, host = _langfuse_auth_and_host()
+        url = f"{host}/api/public/dataset-items"
+        response = requests.get(
+            url,
+            params={"datasetName": dataset_name, "limit": 50},
+            auth=auth,
+            timeout=30,
+        )
+>       assert response.status_code == 200, (
+            f"GET {url} failed: status={response.status_code}, body={response.text}"
+        )
+E       AssertionError: GET https://us.cloud.langfuse.com/api/public/dataset-items failed: status=404, body={"message":"Dataset not found","error":"LangfuseNotFoundError"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:111: AssertionError
+___________________ test_logged_item_ids_match_api_item_ids ____________________
+
+    def test_logged_item_ids_match_api_item_ids():
+        dataset_name = _expected_dataset_name()
+        auth, host = _langfuse_auth_and_host()
+        url = f"{host}/api/public/dataset-items"
+        response = requests.get(
+            url,
+            params={"datasetName": dataset_name, "limit": 50},
+            auth=auth,
+            timeout=30,
+        )
+>       assert response.status_code == 200, (
+            f"GET {url} failed: status={response.status_code}, body={response.text}"
+        )
+E       AssertionError: GET https://us.cloud.langfuse.com/api/public/dataset-items failed: status=404, body={"message":"Dataset not found","error":"LangfuseNotFoundError"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:162: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_log_contains_dataset_name - AssertionE...
+FAILED tests/test_final_state.py::test_log_contains_dataset_id - AssertionErr...
+FAILED tests/test_final_state.py::test_log_contains_item_count - AssertionErr...
+FAILED tests/test_final_state.py::test_log_contains_three_item_ids - Assertio...
+FAILED tests/test_final_state.py::test_dataset_exists_via_langfuse_api - Asse...
+FAILED tests/test_final_state.py::test_dataset_items_exist_via_langfuse_api
+FAILED tests/test_final_state.py::test_logged_item_ids_match_api_item_ids - A...
+============================== 7 failed in 1.73s ===============================

@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: anyio-4.13.0, langsmith-0.8.9, json-ctrf-0.5.0
+collected 9 items
+
+bootstrap/test_initial_state.py::test_project_directory_exists PASSED
+bootstrap/test_initial_state.py::test_langfuse_sdk_importable PASSED
+bootstrap/test_initial_state.py::test_langfuse_langchain_callback_importable PASSED
+bootstrap/test_initial_state.py::test_langchain_core_importable PASSED
+bootstrap/test_initial_state.py::test_langchain_community_fake_chat_model_importable PASSED
+bootstrap/test_initial_state.py::test_langfuse_public_key_env_set PASSED
+bootstrap/test_initial_state.py::test_langfuse_secret_key_env_set PASSED
+bootstrap/test_initial_state.py::test_langfuse_base_url_env_set PASSED
+bootstrap/test_initial_state.py::test_run_id_env_set PASSED
+
+=============================== warnings summary ===============================
+test_initial_state.py::test_langchain_community_fake_chat_model_importable
+  /usr/lib/python3.12/importlib/__init__.py:90: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    return _bootstrap._gcd_import(name[level:], package, level)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 9 passed, 1 warning in 0.48s =========================

@@ -1,0 +1,76 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 3,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780551648156,
+            "stop": 1780551784552
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551648238,
+                "stop": 1780551648239,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_declares_dependencies_and_start_script",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551648239,
+                "stop": 1780551648240,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_langfuse_tracing_primitives",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780551648240,
+                "stop": 1780551648240,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_listed_in_langfuse",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 69755,
+                "start": 1780551648241,
+                "stop": 1780551717996,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "langfuse_config = {'auth': ('(*****SECRET_LEAK_DETECTED*****)', '(*****SECRET_LEAK_DETECTED*****)'), 'base_url': 'https://us.cloud.langfuse.com'}\nexpected_trace_name = 'weather-assistant-zr-dgcpafu'\ntrace_id_from_log = 'a9e305e09747ceae22620239405e3dea'\n\n    def test_trace_listed_in_langfuse(langfuse_config, expected_trace_name, trace_id_from_log):\n        list_url = f\"{langfuse_config['base_url']}/api/public/traces\"\n        matched = None\n        last_status = None\n        last_payload_keys = None\n        for attempt in range(12):\n            resp = requests.get(\n                list_url,\n                params={\"name\": expected_trace_name, \"limit\": 50},\n                auth=langfuse_config[\"auth\"],\n                timeout=30,\n            )\n            last_status = resp.status_code\n            if resp.status_code == 200:\n                payload = resp.json()\n                last_payload_keys = list(payload.keys()) if isinstance(payload, dict) else None\n                data = payload.get(\"data\", []) if isinstance(payload, dict) else []\n                for entry in data:\n                    if entry.get(\"name\") == expected_trace_name and entry.get(\"id\") == trace_id_from_log:\n                        matched = entry\n                        break\n                if matched:\n                    break\n            time.sleep(5)\n    \n>       assert matched is not None, (\n            f\"Expected to find a trace with name '{expected_trace_name}' and id \"\n            f\"'{trace_id_from_log}' via GET /api/public/traces. \"\n            f\"Last status: {last_status}, last response keys: {last_payload_keys}.\"\n        )\nE       AssertionError: Expected to find a trace with name 'weather-assistant-zr-dgcpafu' and id 'a9e305e09747ceae22620239405e3dea' via GET /api/public/traces. Last status: 200, last response keys: ['data', 'meta'].\nE       assert None is not None\n\ntests/test_final_state.py:145: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_trace_detail_has_nested_generation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 66555,
+                "start": 1780551717996,
+                "stop": 1780551784551,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "langfuse_config = {'auth': ('(*****SECRET_LEAK_DETECTED*****)', '(*****SECRET_LEAK_DETECTED*****)'), 'base_url': 'https://us.cloud.langfuse.com'}\nexpected_trace_name = 'weather-assistant-zr-dgcpafu'\ntrace_id_from_log = 'a9e305e09747ceae22620239405e3dea'\n\n    def test_trace_detail_has_nested_generation(langfuse_config, expected_trace_name, trace_id_from_log):\n        detail_url = f\"{langfuse_config['base_url']}/api/public/traces/{trace_id_from_log}\"\n        detail = None\n        last_status = None\n        for attempt in range(12):\n            resp = requests.get(detail_url, auth=langfuse_config[\"auth\"], timeout=30)\n            last_status = resp.status_code\n            if resp.status_code == 200:\n                detail = resp.json()\n                if detail and detail.get(\"observations\"):\n                    break\n            time.sleep(5)\n    \n>       assert detail is not None, (\n            f\"Could not retrieve trace detail from GET /api/public/traces/{trace_id_from_log} \"\n            f\"(last status: {last_status}).\"\n        )\nE       AssertionError: Could not retrieve trace detail from GET /api/public/traces/a9e305e09747ceae22620239405e3dea (last status: 404).\nE       assert None is not None\n\ntests/test_final_state.py:165: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

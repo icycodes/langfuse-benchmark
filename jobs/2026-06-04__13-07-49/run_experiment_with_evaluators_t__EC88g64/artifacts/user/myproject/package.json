@@ -1,0 +1,16 @@
+{
+  "name": "langfuse-experiment",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@langfuse/client": "^5.4.1",
+    "@langfuse/otel": "^5.4.1",
+    "@opentelemetry/sdk-node": "^0.218.0",
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}

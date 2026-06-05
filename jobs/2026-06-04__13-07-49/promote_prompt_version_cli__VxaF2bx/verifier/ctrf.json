@@ -1,0 +1,91 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550948509,
+            "stop": 1780550951352
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550948616,
+                "stop": 1780550948617,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_prompt_name_line",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550948617,
+                "stop": 1780550948618,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_promoted_version_line",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550948618,
+                "stop": 1780550948619,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_listed_with_two_versions",
+                "status": "passed",
+                "duration": 571,
+                "start": 1780550948619,
+                "stop": 1780550949190,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_version_1_content_and_labels",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 525,
+                "start": 1780550949190,
+                "stop": 1780550949715,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_version_1_content_and_labels():\n        resp = _get_prompt(version=1)\n        assert resp.status_code == 200, (\n            f\"GET prompt version 1 returned {resp.status_code}: {resp.text}\"\n        )\n        body = resp.json()\n        assert body.get(\"version\") == 1, (\n            f\"Expected response version == 1, got {body.get('version')!r}. Body: {body}\"\n        )\n        assert body.get(\"type\") == \"text\", (\n            f\"Expected prompt type 'text' for version 1, got {body.get('type')!r}.\"\n        )\n        assert body.get(\"prompt\") == \"As a {{criticlevel}} critic, do you like {{movie}}?\", (\n            f\"Version 1 prompt content mismatch. Got: {body.get('prompt')!r}\"\n        )\n        labels = body.get(\"labels\") or []\n>       assert \"staging\" in labels, (\n            f\"Expected 'staging' in version 1 labels, got: {labels}\"\n        )\nE       AssertionError: Expected 'staging' in version 1 labels, got: []\nE       assert 'staging' in []\n\ntests/test_final_state.py:114: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_version_2_content_and_labels",
+                "status": "passed",
+                "duration": 1064,
+                "start": 1780550949716,
+                "stop": 1780550950780,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_production_label_points_to_version_2",
+                "status": "passed",
+                "duration": 570,
+                "start": 1780550950781,
+                "stop": 1780550951351,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

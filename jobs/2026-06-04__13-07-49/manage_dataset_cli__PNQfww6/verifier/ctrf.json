@@ -1,0 +1,109 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550402847,
+            "stop": 1780550404569
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_contains_dataset_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 23,
+                "start": 1780550402951,
+                "stop": 1780550402974,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_contains_dataset_name():\n        dataset_name = _expected_dataset_name()\n>       value = _find_log_line(\"Dataset name:\")\n\ntests/test_final_state.py:48: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:40: in _find_log_line\n    for line in _read_log_lines():\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist.\"\nE       AssertionError: Expected log file /home/user/myproject/output.log to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_dataset_id",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780550402974,
+                "stop": 1780550402979,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_contains_dataset_id():\n>       value = _find_log_line(\"Dataset id:\")\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:40: in _find_log_line\n    for line in _read_log_lines():\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist.\"\nE       AssertionError: Expected log file /home/user/myproject/output.log to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_item_count",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780550402980,
+                "stop": 1780550402985,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_contains_item_count():\n>       value = _find_log_line(\"Item count:\")\n\ntests/test_final_state.py:62: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:40: in _find_log_line\n    for line in _read_log_lines():\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist.\"\nE       AssertionError: Expected log file /home/user/myproject/output.log to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_three_item_ids",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780550402985,
+                "stop": 1780550402989,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_contains_three_item_ids():\n        ids = []\n>       for line in _read_log_lines():\n\ntests/test_final_state.py:68: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_log_lines():\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} to exist.\"\nE       AssertionError: Expected log file /home/user/myproject/output.log to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7624b1814220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x7624b1814220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_dataset_exists_via_langfuse_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 571,
+                "start": 1780550402990,
+                "stop": 1780550403561,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_dataset_exists_via_langfuse_api():\n        dataset_name = _expected_dataset_name()\n        auth, host = _langfuse_auth_and_host()\n        url = f\"{host}/api/public/v2/datasets/{dataset_name}\"\n        response = requests.get(url, auth=auth, timeout=30)\n>       assert response.status_code == 200, (\n            f\"GET {url} failed: status={response.status_code}, body={response.text}\"\n        )\nE       AssertionError: GET https://us.cloud.langfuse.com/api/public/v2/datasets/geography-quiz-zr-pnqfww6 failed: status=404, body={\"message\":\"Dataset not found\",\"error\":\"LangfuseNotFoundError\"}\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:83: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_dataset_items_exist_via_langfuse_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 506,
+                "start": 1780550403562,
+                "stop": 1780550404068,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_dataset_items_exist_via_langfuse_api():\n        dataset_name = _expected_dataset_name()\n        auth, host = _langfuse_auth_and_host()\n        url = f\"{host}/api/public/dataset-items\"\n        response = requests.get(\n            url,\n            params={\"datasetName\": dataset_name, \"limit\": 50},\n            auth=auth,\n            timeout=30,\n        )\n>       assert response.status_code == 200, (\n            f\"GET {url} failed: status={response.status_code}, body={response.text}\"\n        )\nE       AssertionError: GET https://us.cloud.langfuse.com/api/public/dataset-items failed: status=404, body={\"message\":\"Dataset not found\",\"error\":\"LangfuseNotFoundError\"}\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:111: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_logged_item_ids_match_api_item_ids",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 501,
+                "start": 1780550404068,
+                "stop": 1780550404569,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_logged_item_ids_match_api_item_ids():\n        dataset_name = _expected_dataset_name()\n        auth, host = _langfuse_auth_and_host()\n        url = f\"{host}/api/public/dataset-items\"\n        response = requests.get(\n            url,\n            params={\"datasetName\": dataset_name, \"limit\": 50},\n            auth=auth,\n            timeout=30,\n        )\n>       assert response.status_code == 200, (\n            f\"GET {url} failed: status={response.status_code}, body={response.text}\"\n        )\nE       AssertionError: GET https://us.cloud.langfuse.com/api/public/dataset-items failed: status=404, body={\"message\":\"Dataset not found\",\"error\":\"LangfuseNotFoundError\"}\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:162: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

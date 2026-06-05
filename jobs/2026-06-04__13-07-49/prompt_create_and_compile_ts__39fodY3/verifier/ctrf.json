@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549984649,
+            "stop": 1780549986219
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_expected_prompt_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549984751,
+                "stop": 1780549984752,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_versions_are_sequential",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549984752,
+                "stop": 1780549984753,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_compiled_prompt_line",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780549984753,
+                "stop": 1780549984753,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_exists_and_has_start_script_and_dep",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780549984754,
+                "stop": 1780549984754,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_production_prompt_returned_via_api",
+                "status": "passed",
+                "duration": 486,
+                "start": 1780549984754,
+                "stop": 1780549985240,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_staging_prompt_returned_via_api",
+                "status": "passed",
+                "duration": 490,
+                "start": 1780549985240,
+                "stop": 1780549985730,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_default_label_serves_production_version",
+                "status": "passed",
+                "duration": 487,
+                "start": 1780549985731,
+                "stop": 1780549986218,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

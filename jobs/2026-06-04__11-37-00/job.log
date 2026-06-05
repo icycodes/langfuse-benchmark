@@ -1,0 +1,871 @@
+Skipping image OS validation for hb__versioned_prompt_labels_py: docker inspect returned 1
+Skipping image OS validation for hb__instrument_trace_with_scores_py: docker inspect returned 1
+Skipping image OS validation for hb__run_experiment_with_evaluators_py: docker inspect returned 1
+Skipping image OS validation for hb__versioned_prompt_labels_py: docker inspect returned 1
+Skipping image OS validation for hb__run_experiment_with_evaluators_py: docker inspect returned 1
+Skipping image OS validation for hb__instrument_trace_with_scores_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Running command: echo zr-me9v9s7 > /logs/artifacts/run-id && echo versioned_prompt_labels_py__ME9v9S7 > /logs/artifacts/trial_id
+Command outputs captured
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: echo zr-vumupzq > /logs/artifacts/run-id && echo run_experiment_with_evaluators_p__VUmupZq > /logs/artifacts/trial_id
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-drddzmk > /logs/artifacts/run-id && echo instrument_trace_with_scores_py__DRddzmk > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Versioned Chat Prompt with Labels (Langfuse Python SDK)
+
+## Background
+You are setting up [Langfuse](https://langfuse.com/) prompt management for a movie review assistant. The team wants to keep an actively-tested `staging` version of the prompt alongside the currently-deployed `production` version, so engineers can iterate safely. Your job is to use the **Langfuse Python SDK** to programmatically register two versions of a chat prompt and attach the correct labels, so the application can fetch each version by label at runtime.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use when naming the Langfuse prompt to avoid conflicts with concurrent task runs.
+
+## Requirements
+- Write a Python script `create_prompts.py` that uses the Langfuse Python SDK (`from langfuse import Langfuse` or `from langfuse import get_client`) to create a single chat prompt with two versions in your Langfuse project.
+- The prompt **name** must be `movie-critic-chat-${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment).
+- Both versions must be created as `chat` prompts (a list of role/content message dicts) and must use Langfuse template variables (double-curly-brace syntax).
+- Version 1 (created first) is a baseline prompt that must be labeled `staging`.
+- Version 2 (created second) is an enhanced prompt that must be labeled `production` (this becomes the default version served when no label is specified).
+- Execute the script so that both prompt versions are actually created on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the result.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; the client reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Use the SDK's `create_prompt` method with `type="chat"` and a `prompt` payload that is a list of `{"role": ..., "content": ...}` dicts.
+- Use the `labels` parameter of `create_prompt` to attach labels at creation time. Each label may only point at one version at a time, so creating version 2 with `labels=["production"]` will automatically move that label off the older version.
+- Remember to `flush()` (or otherwise ensure cleanup) so background events are delivered before the script exits.
+- The two versions returned by the SDK expose a `.version` attribute (an integer) that you should write to the log file.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the prompt versions actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The Langfuse prompt name must be `movie-critic-chat-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- Two versions of the prompt must exist on the Langfuse server.
+- The first-created version must carry the label `staging`.
+- The second-created version must carry the label `production` (and must NOT carry the `staging` label).
+- Both versions must be of type `chat` and must contain template variables written with Langfuse's `{{variable}}` syntax.
+- The version 1 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}` and `{{movie}}`.
+- The version 2 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}`, `{{movie}}`, and `{{genre}}`.
+- The log file must contain the following lines (in any order):
+  - `Prompt name: <prompt_name>`
+  - `Staging version: <integer>`
+  - `Production version: <integer>`
+
+
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Run a Langfuse Experiment with Custom Evaluators (Python SDK)
+
+## Background
+You are extending an LLM evaluation workflow with [Langfuse](https://langfuse.com/), an open-source AI engineering platform. Your goal is to programmatically create a Langfuse-hosted dataset, then execute an `Experiment` against it using the Python SDK. The experiment must compute both **item-level** scores and a **run-level** aggregate score, all of which are stored back in Langfuse and inspectable via the public REST API.
+
+The environment is offline-friendly: there is **no external LLM provider configured**. Your `task` function must be deterministic Python logic that runs locally — no OpenAI/Anthropic calls.
+
+The following environment variables are already exported in the container and must be used to talk to Langfuse:
+- `LANGFUSE_PUBLIC_KEY`
+- `LANGFUSE_SECRET_KEY`
+- `LANGFUSE_BASE_URL`
+
+## Requirements
+1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. Use it to make every external resource collision-safe.
+2. Using the Langfuse Python SDK, create a Langfuse-hosted **dataset** named `harbor-eval-${run-id}`.
+3. Add exactly **5** dataset items to it. Each item must have:
+   - `input`: a short English sentence (string).
+   - `expected_output`: the lowercase **sentiment label** for that sentence — one of `"positive"`, `"negative"`, or `"neutral"`.
+   - The five items must collectively cover **at least two** distinct labels (i.e., not all the same label).
+4. Implement a deterministic Python task function `classify_sentiment` that returns a sentiment label string (`"positive"`, `"negative"`, or `"neutral"`) for each dataset item's `input`. **Do not call any external LLM API.** A simple keyword / rule-based classifier is sufficient. The function must not return `None`.
+5. Implement an **item-level evaluator** named `accuracy` that emits a Langfuse `Evaluation` with:
+   - `name="accuracy"`
+   - `value=1.0` when the task output exactly equals `expected_output` (case-insensitive), `value=0.0` otherwise.
+6. Implement a **run-level evaluator** named `avg_accuracy` that emits a Langfuse `Evaluation` with `name="avg_accuracy"` and `value` equal to the mean of all `accuracy` values from the item-level results (a float between 0.0 and 1.0).
+7. Run the experiment against the Langfuse-hosted dataset using the SDK's experiment runner so that a real **dataset run** is created in Langfuse. The dataset run must be named `experiment-${run-id}`.
+8. Flush the Langfuse client before the process exits so all traces, scores, and the dataset run are persisted.
+9. After the run finishes, write a single log file with the resulting identifiers and metrics so the verifier can confirm the run was real.
+
+## Implementation Hints
+- The Python SDK exposes `from langfuse import get_client, Evaluation`. `get_client()` reads the env vars listed above.
+- Use `langfuse.create_dataset(name=...)` and `langfuse.create_dataset_item(dataset_name=..., input=..., expected_output=...)` to populate the dataset.
+- To trigger a dataset run, fetch the dataset with `langfuse.get_dataset(name)` and call its `.run_experiment(...)` method, or pass the Langfuse dataset items into `langfuse.run_experiment(...)`. Either way the SDK creates a dataset run when the data originates from a Langfuse-hosted dataset.
+- Pass `run_name="experiment-${run-id}"` to the experiment so the dataset run is deterministically named.
+- Item-level evaluators receive keyword arguments including `input`, `output`, `expected_output`, and `metadata`. They must return a `langfuse.Evaluation`.
+- Run-level evaluators receive `item_results` (a list with `.evaluations`) and must return a `langfuse.Evaluation`.
+- Call `langfuse.flush()` at the end of `main` to guarantee delivery before the script exits.
+- The Langfuse public REST API uses HTTP Basic auth (public key as username, secret key as password). Useful endpoints if you want to verify locally: `GET /api/public/v2/datasets/{datasetName}`, `GET /api/public/datasets/{datasetName}/runs/{runName}`, `GET /api/public/v2/scores?datasetRunId=...`.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed end-to-end so the Langfuse-hosted dataset, dataset items, dataset run, and scores actually exist in the configured Langfuse project. Do **not** mock the Langfuse client.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain exactly these lines (one per line, in any order, with no trailing content other than newlines):
+  - `Dataset name: harbor-eval-<run-id>`
+  - `Dataset run name: experiment-<run-id>`
+  - `Items: 5`
+  - `Accuracy: <float between 0.0 and 1.0>` — the mean accuracy across the 5 items, formatted with 2 decimal places (e.g., `0.60`).
+  - `Status: OK`
+- The dataset `harbor-eval-<run-id>` must exist in Langfuse and contain exactly 5 dataset items.
+- A Langfuse **dataset run** named `experiment-<run-id>` must exist under that dataset and contain exactly 5 dataset-run items.
+- Each dataset-run item must have at least one Langfuse **score** with `name="accuracy"` attached to its trace (5 accuracy scores total across the run).
+- The dataset run must have at least one **score** with `name="avg_accuracy"` attached to it (run-level score), and the value must match the `Accuracy:` value reported in the log file (within ±0.01).
+- `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+
+## Background
+You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use to namespace the externally visible identifiers so concurrent task runs do not interfere.
+
+## Requirements
+- Write a Python script `instrument.py` that uses the Langfuse Python SDK to:
+  1. Open a root observation of type `span` named `process-document-${ZEALT_RUN_ID}` using `start_as_current_observation` (or an equivalent SDK API).
+  2. Attach `user_id="user-${ZEALT_RUN_ID}"` and `session_id="session-${ZEALT_RUN_ID}"` to the trace this span belongs to (so they appear on the trace returned by the public API).
+  3. Within that span, open a nested observation of type `generation` named `summarize-${ZEALT_RUN_ID}` with `model="gpt-3.5-turbo"`. Set an `input` (any string or list of role/content dicts) and an `output` (any string) on the generation. Do not call a real LLM — fabricate the input/output.
+  4. Capture the **trace ID** of the current trace and the **observation ID** of the nested generation while inside the contexts (e.g. via `langfuse.get_current_trace_id()` and `langfuse.get_current_observation_id()` or by reading the span objects' `.trace_id` / `.id`).
+  5. After both contexts are closed, attach three custom scores using the SDK's `create_score` method (or equivalent):
+     - A **trace-level** score with `name="user_satisfaction"`, `value=0.8`, `data_type="NUMERIC"`, bound to the captured trace ID only (no `observation_id`).
+     - An **observation-level** score with `name="hallucination"`, `value=0`, `data_type="BOOLEAN"`, bound to **both** the captured trace ID and the generation observation ID.
+     - An **observation-level** score with `name="relevance"`, `value="high"`, `data_type="CATEGORICAL"`, bound to both the captured trace ID and the generation observation ID.
+- Call `langfuse.flush()` before the script exits so the trace, observations, and scores are actually delivered.
+- Execute the script so the trace, the nested generation, and the three scores are persisted on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the run.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; `get_client()` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Nested observations can be created by nesting two `start_as_current_observation(as_type=...)` context managers — the inner generation is automatically a child of the outer span.
+- Use `update_current_trace(user_id=..., session_id=...)` (or pass `user_id` / `session_id` on the root observation) so the user and session attributes propagate to the trace.
+- The Python SDK's `create_score` accepts `trace_id`, `observation_id`, `name`, `value`, and `data_type`. Use `data_type="NUMERIC"`, `"BOOLEAN"`, and `"CATEGORICAL"` respectively.
+- Boolean scores must be `0` or `1` (numeric). Categorical scores are passed as strings. Numeric scores are passed as floats.
+- Capture the trace ID and observation ID **before** the context managers exit; once the scores are created you can verify them by calling `GET {LANGFUSE_BASE_URL}/api/public/v2/scores?traceId=...` with HTTP Basic auth.
+- Remember that ingestion is asynchronous — always call `flush()` (or rely on `with langfuse:`) so events are delivered before the process exits.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the trace, generation observation, and the three scores actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The root span name must be `process-document-${ZEALT_RUN_ID}`, the nested generation name must be `summarize-${ZEALT_RUN_ID}`, the trace `userId` must be `user-${ZEALT_RUN_ID}`, and the trace `sessionId` must be `session-${ZEALT_RUN_ID}`, where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The trace must contain at least one observation with `type == "GENERATION"`, the model field equal to `gpt-3.5-turbo`, and the matching generation name.
+- Three scores must be attached to the trace on the Langfuse server (queryable via `GET /api/public/v2/scores?traceId=<trace_id>`):
+  - `user_satisfaction` (NUMERIC, value `0.8`) on the trace (no `observationId`).
+  - `hallucination` (BOOLEAN, value `0`) on the generation observation (`observationId` equals the generation ID).
+  - `relevance` (CATEGORICAL, string value `"high"`) on the generation observation (`observationId` equals the generation ID).
+- The log file must contain the following lines, in any order, one per line, with no other formatting:
+  - `Trace ID: <trace_id>`
+  - `Generation ID: <generation_observation_id>`
+  - `User ID: user-${ZEALT_RUN_ID}`
+  - `Session ID: session-${ZEALT_RUN_ID}`
+  - `Status: OK`
+
+
+EOF
+Skipping image OS validation for hb__versioned_prompt_labels_py: docker inspect returned 1
+Skipping image OS validation for hb__instrument_trace_with_scores_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gezn9pe > /logs/artifacts/run-id && echo versioned_prompt_labels_py__Gezn9Pe > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-yf76tba > /logs/artifacts/run-id && echo run_experiment_with_evaluators_p__yF76tBa > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-aae7j9h > /logs/artifacts/run-id && echo instrument_trace_with_scores_py__aAE7J9h > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Versioned Chat Prompt with Labels (Langfuse Python SDK)
+
+## Background
+You are setting up [Langfuse](https://langfuse.com/) prompt management for a movie review assistant. The team wants to keep an actively-tested `staging` version of the prompt alongside the currently-deployed `production` version, so engineers can iterate safely. Your job is to use the **Langfuse Python SDK** to programmatically register two versions of a chat prompt and attach the correct labels, so the application can fetch each version by label at runtime.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use when naming the Langfuse prompt to avoid conflicts with concurrent task runs.
+
+## Requirements
+- Write a Python script `create_prompts.py` that uses the Langfuse Python SDK (`from langfuse import Langfuse` or `from langfuse import get_client`) to create a single chat prompt with two versions in your Langfuse project.
+- The prompt **name** must be `movie-critic-chat-${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment).
+- Both versions must be created as `chat` prompts (a list of role/content message dicts) and must use Langfuse template variables (double-curly-brace syntax).
+- Version 1 (created first) is a baseline prompt that must be labeled `staging`.
+- Version 2 (created second) is an enhanced prompt that must be labeled `production` (this becomes the default version served when no label is specified).
+- Execute the script so that both prompt versions are actually created on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the result.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; the client reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Use the SDK's `create_prompt` method with `type="chat"` and a `prompt` payload that is a list of `{"role": ..., "content": ...}` dicts.
+- Use the `labels` parameter of `create_prompt` to attach labels at creation time. Each label may only point at one version at a time, so creating version 2 with `labels=["production"]` will automatically move that label off the older version.
+- Remember to `flush()` (or otherwise ensure cleanup) so background events are delivered before the script exits.
+- The two versions returned by the SDK expose a `.version` attribute (an integer) that you should write to the log file.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the prompt versions actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The Langfuse prompt name must be `movie-critic-chat-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- Two versions of the prompt must exist on the Langfuse server.
+- The first-created version must carry the label `staging`.
+- The second-created version must carry the label `production` (and must NOT carry the `staging` label).
+- Both versions must be of type `chat` and must contain template variables written with Langfuse's `{{variable}}` syntax.
+- The version 1 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}` and `{{movie}}`.
+- The version 2 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}`, `{{movie}}`, and `{{genre}}`.
+- The log file must contain the following lines (in any order):
+  - `Prompt name: <prompt_name>`
+  - `Staging version: <integer>`
+  - `Production version: <integer>`
+
+
+EOF
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Run a Langfuse Experiment with Custom Evaluators (Python SDK)
+
+## Background
+You are extending an LLM evaluation workflow with [Langfuse](https://langfuse.com/), an open-source AI engineering platform. Your goal is to programmatically create a Langfuse-hosted dataset, then execute an `Experiment` against it using the Python SDK. The experiment must compute both **item-level** scores and a **run-level** aggregate score, all of which are stored back in Langfuse and inspectable via the public REST API.
+
+The environment is offline-friendly: there is **no external LLM provider configured**. Your `task` function must be deterministic Python logic that runs locally — no OpenAI/Anthropic calls.
+
+The following environment variables are already exported in the container and must be used to talk to Langfuse:
+- `LANGFUSE_PUBLIC_KEY`
+- `LANGFUSE_SECRET_KEY`
+- `LANGFUSE_BASE_URL`
+
+## Requirements
+1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. Use it to make every external resource collision-safe.
+2. Using the Langfuse Python SDK, create a Langfuse-hosted **dataset** named `harbor-eval-${run-id}`.
+3. Add exactly **5** dataset items to it. Each item must have:
+   - `input`: a short English sentence (string).
+   - `expected_output`: the lowercase **sentiment label** for that sentence — one of `"positive"`, `"negative"`, or `"neutral"`.
+   - The five items must collectively cover **at least two** distinct labels (i.e., not all the same label).
+4. Implement a deterministic Python task function `classify_sentiment` that returns a sentiment label string (`"positive"`, `"negative"`, or `"neutral"`) for each dataset item's `input`. **Do not call any external LLM API.** A simple keyword / rule-based classifier is sufficient. The function must not return `None`.
+5. Implement an **item-level evaluator** named `accuracy` that emits a Langfuse `Evaluation` with:
+   - `name="accuracy"`
+   - `value=1.0` when the task output exactly equals `expected_output` (case-insensitive), `value=0.0` otherwise.
+6. Implement a **run-level evaluator** named `avg_accuracy` that emits a Langfuse `Evaluation` with `name="avg_accuracy"` and `value` equal to the mean of all `accuracy` values from the item-level results (a float between 0.0 and 1.0).
+7. Run the experiment against the Langfuse-hosted dataset using the SDK's experiment runner so that a real **dataset run** is created in Langfuse. The dataset run must be named `experiment-${run-id}`.
+8. Flush the Langfuse client before the process exits so all traces, scores, and the dataset run are persisted.
+9. After the run finishes, write a single log file with the resulting identifiers and metrics so the verifier can confirm the run was real.
+
+## Implementation Hints
+- The Python SDK exposes `from langfuse import get_client, Evaluation`. `get_client()` reads the env vars listed above.
+- Use `langfuse.create_dataset(name=...)` and `langfuse.create_dataset_item(dataset_name=..., input=..., expected_output=...)` to populate the dataset.
+- To trigger a dataset run, fetch the dataset with `langfuse.get_dataset(name)` and call its `.run_experiment(...)` method, or pass the Langfuse dataset items into `langfuse.run_experiment(...)`. Either way the SDK creates a dataset run when the data originates from a Langfuse-hosted dataset.
+- Pass `run_name="experiment-${run-id}"` to the experiment so the dataset run is deterministically named.
+- Item-level evaluators receive keyword arguments including `input`, `output`, `expected_output`, and `metadata`. They must return a `langfuse.Evaluation`.
+- Run-level evaluators receive `item_results` (a list with `.evaluations`) and must return a `langfuse.Evaluation`.
+- Call `langfuse.flush()` at the end of `main` to guarantee delivery before the script exits.
+- The Langfuse public REST API uses HTTP Basic auth (public key as username, secret key as password). Useful endpoints if you want to verify locally: `GET /api/public/v2/datasets/{datasetName}`, `GET /api/public/datasets/{datasetName}/runs/{runName}`, `GET /api/public/v2/scores?datasetRunId=...`.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed end-to-end so the Langfuse-hosted dataset, dataset items, dataset run, and scores actually exist in the configured Langfuse project. Do **not** mock the Langfuse client.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain exactly these lines (one per line, in any order, with no trailing content other than newlines):
+  - `Dataset name: harbor-eval-<run-id>`
+  - `Dataset run name: experiment-<run-id>`
+  - `Items: 5`
+  - `Accuracy: <float between 0.0 and 1.0>` — the mean accuracy across the 5 items, formatted with 2 decimal places (e.g., `0.60`).
+  - `Status: OK`
+- The dataset `harbor-eval-<run-id>` must exist in Langfuse and contain exactly 5 dataset items.
+- A Langfuse **dataset run** named `experiment-<run-id>` must exist under that dataset and contain exactly 5 dataset-run items.
+- Each dataset-run item must have at least one Langfuse **score** with `name="accuracy"` attached to its trace (5 accuracy scores total across the run).
+- The dataset run must have at least one **score** with `name="avg_accuracy"` attached to it (run-level score), and the value must match the `Accuracy:` value reported in the log file (within ±0.01).
+- `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+
+## Background
+You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use to namespace the externally visible identifiers so concurrent task runs do not interfere.
+
+## Requirements
+- Write a Python script `instrument.py` that uses the Langfuse Python SDK to:
+  1. Open a root observation of type `span` named `process-document-${ZEALT_RUN_ID}` using `start_as_current_observation` (or an equivalent SDK API).
+  2. Attach `user_id="user-${ZEALT_RUN_ID}"` and `session_id="session-${ZEALT_RUN_ID}"` to the trace this span belongs to (so they appear on the trace returned by the public API).
+  3. Within that span, open a nested observation of type `generation` named `summarize-${ZEALT_RUN_ID}` with `model="gpt-3.5-turbo"`. Set an `input` (any string or list of role/content dicts) and an `output` (any string) on the generation. Do not call a real LLM — fabricate the input/output.
+  4. Capture the **trace ID** of the current trace and the **observation ID** of the nested generation while inside the contexts (e.g. via `langfuse.get_current_trace_id()` and `langfuse.get_current_observation_id()` or by reading the span objects' `.trace_id` / `.id`).
+  5. After both contexts are closed, attach three custom scores using the SDK's `create_score` method (or equivalent):
+     - A **trace-level** score with `name="user_satisfaction"`, `value=0.8`, `data_type="NUMERIC"`, bound to the captured trace ID only (no `observation_id`).
+     - An **observation-level** score with `name="hallucination"`, `value=0`, `data_type="BOOLEAN"`, bound to **both** the captured trace ID and the generation observation ID.
+     - An **observation-level** score with `name="relevance"`, `value="high"`, `data_type="CATEGORICAL"`, bound to both the captured trace ID and the generation observation ID.
+- Call `langfuse.flush()` before the script exits so the trace, observations, and scores are actually delivered.
+- Execute the script so the trace, the nested generation, and the three scores are persisted on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the run.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; `get_client()` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Nested observations can be created by nesting two `start_as_current_observation(as_type=...)` context managers — the inner generation is automatically a child of the outer span.
+- Use `update_current_trace(user_id=..., session_id=...)` (or pass `user_id` / `session_id` on the root observation) so the user and session attributes propagate to the trace.
+- The Python SDK's `create_score` accepts `trace_id`, `observation_id`, `name`, `value`, and `data_type`. Use `data_type="NUMERIC"`, `"BOOLEAN"`, and `"CATEGORICAL"` respectively.
+- Boolean scores must be `0` or `1` (numeric). Categorical scores are passed as strings. Numeric scores are passed as floats.
+- Capture the trace ID and observation ID **before** the context managers exit; once the scores are created you can verify them by calling `GET {LANGFUSE_BASE_URL}/api/public/v2/scores?traceId=...` with HTTP Basic auth.
+- Remember that ingestion is asynchronous — always call `flush()` (or rely on `with langfuse:`) so events are delivered before the process exits.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the trace, generation observation, and the three scores actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The root span name must be `process-document-${ZEALT_RUN_ID}`, the nested generation name must be `summarize-${ZEALT_RUN_ID}`, the trace `userId` must be `user-${ZEALT_RUN_ID}`, and the trace `sessionId` must be `session-${ZEALT_RUN_ID}`, where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The trace must contain at least one observation with `type == "GENERATION"`, the model field equal to `gpt-3.5-turbo`, and the matching generation name.
+- Three scores must be attached to the trace on the Langfuse server (queryable via `GET /api/public/v2/scores?traceId=<trace_id>`):
+  - `user_satisfaction` (NUMERIC, value `0.8`) on the trace (no `observationId`).
+  - `hallucination` (BOOLEAN, value `0`) on the generation observation (`observationId` equals the generation ID).
+  - `relevance` (CATEGORICAL, string value `"high"`) on the generation observation (`observationId` equals the generation ID).
+- The log file must contain the following lines, in any order, one per line, with no other formatting:
+  - `Trace ID: <trace_id>`
+  - `Generation ID: <generation_observation_id>`
+  - `User ID: user-${ZEALT_RUN_ID}`
+  - `Session ID: session-${ZEALT_RUN_ID}`
+  - `Status: OK`
+
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-rk8gwee > /logs/artifacts/run-id && echo instrument_trace_with_scores_py__Rk8GwEE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+
+## Background
+You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use to namespace the externally visible identifiers so concurrent task runs do not interfere.
+
+## Requirements
+- Write a Python script `instrument.py` that uses the Langfuse Python SDK to:
+  1. Open a root observation of type `span` named `process-document-${ZEALT_RUN_ID}` using `start_as_current_observation` (or an equivalent SDK API).
+  2. Attach `user_id="user-${ZEALT_RUN_ID}"` and `session_id="session-${ZEALT_RUN_ID}"` to the trace this span belongs to (so they appear on the trace returned by the public API).
+  3. Within that span, open a nested observation of type `generation` named `summarize-${ZEALT_RUN_ID}` with `model="gpt-3.5-turbo"`. Set an `input` (any string or list of role/content dicts) and an `output` (any string) on the generation. Do not call a real LLM — fabricate the input/output.
+  4. Capture the **trace ID** of the current trace and the **observation ID** of the nested generation while inside the contexts (e.g. via `langfuse.get_current_trace_id()` and `langfuse.get_current_observation_id()` or by reading the span objects' `.trace_id` / `.id`).
+  5. After both contexts are closed, attach three custom scores using the SDK's `create_score` method (or equivalent):
+     - A **trace-level** score with `name="user_satisfaction"`, `value=0.8`, `data_type="NUMERIC"`, bound to the captured trace ID only (no `observation_id`).
+     - An **observation-level** score with `name="hallucination"`, `value=0`, `data_type="BOOLEAN"`, bound to **both** the captured trace ID and the generation observation ID.
+     - An **observation-level** score with `name="relevance"`, `value="high"`, `data_type="CATEGORICAL"`, bound to both the captured trace ID and the generation observation ID.
+- Call `langfuse.flush()` before the script exits so the trace, observations, and scores are actually delivered.
+- Execute the script so the trace, the nested generation, and the three scores are persisted on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the run.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; `get_client()` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Nested observations can be created by nesting two `start_as_current_observation(as_type=...)` context managers — the inner generation is automatically a child of the outer span.
+- Use `update_current_trace(user_id=..., session_id=...)` (or pass `user_id` / `session_id` on the root observation) so the user and session attributes propagate to the trace.
+- The Python SDK's `create_score` accepts `trace_id`, `observation_id`, `name`, `value`, and `data_type`. Use `data_type="NUMERIC"`, `"BOOLEAN"`, and `"CATEGORICAL"` respectively.
+- Boolean scores must be `0` or `1` (numeric). Categorical scores are passed as strings. Numeric scores are passed as floats.
+- Capture the trace ID and observation ID **before** the context managers exit; once the scores are created you can verify them by calling `GET {LANGFUSE_BASE_URL}/api/public/v2/scores?traceId=...` with HTTP Basic auth.
+- Remember that ingestion is asynchronous — always call `flush()` (or rely on `with langfuse:`) so events are delivered before the process exits.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the trace, generation observation, and the three scores actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The root span name must be `process-document-${ZEALT_RUN_ID}`, the nested generation name must be `summarize-${ZEALT_RUN_ID}`, the trace `userId` must be `user-${ZEALT_RUN_ID}`, and the trace `sessionId` must be `session-${ZEALT_RUN_ID}`, where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The trace must contain at least one observation with `type == "GENERATION"`, the model field equal to `gpt-3.5-turbo`, and the matching generation name.
+- Three scores must be attached to the trace on the Langfuse server (queryable via `GET /api/public/v2/scores?traceId=<trace_id>`):
+  - `user_satisfaction` (NUMERIC, value `0.8`) on the trace (no `observationId`).
+  - `hallucination` (BOOLEAN, value `0`) on the generation observation (`observationId` equals the generation ID).
+  - `relevance` (CATEGORICAL, string value `"high"`) on the generation observation (`observationId` equals the generation ID).
+- The log file must contain the following lines, in any order, one per line, with no other formatting:
+  - `Trace ID: <trace_id>`
+  - `Generation ID: <generation_observation_id>`
+  - `User ID: user-${ZEALT_RUN_ID}`
+  - `Session ID: session-${ZEALT_RUN_ID}`
+  - `Status: OK`
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-rvmkvpn > /logs/artifacts/run-id && echo versioned_prompt_labels_py__rVMkVPn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Versioned Chat Prompt with Labels (Langfuse Python SDK)
+
+## Background
+You are setting up [Langfuse](https://langfuse.com/) prompt management for a movie review assistant. The team wants to keep an actively-tested `staging` version of the prompt alongside the currently-deployed `production` version, so engineers can iterate safely. Your job is to use the **Langfuse Python SDK** to programmatically register two versions of a chat prompt and attach the correct labels, so the application can fetch each version by label at runtime.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use when naming the Langfuse prompt to avoid conflicts with concurrent task runs.
+
+## Requirements
+- Write a Python script `create_prompts.py` that uses the Langfuse Python SDK (`from langfuse import Langfuse` or `from langfuse import get_client`) to create a single chat prompt with two versions in your Langfuse project.
+- The prompt **name** must be `movie-critic-chat-${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment).
+- Both versions must be created as `chat` prompts (a list of role/content message dicts) and must use Langfuse template variables (double-curly-brace syntax).
+- Version 1 (created first) is a baseline prompt that must be labeled `staging`.
+- Version 2 (created second) is an enhanced prompt that must be labeled `production` (this becomes the default version served when no label is specified).
+- Execute the script so that both prompt versions are actually created on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the result.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; the client reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Use the SDK's `create_prompt` method with `type="chat"` and a `prompt` payload that is a list of `{"role": ..., "content": ...}` dicts.
+- Use the `labels` parameter of `create_prompt` to attach labels at creation time. Each label may only point at one version at a time, so creating version 2 with `labels=["production"]` will automatically move that label off the older version.
+- Remember to `flush()` (or otherwise ensure cleanup) so background events are delivered before the script exits.
+- The two versions returned by the SDK expose a `.version` attribute (an integer) that you should write to the log file.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the prompt versions actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The Langfuse prompt name must be `movie-critic-chat-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- Two versions of the prompt must exist on the Langfuse server.
+- The first-created version must carry the label `staging`.
+- The second-created version must carry the label `production` (and must NOT carry the `staging` label).
+- Both versions must be of type `chat` and must contain template variables written with Langfuse's `{{variable}}` syntax.
+- The version 1 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}` and `{{movie}}`.
+- The version 2 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}`, `{{movie}}`, and `{{genre}}`.
+- The log file must contain the following lines (in any order):
+  - `Prompt name: <prompt_name>`
+  - `Staging version: <integer>`
+  - `Production version: <integer>`
+
+
+EOF
+Skipping image OS validation for hb__run_experiment_with_evaluators_py: docker inspect returned 1
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ud5qkvc > /logs/artifacts/run-id && echo run_experiment_with_evaluators_p__uD5QKvC > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Run a Langfuse Experiment with Custom Evaluators (Python SDK)
+
+## Background
+You are extending an LLM evaluation workflow with [Langfuse](https://langfuse.com/), an open-source AI engineering platform. Your goal is to programmatically create a Langfuse-hosted dataset, then execute an `Experiment` against it using the Python SDK. The experiment must compute both **item-level** scores and a **run-level** aggregate score, all of which are stored back in Langfuse and inspectable via the public REST API.
+
+The environment is offline-friendly: there is **no external LLM provider configured**. Your `task` function must be deterministic Python logic that runs locally — no OpenAI/Anthropic calls.
+
+The following environment variables are already exported in the container and must be used to talk to Langfuse:
+- `LANGFUSE_PUBLIC_KEY`
+- `LANGFUSE_SECRET_KEY`
+- `LANGFUSE_BASE_URL`
+
+## Requirements
+1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. Use it to make every external resource collision-safe.
+2. Using the Langfuse Python SDK, create a Langfuse-hosted **dataset** named `harbor-eval-${run-id}`.
+3. Add exactly **5** dataset items to it. Each item must have:
+   - `input`: a short English sentence (string).
+   - `expected_output`: the lowercase **sentiment label** for that sentence — one of `"positive"`, `"negative"`, or `"neutral"`.
+   - The five items must collectively cover **at least two** distinct labels (i.e., not all the same label).
+4. Implement a deterministic Python task function `classify_sentiment` that returns a sentiment label string (`"positive"`, `"negative"`, or `"neutral"`) for each dataset item's `input`. **Do not call any external LLM API.** A simple keyword / rule-based classifier is sufficient. The function must not return `None`.
+5. Implement an **item-level evaluator** named `accuracy` that emits a Langfuse `Evaluation` with:
+   - `name="accuracy"`
+   - `value=1.0` when the task output exactly equals `expected_output` (case-insensitive), `value=0.0` otherwise.
+6. Implement a **run-level evaluator** named `avg_accuracy` that emits a Langfuse `Evaluation` with `name="avg_accuracy"` and `value` equal to the mean of all `accuracy` values from the item-level results (a float between 0.0 and 1.0).
+7. Run the experiment against the Langfuse-hosted dataset using the SDK's experiment runner so that a real **dataset run** is created in Langfuse. The dataset run must be named `experiment-${run-id}`.
+8. Flush the Langfuse client before the process exits so all traces, scores, and the dataset run are persisted.
+9. After the run finishes, write a single log file with the resulting identifiers and metrics so the verifier can confirm the run was real.
+
+## Implementation Hints
+- The Python SDK exposes `from langfuse import get_client, Evaluation`. `get_client()` reads the env vars listed above.
+- Use `langfuse.create_dataset(name=...)` and `langfuse.create_dataset_item(dataset_name=..., input=..., expected_output=...)` to populate the dataset.
+- To trigger a dataset run, fetch the dataset with `langfuse.get_dataset(name)` and call its `.run_experiment(...)` method, or pass the Langfuse dataset items into `langfuse.run_experiment(...)`. Either way the SDK creates a dataset run when the data originates from a Langfuse-hosted dataset.
+- Pass `run_name="experiment-${run-id}"` to the experiment so the dataset run is deterministically named.
+- Item-level evaluators receive keyword arguments including `input`, `output`, `expected_output`, and `metadata`. They must return a `langfuse.Evaluation`.
+- Run-level evaluators receive `item_results` (a list with `.evaluations`) and must return a `langfuse.Evaluation`.
+- Call `langfuse.flush()` at the end of `main` to guarantee delivery before the script exits.
+- The Langfuse public REST API uses HTTP Basic auth (public key as username, secret key as password). Useful endpoints if you want to verify locally: `GET /api/public/v2/datasets/{datasetName}`, `GET /api/public/datasets/{datasetName}/runs/{runName}`, `GET /api/public/v2/scores?datasetRunId=...`.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed end-to-end so the Langfuse-hosted dataset, dataset items, dataset run, and scores actually exist in the configured Langfuse project. Do **not** mock the Langfuse client.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain exactly these lines (one per line, in any order, with no trailing content other than newlines):
+  - `Dataset name: harbor-eval-<run-id>`
+  - `Dataset run name: experiment-<run-id>`
+  - `Items: 5`
+  - `Accuracy: <float between 0.0 and 1.0>` — the mean accuracy across the 5 items, formatted with 2 decimal places (e.g., `0.60`).
+  - `Status: OK`
+- The dataset `harbor-eval-<run-id>` must exist in Langfuse and contain exactly 5 dataset items.
+- A Langfuse **dataset run** named `experiment-<run-id>` must exist under that dataset and contain exactly 5 dataset-run items.
+- Each dataset-run item must have at least one Langfuse **score** with `name="accuracy"` attached to its trace (5 accuracy scores total across the run).
+- The dataset run must have at least one **score** with `name="avg_accuracy"` attached to it (run-level score), and the value must match the `Accuracy:` value reported in the log file (within ±0.01).
+- `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached

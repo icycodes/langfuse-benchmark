@@ -1,0 +1,34 @@
+# Prompt Promotion Workflow with the Langfuse CLI
+
+## Background
+Langfuse manages prompts as first-class versioned objects. A typical GitOps-style promotion workflow looks like this: create an initial version under a `staging` label, iterate by creating a new version (still on `staging`), and finally promote the validated version by giving it the `production` label so the SDKs pick it up automatically.
+
+You will perform this whole flow from a Bash script using the [Langfuse CLI](https://langfuse.com/docs/api-and-data-platform/features/cli), which wraps the full [Langfuse Public API](https://api.reference.langfuse.com/) (every OpenAPI endpoint is exposed under `langfuse api <resource> <action>`). The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` (alias `LANGFUSE_HOST`) from the environment and authenticates using HTTP Basic auth.
+
+## Requirements
+- Use the Langfuse CLI (not the Python or JS SDKs) for every Langfuse interaction.
+- Read the value of `run-id` from the `ZEALT_RUN_ID` environment variable and isolate all externally visible side effects by appending it to the prompt name (so concurrent runs do not collide).
+- Create a text prompt with two sequential versions and use labels to model a `staging` → `production` promotion.
+- Write a structured log so the verifier can extract the prompt name and the promoted version number.
+
+## Implementation Hints
+- Install the CLI globally with `npm i -g langfuse-cli`, or invoke it through `npx langfuse-cli ...` — either is fine as long as the version you use accepts the documented commands.
+- Explore what is available with `langfuse api __schema`, `langfuse api prompts --help`, and `langfuse api prompt-version --help`.
+- The endpoints you will need correspond to: `POST /api/public/v2/prompts` (create a new prompt version) and `PATCH /api/public/v2/prompts/{name}/versions/{version}` (update labels on a specific version). Pass JSON output through `--json` when scripting.
+- Remember that whenever you create a version with the same prompt name, Langfuse appends a new version — you do not need to pass an explicit version number on create.
+- A `production` label can only point to one version of a given prompt at a time; assigning it to a newer version will automatically remove it from the previous one.
+- Make sure the script is idempotent enough that the verifier sees a consistent end state (e.g. exit non-zero on failure, do not silently swallow CLI errors).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the real Langfuse CLI calls are executed and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable.
+- The prompt name created in Langfuse must be `movie-critic-${run-id}`.
+- The prompt must be of type `text` and have **exactly two versions** (versions `1` and `2`).
+- Version `1` content must be: `As a {{criticlevel}} critic, do you like {{movie}}?` and must include the label `staging`.
+- Version `2` content must be: `As an {{criticlevel}} film critic, do you enjoy {{movie}}?` and must include the labels `staging` and `production` (the `production` label must be present on version 2 and must NOT be present on version 1).
+- The log file must contain:
+  - A line in the format: `Prompt name: movie-critic-<run-id>`
+  - A line in the format: `Promoted version: 2`
+

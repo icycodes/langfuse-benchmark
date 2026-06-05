@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_expected_prompt_name
+PASSED tests/test_final_state.py::test_log_file_versions_are_sequential
+PASSED tests/test_final_state.py::test_log_file_contains_compiled_prompt_line
+PASSED tests/test_final_state.py::test_package_json_exists_and_has_start_script_and_dep
+PASSED tests/test_final_state.py::test_production_prompt_returned_via_api
+PASSED tests/test_final_state.py::test_staging_prompt_returned_via_api
+PASSED tests/test_final_state.py::test_default_label_serves_production_version
+============================== 7 passed in 1.56s ===============================

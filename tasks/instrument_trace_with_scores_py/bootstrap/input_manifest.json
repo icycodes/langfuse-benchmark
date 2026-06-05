@@ -1,0 +1,7 @@
+{
+  "library_name": "Langfuse",
+  "task_name": "instrument_trace_with_scores_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

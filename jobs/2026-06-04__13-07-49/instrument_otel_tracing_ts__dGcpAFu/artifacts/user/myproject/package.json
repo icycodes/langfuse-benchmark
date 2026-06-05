@@ -1,0 +1,18 @@
+{
+  "name": "weather-assistant",
+  "version": "1.0.0",
+  "description": "Weather assistant with Langfuse tracing",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@langfuse/tracing": "^4.0.0",
+    "@langfuse/otel": "^4.0.0",
+    "@opentelemetry/sdk-node": "^0.57.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

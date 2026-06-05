@@ -1,0 +1,19 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "Weather assistant with Langfuse OTel tracing",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "dependencies": {
+    "@langfuse/otel": "^4.0.0",
+    "@langfuse/tracing": "^4.0.0",
+    "@opentelemetry/sdk-node": "^0.218.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

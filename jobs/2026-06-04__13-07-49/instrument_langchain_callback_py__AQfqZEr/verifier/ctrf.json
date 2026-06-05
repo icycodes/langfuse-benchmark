@@ -1,0 +1,115 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550877649,
+            "stop": 1780550878427
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_has_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550877669,
+                "stop": 1780550877670,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_has_expected_trace_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550877670,
+                "stop": 1780550877671,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_has_expected_user_id",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550877671,
+                "stop": 1780550877671,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_has_expected_session_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550877671,
+                "stop": 1780550877672,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_has_status_ok",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550877672,
+                "stop": 1780550877673,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_name_matches_expected",
+                "status": "passed",
+                "duration": 744,
+                "start": 1780550877673,
+                "stop": 1780550878417,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_user_id_matches_expected",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550878417,
+                "stop": 1780550878419,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_session_id_matches_expected",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550878420,
+                "stop": 1780550878422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_tags_contain_expected",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550878423,
+                "stop": 1780550878424,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_observations_include_generation",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550878425,
+                "stop": 1780550878427,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

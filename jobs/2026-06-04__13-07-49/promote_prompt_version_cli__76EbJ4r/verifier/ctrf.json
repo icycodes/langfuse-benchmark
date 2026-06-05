@@ -1,0 +1,109 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780551237165,
+            "stop": 1780551239204
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 17,
+                "start": 1780551237248,
+                "stop": 1780551237265,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists():\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} does not exist.\"\nE       AssertionError: Log file /home/user/myproject/output.log does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7bd1bd800220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x7bd1bd800220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:52: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_prompt_name_line",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780551237265,
+                "stop": 1780551237269,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_contains_prompt_name_line():\n>       with open(LOG_FILE, \"r\", encoding=\"utf-8\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'\n\ntests/test_final_state.py:56: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_promoted_version_line",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1780551237269,
+                "stop": 1780551237272,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_contains_promoted_version_line():\n>       with open(LOG_FILE, \"r\", encoding=\"utf-8\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'\n\ntests/test_final_state.py:65: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_listed_with_two_versions",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 469,
+                "start": 1780551237272,
+                "stop": 1780551237741,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_prompt_listed_with_two_versions():\n        url = f\"{_base_url()}/api/public/v2/prompts\"\n        resp = requests.get(\n            url, params={\"name\": _prompt_name()}, auth=_auth(), timeout=30\n        )\n        assert resp.status_code == 200, (\n            f\"GET /api/public/v2/prompts returned {resp.status_code}: {resp.text}\"\n        )\n        body = resp.json()\n        data = body.get(\"data\", [])\n        matching = [p for p in data if p.get(\"name\") == _prompt_name()]\n>       assert len(matching) == 1, (\n            f\"Expected exactly one prompt named {_prompt_name()!r} in list response, \"\n            f\"got {len(matching)}. Response: {body}\"\n        )\nE       AssertionError: Expected exactly one prompt named 'movie-critic-zr-76ebj4r' in list response, got 0. Response: {'data': [], 'meta': {'page': 1, 'limit': 10, 'totalPages': 0, 'totalItems': 0}, 'pagination': {'page': 1, 'limit': 10, 'totalPages': 0, 'totalItems': 0}}\nE       assert 0 == 1\nE        +  where 0 = len([])\n\ntests/test_final_state.py:84: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_version_1_content_and_labels",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 490,
+                "start": 1780551237742,
+                "stop": 1780551238232,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_version_1_content_and_labels():\n        resp = _get_prompt(version=1)\n>       assert resp.status_code == 200, (\n            f\"GET prompt version 1 returned {resp.status_code}: {resp.text}\"\n        )\nE       AssertionError: GET prompt version 1 returned 404: {\"message\":\"Prompt not found: 'movie-critic-zr-76ebj4r' with version 1\",\"error\":\"LangfuseNotFoundError\"}\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:100: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_version_2_content_and_labels",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 493,
+                "start": 1780551238233,
+                "stop": 1780551238726,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_version_2_content_and_labels():\n        resp = _get_prompt(version=2)\n>       assert resp.status_code == 200, (\n            f\"GET prompt version 2 returned {resp.status_code}: {resp.text}\"\n        )\nE       AssertionError: GET prompt version 2 returned 404: {\"message\":\"Prompt not found: 'movie-critic-zr-76ebj4r' with version 2\",\"error\":\"LangfuseNotFoundError\"}\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:125: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_production_label_points_to_version_2",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 476,
+                "start": 1780551238727,
+                "stop": 1780551239203,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_production_label_points_to_version_2():\n        resp = _get_prompt(label=\"production\")\n>       assert resp.status_code == 200, (\n            f\"GET prompt by label 'production' returned {resp.status_code}: {resp.text}\"\n        )\nE       AssertionError: GET prompt by label 'production' returned 404: {\"message\":\"Prompt not found: 'movie-critic-zr-76ebj4r' with label 'production'\",\"error\":\"LangfuseNotFoundError\"}\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:150: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

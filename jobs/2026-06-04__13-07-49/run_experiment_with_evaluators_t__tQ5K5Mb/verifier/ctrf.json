@@ -1,0 +1,64 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550174779,
+            "stop": 1780550184037
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_experiment_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 24,
+                "start": 1780550174874,
+                "stop": 1780550174898,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "log_content = 'Experiment name: harbor-experiment-test-run-123\\nTrace ID: ecb4e358b8099fefd8d13918acb99998\\nTrace ID: 8c506642991f6300601684eaa1db4cb1\\nTrace ID: a015a7bb556a2c12fcd370130acea346\\n'\n\n    def test_log_file_contains_experiment_name(log_content):\n        matches = EXPERIMENT_LINE_RE.findall(log_content)\n        assert len(matches) == 1, (\n            f\"Expected exactly one 'Experiment name: <name>' line in {LOG_FILE}, found {len(matches)}. \"\n            f\"Log content was:\\n{log_content}\"\n        )\n        expected = _expected_experiment_name()\n>       assert matches[0] == expected, (\n            f\"Expected experiment name '{expected}' in {LOG_FILE}, got '{matches[0]}'.\"\n        )\nE       AssertionError: Expected experiment name 'harbor-experiment-zr-tq5k5mb' in /home/user/myproject/output.log, got 'harbor-experiment-test-run-123'.\nE       assert 'harbor-exper...-test-run-123' == 'harbor-experiment-zr-tq5k5mb'\nE         - harbor-experiment-zr-tq5k5mb\nE         + harbor-experiment-test-run-123\n\ntests/test_final_state.py:63: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_records_three_trace_ids",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550174898,
+                "stop": 1780550174899,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_each_trace_exists_in_langfuse",
+                "status": "passed",
+                "duration": 7555,
+                "start": 1780550174899,
+                "stop": 1780550182454,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_each_trace_has_accuracy_and_response_length_scores",
+                "status": "passed",
+                "duration": 1582,
+                "start": 1780550182454,
+                "stop": 1780550184036,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

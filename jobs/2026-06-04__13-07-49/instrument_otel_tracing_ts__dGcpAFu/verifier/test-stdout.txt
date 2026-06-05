@@ -1,0 +1,84 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py ...FF                                          [100%]
+
+=================================== FAILURES ===================================
+________________________ test_trace_listed_in_langfuse _________________________
+
+langfuse_config = {'auth': ('(*****SECRET_LEAK_DETECTED*****)', '(*****SECRET_LEAK_DETECTED*****)'), 'base_url': 'https://us.cloud.langfuse.com'}
+expected_trace_name = 'weather-assistant-zr-dgcpafu'
+trace_id_from_log = 'a9e305e09747ceae22620239405e3dea'
+
+    def test_trace_listed_in_langfuse(langfuse_config, expected_trace_name, trace_id_from_log):
+        list_url = f"{langfuse_config['base_url']}/api/public/traces"
+        matched = None
+        last_status = None
+        last_payload_keys = None
+        for attempt in range(12):
+            resp = requests.get(
+                list_url,
+                params={"name": expected_trace_name, "limit": 50},
+                auth=langfuse_config["auth"],
+                timeout=30,
+            )
+            last_status = resp.status_code
+            if resp.status_code == 200:
+                payload = resp.json()
+                last_payload_keys = list(payload.keys()) if isinstance(payload, dict) else None
+                data = payload.get("data", []) if isinstance(payload, dict) else []
+                for entry in data:
+                    if entry.get("name") == expected_trace_name and entry.get("id") == trace_id_from_log:
+                        matched = entry
+                        break
+                if matched:
+                    break
+            time.sleep(5)
+    
+>       assert matched is not None, (
+            f"Expected to find a trace with name '{expected_trace_name}' and id "
+            f"'{trace_id_from_log}' via GET /api/public/traces. "
+            f"Last status: {last_status}, last response keys: {last_payload_keys}."
+        )
+E       AssertionError: Expected to find a trace with name 'weather-assistant-zr-dgcpafu' and id 'a9e305e09747ceae22620239405e3dea' via GET /api/public/traces. Last status: 200, last response keys: ['data', 'meta'].
+E       assert None is not None
+
+tests/test_final_state.py:145: AssertionError
+___________________ test_trace_detail_has_nested_generation ____________________
+
+langfuse_config = {'auth': ('(*****SECRET_LEAK_DETECTED*****)', '(*****SECRET_LEAK_DETECTED*****)'), 'base_url': 'https://us.cloud.langfuse.com'}
+expected_trace_name = 'weather-assistant-zr-dgcpafu'
+trace_id_from_log = 'a9e305e09747ceae22620239405e3dea'
+
+    def test_trace_detail_has_nested_generation(langfuse_config, expected_trace_name, trace_id_from_log):
+        detail_url = f"{langfuse_config['base_url']}/api/public/traces/{trace_id_from_log}"
+        detail = None
+        last_status = None
+        for attempt in range(12):
+            resp = requests.get(detail_url, auth=langfuse_config["auth"], timeout=30)
+            last_status = resp.status_code
+            if resp.status_code == 200:
+                detail = resp.json()
+                if detail and detail.get("observations"):
+                    break
+            time.sleep(5)
+    
+>       assert detail is not None, (
+            f"Could not retrieve trace detail from GET /api/public/traces/{trace_id_from_log} "
+            f"(last status: {last_status})."
+        )
+E       AssertionError: Could not retrieve trace detail from GET /api/public/traces/a9e305e09747ceae22620239405e3dea (last status: 404).
+E       assert None is not None
+
+tests/test_final_state.py:165: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_trace_id
+PASSED tests/test_final_state.py::test_package_json_declares_dependencies_and_start_script
+PASSED tests/test_final_state.py::test_source_uses_langfuse_tracing_primitives
+FAILED tests/test_final_state.py::test_trace_listed_in_langfuse - AssertionEr...
+FAILED tests/test_final_state.py::test_trace_detail_has_nested_generation - A...
+=================== 2 failed, 3 passed in 136.40s (0:02:16) ====================
