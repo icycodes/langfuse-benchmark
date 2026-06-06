@@ -1,5 +1,0 @@
-Prompt name: invoice-extractor-zr-sxwsqam
-Prompt version: 1
-Prompt type: chat
-Config keys: model, temperature, response_format
-Labels: production, staging

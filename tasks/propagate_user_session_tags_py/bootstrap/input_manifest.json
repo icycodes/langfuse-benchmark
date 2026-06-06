@@ -1,7 +1,0 @@
-{
-  "library_name": "Langfuse",
-  "task_name": "propagate_user_session_tags_py",
-  "complexity_level": "multi-step sequential command set",
-  "research_plan_path": "plan.md",
-  "output_dir": "tasks/"
-}

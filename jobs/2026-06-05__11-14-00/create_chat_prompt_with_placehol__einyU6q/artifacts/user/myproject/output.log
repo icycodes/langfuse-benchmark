@@ -1,2 +1,0 @@
-Prompt name: movie-critic-chat-zr-einyu6q
-Compiled prompt: [{"role": "system", "content": "You are an expert movie critic"}, {"role": "user", "content": "I love Ron Fricke movies like Baraka"}, {"role": "user", "content": "Also, the Korean movie Memories of a Murderer"}, {"role": "user", "content": "What should I watch next?"}]

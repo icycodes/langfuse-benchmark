@@ -1,7 +1,0 @@
-{
-  "library_name": "Langfuse",
-  "task_name": "create_score_for_trace_cli",
-  "complexity_level": "simple set of 2-5 commands",
-  "research_plan_path": "plan.md",
-  "output_dir": "tasks/"
-}

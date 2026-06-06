@@ -1,9 +1,0 @@
-{
-  "name": "langfuse-dataset-task",
-  "version": "1.0.0",
-  "private": true,
-  "type": "commonjs",
-  "dependencies": {
-    "@langfuse/client": "^4.0.0"
-  }
-}
