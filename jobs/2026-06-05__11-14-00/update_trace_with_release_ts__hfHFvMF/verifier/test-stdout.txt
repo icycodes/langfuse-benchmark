@@ -1,0 +1,92 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 11 items
+
+tests/test_final_state.py ..FFFF.....                                    [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_trace_name_is_run_id_scoped _______________________
+
+trace_payload = {'bookmarked': False, 'createdAt': '2026-06-05T03:50:56.000Z', 'environment': 'default', 'externalId': None, ...}
+
+    def test_trace_name_is_run_id_scoped(trace_payload):
+        run_id = _get_run_id()
+        expected_name = f"release-test-{run_id}"
+>       assert trace_payload.get("name") == expected_name, (
+            f"Expected trace name {expected_name!r}, got {trace_payload.get('name')!r}."
+        )
+E       AssertionError: Expected trace name 'release-test-zr-hfhfvmf', got 'release-test-final-test-run'.
+E       assert 'release-test-final-test-run' == 'release-test-zr-hfhfvmf'
+E         - release-test-zr-hfhfvmf
+E         + release-test-final-test-run
+
+tests/test_final_state.py:96: AssertionError
+____________________________ test_trace_session_id _____________________________
+
+trace_payload = {'bookmarked': False, 'createdAt': '2026-06-05T03:50:56.000Z', 'environment': 'default', 'externalId': None, ...}
+
+    def test_trace_session_id(trace_payload):
+        run_id = _get_run_id()
+        expected_session = f"session-{run_id}"
+>       assert trace_payload.get("sessionId") == expected_session, (
+            f"Expected sessionId {expected_session!r}, got {trace_payload.get('sessionId')!r}."
+        )
+E       AssertionError: Expected sessionId 'session-zr-hfhfvmf', got 'session-final-test-run'.
+E       assert 'session-final-test-run' == 'session-zr-hfhfvmf'
+E         - session-zr-hfhfvmf
+E         + session-final-test-run
+
+tests/test_final_state.py:104: AssertionError
+______________________________ test_trace_user_id ______________________________
+
+trace_payload = {'bookmarked': False, 'createdAt': '2026-06-05T03:50:56.000Z', 'environment': 'default', 'externalId': None, ...}
+
+    def test_trace_user_id(trace_payload):
+        run_id = _get_run_id()
+        expected_user = f"user-{run_id}"
+>       assert trace_payload.get("userId") == expected_user, (
+            f"Expected userId {expected_user!r}, got {trace_payload.get('userId')!r}."
+        )
+E       AssertionError: Expected userId 'user-zr-hfhfvmf', got 'user-final-test-run'.
+E       assert 'user-final-test-run' == 'user-zr-hfhfvmf'
+E         - user-zr-hfhfvmf
+E         + user-final-test-run
+
+tests/test_final_state.py:112: AssertionError
+_________________ test_trace_tags_include_staging_and_run_tag __________________
+
+trace_payload = {'bookmarked': False, 'createdAt': '2026-06-05T03:50:56.000Z', 'environment': 'default', 'externalId': None, ...}
+
+    def test_trace_tags_include_staging_and_run_tag(trace_payload):
+        run_id = _get_run_id()
+        expected_run_tag = f"run-{run_id}"
+        tags = trace_payload.get("tags")
+        assert isinstance(tags, list), (
+            f"Expected trace 'tags' to be a list, got {type(tags).__name__}: {tags!r}."
+        )
+        assert "staging" in tags, (
+            f"Expected trace tags to include 'staging', got {tags!r}."
+        )
+>       assert expected_run_tag in tags, (
+            f"Expected trace tags to include {expected_run_tag!r}, got {tags!r}."
+        )
+E       AssertionError: Expected trace tags to include 'run-zr-hfhfvmf', got ['run-final-test-run', 'staging'].
+E       assert 'run-zr-hfhfvmf' in ['run-final-test-run', 'staging']
+
+tests/test_final_state.py:127: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_valid_trace_id
+PASSED tests/test_final_state.py::test_trace_id_matches_log
+PASSED tests/test_final_state.py::test_trace_release
+PASSED tests/test_final_state.py::test_trace_version
+PASSED tests/test_final_state.py::test_trace_public_flag
+PASSED tests/test_final_state.py::test_trace_input_non_empty
+PASSED tests/test_final_state.py::test_trace_output_non_empty
+FAILED tests/test_final_state.py::test_trace_name_is_run_id_scoped - Assertio...
+FAILED tests/test_final_state.py::test_trace_session_id - AssertionError: Exp...
+FAILED tests/test_final_state.py::test_trace_user_id - AssertionError: Expect...
+FAILED tests/test_final_state.py::test_trace_tags_include_staging_and_run_tag
+========================= 4 failed, 7 passed in 1.11s ==========================

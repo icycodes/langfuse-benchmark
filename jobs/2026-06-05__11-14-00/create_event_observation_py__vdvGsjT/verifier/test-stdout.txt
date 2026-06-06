@@ -1,0 +1,83 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+___________________ test_event_observation_via_langfuse_api ____________________
+
+log_ids = {'observation_id': '14cac07af2d81e62', 'trace_id': '3b64b641b0f3f5f1858fed3a297f3c92'}
+
+    def test_event_observation_via_langfuse_api(log_ids):
+        run_id = _run_id()
+        expected_event_name = f"user-login-event-{run_id}"
+        auth = _auth()
+        base = _base_url()
+    
+        url = f"{base}/api/public/observations/{log_ids['observation_id']}"
+        resp = _get_with_retry(url, auth)
+        assert resp is not None and resp.status_code == 200, (
+            f"GET {url} failed; expected 200, got "
+            f"{getattr(resp, 'status_code', 'no-response')} body="
+            f"{getattr(resp, 'text', '')!r}. The event observation was not "
+            "found in Langfuse Cloud."
+        )
+    
+        obs = resp.json()
+    
+        obs_type = obs.get("type")
+        assert obs_type == "EVENT", (
+            f"Expected observation type 'EVENT' for the recorded observation, "
+            f"got {obs_type!r}. Full observation: {obs!r}"
+        )
+    
+        name = obs.get("name")
+>       assert name == expected_event_name, (
+            f"Expected observation name {expected_event_name!r}, got {name!r}."
+        )
+E       AssertionError: Expected observation name 'user-login-event-zr-vdvgsjt', got 'user-login-event-run-1780629471'.
+E       assert 'user-login-e...un-1780629471' == 'user-login-event-zr-vdvgsjt'
+E         - user-login-event-zr-vdvgsjt
+E         + user-login-event-run-1780629471
+
+tests/test_final_state.py:131: AssertionError
+___________________ test_parent_trace_name_via_langfuse_api ____________________
+
+log_ids = {'observation_id': '14cac07af2d81e62', 'trace_id': '3b64b641b0f3f5f1858fed3a297f3c92'}
+
+    def test_parent_trace_name_via_langfuse_api(log_ids):
+        run_id = _run_id()
+        expected_trace_name = f"harbor-event-trace-{run_id}"
+        auth = _auth()
+        base = _base_url()
+    
+        url = f"{base}/api/public/traces/{log_ids['trace_id']}"
+        resp = _get_with_retry(url, auth)
+        assert resp is not None and resp.status_code == 200, (
+            f"GET {url} failed; expected 200, got "
+            f"{getattr(resp, 'status_code', 'no-response')} body="
+            f"{getattr(resp, 'text', '')!r}. The parent trace was not found "
+            "in Langfuse Cloud."
+        )
+    
+        trace = resp.json()
+        name = trace.get("name")
+>       assert name == expected_trace_name, (
+            f"Expected the parent Langfuse trace name to be "
+            f"{expected_trace_name!r}, got {name!r}."
+        )
+E       AssertionError: Expected the parent Langfuse trace name to be 'harbor-event-trace-zr-vdvgsjt', got 'harbor-event-trace-run-1780629471'.
+E       assert 'harbor-event...un-1780629471' == 'harbor-event...ce-zr-vdvgsjt'
+E         - harbor-event-trace-zr-vdvgsjt
+E         + harbor-event-trace-run-1780629471
+
+tests/test_final_state.py:185: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_ids
+FAILED tests/test_final_state.py::test_event_observation_via_langfuse_api - A...
+FAILED tests/test_final_state.py::test_parent_trace_name_via_langfuse_api - A...
+========================= 2 failed, 1 passed in 9.22s ==========================

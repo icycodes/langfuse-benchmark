@@ -1,0 +1,71 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py .F.F                                           [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_trace_metadata_matches_expected _____________________
+
+    def test_trace_metadata_matches_expected():
+        run_id = _run_id()
+        expected_session_id = f"obs-deco-session-{run_id}"
+        expected_user_id = f"obs-deco-user-{run_id}"
+        expected_run_tag = f"harbor-{run_id}"
+    
+        trace_id = _read_trace_id()
+        trace = _get_trace(trace_id)
+    
+>       assert trace.get("userId") == expected_user_id, (
+            f"Expected trace.userId == {expected_user_id!r}, got {trace.get('userId')!r}"
+        )
+E       AssertionError: Expected trace.userId == 'obs-deco-user-zr-manb8r7', got 'obs-deco-user-test-run-123'
+E       assert 'obs-deco-user-test-run-123' == 'obs-deco-user-zr-manb8r7'
+E         - obs-deco-user-zr-manb8r7
+E         + obs-deco-user-test-run-123
+
+tests/test_final_state.py:83: AssertionError
+__________________ test_trace_discoverable_via_list_endpoint ___________________
+
+    def test_trace_discoverable_via_list_endpoint():
+        run_id = _run_id()
+        expected_user_id = f"obs-deco-user-{run_id}"
+        expected_run_tag = f"harbor-{run_id}"
+        trace_id = _read_trace_id()
+    
+        pub, sec, base = _langfuse_creds()
+        url = f"{base}/api/public/traces"
+        params = {
+            "tags": expected_run_tag,
+            "userId": expected_user_id,
+            "limit": 10,
+        }
+    
+        deadline = time.time() + 60
+        last_body = None
+        while time.time() < deadline:
+            resp = requests.get(url, params=params, auth=(pub, sec), timeout=20)
+            last_body = resp.text
+            if resp.status_code == 200:
+                data = resp.json().get("data") or []
+                if any(item.get("id") == trace_id for item in data):
+                    return
+            time.sleep(3)
+    
+>       pytest.fail(
+            f"Trace {trace_id} did not appear in /api/public/traces filtered by "
+            f"tags={expected_run_tag} and userId={expected_user_id}. "
+            f"Last response body: {last_body!r}"
+        )
+E       Failed: Trace 8ff196e52d1041eef7a27973ce6d0b7c did not appear in /api/public/traces filtered by tags=harbor-zr-manb8r7 and userId=obs-deco-user-zr-manb8r7. Last response body: '{"data":[],"meta":{"page":1,"limit":10,"totalItems":0,"totalPages":0}}'
+
+tests/test_final_state.py:164: Failed
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_trace_id
+PASSED tests/test_final_state.py::test_trace_has_nested_generation_observation
+FAILED tests/test_final_state.py::test_trace_metadata_matches_expected - Asse...
+FAILED tests/test_final_state.py::test_trace_discoverable_via_list_endpoint
+==================== 2 failed, 2 passed in 62.71s (0:01:02) ====================

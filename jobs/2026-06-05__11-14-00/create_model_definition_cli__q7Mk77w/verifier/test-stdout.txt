@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_modelname_matches_expected
+PASSED tests/test_final_state.py::test_remote_model_id_matches_log
+PASSED tests/test_final_state.py::test_remote_model_name_is_run_id_scoped
+PASSED tests/test_final_state.py::test_remote_model_match_pattern
+PASSED tests/test_final_state.py::test_remote_model_unit_is_tokens
+PASSED tests/test_final_state.py::test_remote_model_input_price
+PASSED tests/test_final_state.py::test_remote_model_output_price
+PASSED tests/test_final_state.py::test_remote_model_is_not_langfuse_managed
+PASSED tests/test_final_state.py::test_remote_model_appears_in_list_endpoint
+============================== 9 passed in 1.59s ===============================

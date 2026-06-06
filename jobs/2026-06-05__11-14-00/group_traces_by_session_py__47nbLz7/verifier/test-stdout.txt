@@ -1,0 +1,214 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py ..FFF                                          [100%]
+
+=================================== FAILURES ===================================
+__________________ test_session_endpoint_returns_three_traces __________________
+
+    def test_session_endpoint_returns_three_traces():
+        session_id, _, _ = _ids()
+        url = f"{_host()}/api/public/sessions/{session_id}"
+>       resp = _get_with_retry(url, auth=_auth())
+
+tests/test_final_state.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:50: in _get_with_retry
+    resp = requests.get(url, timeout=30, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/api.py:87: in get
+    return request("get", url, params=params, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/api.py:71: in request
+    return session.request(method=method, url=url, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/sessions.py:635: in request
+    prep = self.prepare_request(req)
+usr/local/lib/python3.12/dist-packages/requests/sessions.py:541: in prepare_request
+    p.prepare(
+usr/local/lib/python3.12/dist-packages/requests/models.py:439: in prepare
+    self.prepare_url(url, params)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <PreparedRequest [GET]>
+url = '$LANGFUSE_BASE_URL/api/public/sessions/chat-session-zr-47nblz7'
+params = OrderedDict()
+
+    def prepare_url(
+        self,
+        url: _t.UriType,
+        params: _t.ParamsType,
+    ) -> None:
+        """Prepares the given HTTP URL."""
+        #: Accept objects that have string representations.
+        #: We're unable to blindly call unicode/str functions
+        #: as this will include the bytestring indicator (b'')
+        #: on python 3.x.
+        #: https://github.com/psf/requests/pull/2238
+        if isinstance(url, bytes):
+            url = url.decode("utf8")
+        else:
+            url = str(url)
+    
+        # Remove leading whitespaces from url
+        url = url.lstrip()
+    
+        # Don't do any URL preparation for non-HTTP schemes like `mailto`,
+        # `data` etc to work around exceptions from `url_parse`, which
+        # handles RFC 3986 only.
+        if ":" in url and not url.lower().startswith("http"):
+            self.url = url
+            return
+    
+        # Support for unicode domain names and paths.
+        try:
+            scheme, auth, host, port, path, query, fragment = parse_url(url)
+        except LocationParseError as e:
+            raise InvalidURL(*e.args)
+    
+        if not scheme:
+>           raise MissingSchema(
+                f"Invalid URL {url!r}: No scheme supplied. "
+                f"Perhaps you meant https://{url}?"
+            )
+E           requests.exceptions.MissingSchema: Invalid URL '$LANGFUSE_BASE_URL/api/public/sessions/chat-session-zr-47nblz7': No scheme supplied. Perhaps you meant https://$LANGFUSE_BASE_URL/api/public/sessions/chat-session-zr-47nblz7?
+
+usr/local/lib/python3.12/dist-packages/requests/models.py:514: MissingSchema
+_________________ test_traces_have_expected_names_user_and_tag _________________
+
+    def test_traces_have_expected_names_user_and_tag():
+        session_id, user_id, tag = _ids()
+>       traces = _list_traces_by_session(session_id)
+
+tests/test_final_state.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:68: in _list_traces_by_session
+    resp = requests.get(url, auth=_auth(), params=params, timeout=30)
+usr/local/lib/python3.12/dist-packages/requests/api.py:87: in get
+    return request("get", url, params=params, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/api.py:71: in request
+    return session.request(method=method, url=url, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/sessions.py:635: in request
+    prep = self.prepare_request(req)
+usr/local/lib/python3.12/dist-packages/requests/sessions.py:541: in prepare_request
+    p.prepare(
+usr/local/lib/python3.12/dist-packages/requests/models.py:439: in prepare
+    self.prepare_url(url, params)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <PreparedRequest [GET]>, url = '$LANGFUSE_BASE_URL/api/public/traces'
+params = OrderedDict({'sessionId': 'chat-session-zr-47nblz7', 'limit': 50})
+
+    def prepare_url(
+        self,
+        url: _t.UriType,
+        params: _t.ParamsType,
+    ) -> None:
+        """Prepares the given HTTP URL."""
+        #: Accept objects that have string representations.
+        #: We're unable to blindly call unicode/str functions
+        #: as this will include the bytestring indicator (b'')
+        #: on python 3.x.
+        #: https://github.com/psf/requests/pull/2238
+        if isinstance(url, bytes):
+            url = url.decode("utf8")
+        else:
+            url = str(url)
+    
+        # Remove leading whitespaces from url
+        url = url.lstrip()
+    
+        # Don't do any URL preparation for non-HTTP schemes like `mailto`,
+        # `data` etc to work around exceptions from `url_parse`, which
+        # handles RFC 3986 only.
+        if ":" in url and not url.lower().startswith("http"):
+            self.url = url
+            return
+    
+        # Support for unicode domain names and paths.
+        try:
+            scheme, auth, host, port, path, query, fragment = parse_url(url)
+        except LocationParseError as e:
+            raise InvalidURL(*e.args)
+    
+        if not scheme:
+>           raise MissingSchema(
+                f"Invalid URL {url!r}: No scheme supplied. "
+                f"Perhaps you meant https://{url}?"
+            )
+E           requests.exceptions.MissingSchema: Invalid URL '$LANGFUSE_BASE_URL/api/public/traces': No scheme supplied. Perhaps you meant https://$LANGFUSE_BASE_URL/api/public/traces?
+
+usr/local/lib/python3.12/dist-packages/requests/models.py:514: MissingSchema
+_________________ test_each_trace_has_a_generation_observation _________________
+
+    def test_each_trace_has_a_generation_observation():
+        session_id, _, _ = _ids()
+>       traces = _list_traces_by_session(session_id)
+
+tests/test_final_state.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:68: in _list_traces_by_session
+    resp = requests.get(url, auth=_auth(), params=params, timeout=30)
+usr/local/lib/python3.12/dist-packages/requests/api.py:87: in get
+    return request("get", url, params=params, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/api.py:71: in request
+    return session.request(method=method, url=url, **kwargs)
+usr/local/lib/python3.12/dist-packages/requests/sessions.py:635: in request
+    prep = self.prepare_request(req)
+usr/local/lib/python3.12/dist-packages/requests/sessions.py:541: in prepare_request
+    p.prepare(
+usr/local/lib/python3.12/dist-packages/requests/models.py:439: in prepare
+    self.prepare_url(url, params)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <PreparedRequest [GET]>, url = '$LANGFUSE_BASE_URL/api/public/traces'
+params = OrderedDict({'sessionId': 'chat-session-zr-47nblz7', 'limit': 50})
+
+    def prepare_url(
+        self,
+        url: _t.UriType,
+        params: _t.ParamsType,
+    ) -> None:
+        """Prepares the given HTTP URL."""
+        #: Accept objects that have string representations.
+        #: We're unable to blindly call unicode/str functions
+        #: as this will include the bytestring indicator (b'')
+        #: on python 3.x.
+        #: https://github.com/psf/requests/pull/2238
+        if isinstance(url, bytes):
+            url = url.decode("utf8")
+        else:
+            url = str(url)
+    
+        # Remove leading whitespaces from url
+        url = url.lstrip()
+    
+        # Don't do any URL preparation for non-HTTP schemes like `mailto`,
+        # `data` etc to work around exceptions from `url_parse`, which
+        # handles RFC 3986 only.
+        if ":" in url and not url.lower().startswith("http"):
+            self.url = url
+            return
+    
+        # Support for unicode domain names and paths.
+        try:
+            scheme, auth, host, port, path, query, fragment = parse_url(url)
+        except LocationParseError as e:
+            raise InvalidURL(*e.args)
+    
+        if not scheme:
+>           raise MissingSchema(
+                f"Invalid URL {url!r}: No scheme supplied. "
+                f"Perhaps you meant https://{url}?"
+            )
+E           requests.exceptions.MissingSchema: Invalid URL '$LANGFUSE_BASE_URL/api/public/traces': No scheme supplied. Perhaps you meant https://$LANGFUSE_BASE_URL/api/public/traces?
+
+usr/local/lib/python3.12/dist-packages/requests/models.py:514: MissingSchema
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_file_exists
+PASSED tests/test_final_state.py::test_log_file_contains_session_id
+FAILED tests/test_final_state.py::test_session_endpoint_returns_three_traces
+FAILED tests/test_final_state.py::test_traces_have_expected_names_user_and_tag
+FAILED tests/test_final_state.py::test_each_trace_has_a_generation_observation
+========================= 3 failed, 2 passed in 0.18s ==========================

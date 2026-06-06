@@ -1,0 +1,147 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 0,
+            "failed": 12,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780630937462,
+            "stop": 1780630938638
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_format_captures_both_ids",
+                "status": "failed",
+                "duration": 38,
+                "start": 1780630937527,
+                "stop": 1780630937565,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_score_config_id_matches_api",
+                "status": "failed",
+                "duration": 6,
+                "start": 1780630937565,
+                "stop": 1780630937571,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_score_config_has_expected_name",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780630937571,
+                "stop": 1780630937576,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_score_config_has_expected_data_type",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780630937576,
+                "stop": 1780630937581,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_score_config_has_expected_min_value",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780630937581,
+                "stop": 1780630937586,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_score_config_has_expected_max_value",
+                "status": "failed",
+                "duration": 4,
+                "start": 1780630937586,
+                "stop": 1780630937590,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_score_config_has_expected_description",
+                "status": "failed",
+                "duration": 4,
+                "start": 1780630937591,
+                "stop": 1780630937595,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_annotation_queue_id_matches_api",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780630937595,
+                "stop": 1780630937600,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_annotation_queue_has_expected_name",
+                "status": "failed",
+                "duration": 4,
+                "start": 1780630937600,
+                "stop": 1780630937604,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_annotation_queue_has_expected_description",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780630937604,
+                "stop": 1780630937609,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_annotation_queue_references_logged_score_config",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780630937609,
+                "stop": 1780630937614,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def logged_ids():\n>       return _read_logged_ids()\n\ntests/test_final_state.py:85: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_logged_ids():\n>       assert os.path.isfile(LOG_FILE), (\n            f\"Expected log file {LOG_FILE} does not exist. The executor must write \"\n            f\"'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\"\n        )\nE       AssertionError: Expected log file /home/user/langfuse-task/output.log does not exist. The executor must write 'Score Config ID: <id>' and 'Annotation Queue ID: <id>' there.\nE       assert False\nE        +  where False = <function isfile at 0x76d7f67b8220>('/home/user/langfuse-task/output.log')\nE        +    where <function isfile at 0x76d7f67b8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:55: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_annotation_queue_visible_in_list_endpoint",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1023,
+                "start": 1780630937614,
+                "stop": 1780630938637,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_annotation_queue_visible_in_list_endpoint():\n        expected_name = _expected_queue_name()\n        base_url = _langfuse_base_url()\n        auth = _langfuse_auth()\n    \n        found = False\n        page = 1\n        for _ in range(20):\n            response = httpx.get(\n                f\"{base_url}/api/public/annotation-queues\",\n                params={\"page\": page, \"limit\": 100},\n                auth=auth,\n                timeout=30.0,\n            )\n            assert response.status_code == 200, (\n                f\"Listing annotation queues failed on page {page}: \"\n                f\"HTTP {response.status_code}: {response.text}\"\n            )\n            data = response.json().get(\"data\") or []\n            if not data:\n                break\n            if any(item.get(\"name\") == expected_name for item in data):\n                found = True\n                break\n            page += 1\n    \n>       assert found, (\n            f\"Annotation queue named {expected_name!r} was not found in any page of \"\n            f\"GET /api/public/annotation-queues.\"\n        )\nE       AssertionError: Annotation queue named 'qa-review-queue-zr-h49cwgv' was not found in any page of GET /api/public/annotation-queues.\nE       assert False\n\ntests/test_final_state.py:239: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

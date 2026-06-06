@@ -1,0 +1,103 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 2,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780631427187,
+            "stop": 1780631889924
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780631427274,
+                "stop": 1780631427274,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_run_id_is_set",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780631427275,
+                "stop": 1780631427275,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_exists_with_expected_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 92817,
+                "start": 1780631427275,
+                "stop": 1780631520092,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "trace_id = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def test_trace_exists_with_expected_name(trace_id):\n>       trace = _get_trace(trace_id)\n\ntests/test_final_state.py:107: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id_value = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def _get_trace(trace_id_value: str):\n        \"\"\"Poll GET /api/public/traces/{traceId} until the trace is available.\"\"\"\n        url = f\"{LANGFUSE_BASE_URL}/api/public/traces/{trace_id_value}\"\n        last_status = None\n        last_body = None\n        deadline = time.time() + POLL_TIMEOUT_SECS\n        while time.time() < deadline:\n            resp = requests.get(url, auth=AUTH, timeout=30)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            time.sleep(POLL_INTERVAL_SECS)\n>       pytest.fail(\n            f\"Failed to fetch trace {trace_id_value} from Langfuse within \"\n            f\"{POLL_TIMEOUT_SECS}s. Last status: {last_status}, body: {last_body!r}\"\n        )\nE       Failed: Failed to fetch trace fe4eedeef6f900d1da3f3fa59fc1a766 from Langfuse within 90s. Last status: 404, body: '{\"message\":\"Trace fe4eedeef6f900d1da3f3fa59fc1a766 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:62: Failed",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_trace_has_generation_observation_named_llm_call",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 91070,
+                "start": 1780631520092,
+                "stop": 1780631611162,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "trace_id = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def test_trace_has_generation_observation_named_llm_call(trace_id):\n>       trace = _get_trace(trace_id)\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id_value = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def _get_trace(trace_id_value: str):\n        \"\"\"Poll GET /api/public/traces/{traceId} until the trace is available.\"\"\"\n        url = f\"{LANGFUSE_BASE_URL}/api/public/traces/{trace_id_value}\"\n        last_status = None\n        last_body = None\n        deadline = time.time() + POLL_TIMEOUT_SECS\n        while time.time() < deadline:\n            resp = requests.get(url, auth=AUTH, timeout=30)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            time.sleep(POLL_INTERVAL_SECS)\n>       pytest.fail(\n            f\"Failed to fetch trace {trace_id_value} from Langfuse within \"\n            f\"{POLL_TIMEOUT_SECS}s. Last status: {last_status}, body: {last_body!r}\"\n        )\nE       Failed: Failed to fetch trace fe4eedeef6f900d1da3f3fa59fc1a766 from Langfuse within 90s. Last status: 404, body: '{\"message\":\"Trace fe4eedeef6f900d1da3f3fa59fc1a766 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:62: Failed",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_correctness_numeric_score_attached",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 93367,
+                "start": 1780631611163,
+                "stop": 1780631704530,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "trace_id = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def test_correctness_numeric_score_attached(trace_id):\n>       scores = _get_scores(trace_id)\n\ntests/test_final_state.py:147: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id_value = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def _get_scores(trace_id_value: str):\n        \"\"\"Poll GET /api/public/v2/scores?traceId=... until at least 3 scores are returned.\"\"\"\n        url = f\"{LANGFUSE_BASE_URL}/api/public/v2/scores\"\n        last_status = None\n        last_body = None\n        deadline = time.time() + POLL_TIMEOUT_SECS\n        while time.time() < deadline:\n            resp = requests.get(\n                url,\n                params={\"traceId\": trace_id_value, \"limit\": 100},\n                auth=AUTH,\n                timeout=30,\n            )\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                data = resp.json().get(\"data\", [])\n                target = [s for s in data if s.get(\"traceId\") == trace_id_value]\n                if len(target) >= 3:\n                    return target\n            time.sleep(POLL_INTERVAL_SECS)\n>       pytest.fail(\n            f\"Did not see >=3 scores for trace {trace_id_value} within \"\n            f\"{POLL_TIMEOUT_SECS}s. Last status: {last_status}, body: {last_body!r}\"\n        )\nE       Failed: Did not see >=3 scores for trace fe4eedeef6f900d1da3f3fa59fc1a766 within 90s. Last status: 200, body: '{\"data\":[],\"meta\":{\"page\":1,\"limit\":100,\"totalItems\":0,\"totalPages\":0}}'\n\ntests/test_final_state.py:89: Failed",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_sentiment_categorical_score_attached",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 92672,
+                "start": 1780631704530,
+                "stop": 1780631797202,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "trace_id = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def test_sentiment_categorical_score_attached(trace_id):\n>       scores = _get_scores(trace_id)\n\ntests/test_final_state.py:164: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id_value = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def _get_scores(trace_id_value: str):\n        \"\"\"Poll GET /api/public/v2/scores?traceId=... until at least 3 scores are returned.\"\"\"\n        url = f\"{LANGFUSE_BASE_URL}/api/public/v2/scores\"\n        last_status = None\n        last_body = None\n        deadline = time.time() + POLL_TIMEOUT_SECS\n        while time.time() < deadline:\n            resp = requests.get(\n                url,\n                params={\"traceId\": trace_id_value, \"limit\": 100},\n                auth=AUTH,\n                timeout=30,\n            )\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                data = resp.json().get(\"data\", [])\n                target = [s for s in data if s.get(\"traceId\") == trace_id_value]\n                if len(target) >= 3:\n                    return target\n            time.sleep(POLL_INTERVAL_SECS)\n>       pytest.fail(\n            f\"Did not see >=3 scores for trace {trace_id_value} within \"\n            f\"{POLL_TIMEOUT_SECS}s. Last status: {last_status}, body: {last_body!r}\"\n        )\nE       Failed: Did not see >=3 scores for trace fe4eedeef6f900d1da3f3fa59fc1a766 within 90s. Last status: 200, body: '{\"data\":[],\"meta\":{\"page\":1,\"limit\":100,\"totalItems\":0,\"totalPages\":0}}'\n\ntests/test_final_state.py:89: Failed",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_helpfulness_boolean_score_attached",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 92722,
+                "start": 1780631797202,
+                "stop": 1780631889924,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "trace_id = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def test_helpfulness_boolean_score_attached(trace_id):\n>       scores = _get_scores(trace_id)\n\ntests/test_final_state.py:181: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id_value = 'fe4eedeef6f900d1da3f3fa59fc1a766'\n\n    def _get_scores(trace_id_value: str):\n        \"\"\"Poll GET /api/public/v2/scores?traceId=... until at least 3 scores are returned.\"\"\"\n        url = f\"{LANGFUSE_BASE_URL}/api/public/v2/scores\"\n        last_status = None\n        last_body = None\n        deadline = time.time() + POLL_TIMEOUT_SECS\n        while time.time() < deadline:\n            resp = requests.get(\n                url,\n                params={\"traceId\": trace_id_value, \"limit\": 100},\n                auth=AUTH,\n                timeout=30,\n            )\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                data = resp.json().get(\"data\", [])\n                target = [s for s in data if s.get(\"traceId\") == trace_id_value]\n                if len(target) >= 3:\n                    return target\n            time.sleep(POLL_INTERVAL_SECS)\n>       pytest.fail(\n            f\"Did not see >=3 scores for trace {trace_id_value} within \"\n            f\"{POLL_TIMEOUT_SECS}s. Last status: {last_status}, body: {last_body!r}\"\n        )\nE       Failed: Did not see >=3 scores for trace fe4eedeef6f900d1da3f3fa59fc1a766 within 90s. Last status: 200, body: '{\"data\":[],\"meta\":{\"page\":1,\"limit\":100,\"totalItems\":0,\"totalPages\":0}}'\n\ntests/test_final_state.py:89: Failed",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

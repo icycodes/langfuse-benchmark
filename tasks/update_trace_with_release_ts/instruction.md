@@ -1,0 +1,40 @@
+# Tag a Langfuse Trace with Release, Session, User, and Tags using the JS/TS SDK
+
+## Background
+You are instrumenting an LLM-style application with [Langfuse](https://langfuse.com/) using the JS/TS SDK. To make traces searchable in production, you need to enrich a single trace with release, version, sessionId, userId, tags, and a public visibility flag, and emit the trace to Langfuse via OpenTelemetry.
+
+You are working in an empty Node.js project at `/home/user/myproject`. The Langfuse credentials (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) are already exported in the environment.
+
+## Requirements
+- Build a Node.js script (TypeScript or JavaScript) that uses the Langfuse JS/TS SDK to create exactly one trace and update its top-level trace attributes with the values listed under *Acceptance Criteria*.
+- The trace must be ingested through OpenTelemetry using `LangfuseSpanProcessor`, with the OTel SDK shut down (or flushed) before the process exits so the span is delivered.
+- The Langfuse trace ID created by the run must be written to a log file so verification can fetch the trace via the Langfuse Public API.
+- All externally visible resource names must be scoped by `run-id` to allow concurrent runs.
+
+## Implementation Hints
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build per-run identifiers.
+- Install the Langfuse tracing packages (`@langfuse/tracing`, `@langfuse/otel`) together with the OpenTelemetry Node SDK (`@opentelemetry/sdk-node`).
+- Initialize the OpenTelemetry NodeSDK with a `LangfuseSpanProcessor` **before** any traced code runs.
+- Use `startActiveObservation` from `@langfuse/tracing` to open a root span and `updateActiveTrace` to set the trace-level fields (`name`, `sessionId`, `userId`, `tags`, `release`, `version`, `public`, plus `input`/`output`).
+- Retrieve the active OpenTelemetry trace ID from inside the active span (this is the Langfuse trace ID) and append a line in the form `Trace ID: <trace_id>` to the log file before exiting.
+- Call `sdk.shutdown()` (or the equivalent flush) on the OpenTelemetry SDK before the process exits to guarantee the trace is sent to Langfuse.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed once and the trace is delivered to Langfuse.
+- Log file: /home/user/myproject/output.log
+- The Langfuse JS/TS SDK and `LangfuseSpanProcessor` must be used (no direct REST calls to ingest the trace).
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. All `run-id`-scoped identifiers below MUST be derived from this value.
+- The script must create exactly one Langfuse trace with the following top-level fields:
+    - `name`: `release-test-${run-id}`
+    - `sessionId`: `session-${run-id}`
+    - `userId`: `user-${run-id}`
+    - `tags`: a list that includes both `staging` and `run-${run-id}`
+    - `release`: `v1.2.3`
+    - `version`: `v1.0.0`
+    - `public`: `true`
+    - `input`: any non-empty JSON value
+    - `output`: any non-empty JSON value
+- The log file must contain a line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the 32-hex-character OpenTelemetry/Langfuse trace ID emitted by the run.
+- The trace must be retrievable through the Langfuse Public API at `GET /api/public/traces/{traceId}` and its returned fields must match the values above.
+

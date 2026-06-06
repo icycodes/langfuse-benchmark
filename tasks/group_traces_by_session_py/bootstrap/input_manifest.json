@@ -1,0 +1,7 @@
+{
+  "library_name": "Langfuse",
+  "task_name": "group_traces_by_session_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

@@ -1,0 +1,5 @@
+Prompt name: invoice-extractor-zr-ncxbenp
+Prompt version: 6
+Prompt type: chat
+Config keys: model, temperature, response_format
+Labels: production, staging

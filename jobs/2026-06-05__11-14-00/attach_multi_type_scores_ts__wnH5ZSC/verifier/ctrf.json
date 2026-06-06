@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780631774872,
+            "stop": 1780631778163
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780631774952,
+                "stop": 1780631774953,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_run_id_is_set",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780631774953,
+                "stop": 1780631774954,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_exists_with_expected_name",
+                "status": "passed",
+                "duration": 729,
+                "start": 1780631774954,
+                "stop": 1780631775683,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_has_generation_observation_named_llm_call",
+                "status": "passed",
+                "duration": 644,
+                "start": 1780631775684,
+                "stop": 1780631776328,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_correctness_numeric_score_attached",
+                "status": "passed",
+                "duration": 626,
+                "start": 1780631776329,
+                "stop": 1780631776955,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sentiment_categorical_score_attached",
+                "status": "passed",
+                "duration": 526,
+                "start": 1780631776956,
+                "stop": 1780631777482,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_helpfulness_boolean_score_attached",
+                "status": "passed",
+                "duration": 680,
+                "start": 1780631777483,
+                "stop": 1780631778163,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,68 @@
+- Initializing MCP connections...
+You
+# Create a Versioned Prompt with Config using the Langfuse Python SDK ## Background Your team is onboarding a new `invoice-extractor` LLM workflow into [Langfuse Prompt Management](https://langfuse.com/docs/prompt-management/get-started). The Langfuse `config` feature lets you store model parameters (model name, temperature, structured-output schema) **versioned together with the prompt**, so engineers can switch models or tweak schemas without touching application code. Your task is to create the first version of this prompt programmatically via the Langfuse Python SDK and verify it round-trips correctly. ## Requirements - Write a Python script that uses the Langfuse Python SDK (`langfuse` package) to create a NEW chat prompt with an attached `config` object and labels. - The prompt must be a chat prompt (`type="chat"`) consisting of a system message and a user message. At least one of the messages must include a Mustache-style variable using the `{{variable}}` syntax (e.g. `{{invoice_text}}`). - The `config` object must include the keys `model` (string), `temperature` (number), and `response_format` (object containing a `json_schema` definition for invoice extraction). - At creation time, attach both labels `production` and `staging` to the new prompt version. - After creating the prompt, fetch it back using `langfuse.get_prompt(...)` with caching disabled (so the fetch hits the API) and write a structured summary to a log file. - The script must call `langfuse.flush()` before exiting so the create call is not silently dropped. ## Implementation Hints - Read the deterministic run id from the `ZEALT_RUN_ID` environment variable. - Langfuse credentials are provided via the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables. The Python SDK picks them up automatically when you call `get_client()`. - Use `langfuse.create_prompt(name=..., type="chat", prompt=[...], config=..., labels=[...])` to create the versioned prompt object. - Use `langfuse.get_prompt(name, cache_ttl_seconds=0)` to read it back without hitting the in-process cache. - Use `prompt.config`, `prompt.version`, `prompt.labels`, and `prompt.prompt_type` (or equivalent attributes) on the returned object when writing the log file. - Common pitfall: scripts that exit immediately can lose buffered create requests — always flush before exiting. ## Acceptance Criteria - Project path: `/home/user/myproject` - Ensure the script is executed and the artifacts exist. - Log file: `/home/user/myproject/output.log` - The script must read the `ZEALT_RUN_ID` environment variable; the created prompt name MUST be exactly `invoice-extractor-${ZEALT_RUN_ID}`. - The created prompt's `type` MUST be `chat`. - The created prompt's `config` MUST contain the keys `model`, `temperature`, and `response_format` (with a nested `json_schema`). - The created prompt MUST have both labels `production` and `staging` attached (in addition to the auto-assigned `latest` label). - At least one of the chat messages MUST contain a `{{...}}` Mustache variable placeholder. - The log file MUST contain the following lines (one per line, in any order): - `Prompt name: invoice-extractor-<run-id>` - `Prompt version: <integer>` - `Prompt type: chat` - `Config keys: model, temperature, response_format` - `Labels: production, staging`   
+
+Pochi
+💭 Thinking for 570 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 92 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+💫 Executing pip show langfuse 2>&1 | head -20 ✔ 
+💫 Executing echo "ZEALT_RUN_ID=$ZEALT_RUN_ID" ✔ 
+💭 Thinking for 148 characters   
+💫 Executing echo "LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY:0:10}..." && echo "LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY:0:10}..." && echo "LANGFUSE_BASE_URL=$LANGFUSE_BASE_URL" ✔ 
+💭 Thinking for 212 characters   
+💫 Executing python3 -c "from langfuse import Langfuse; lf = Langfuse(); print(dir(lf))" 2>&1 ✔ 
+💭 Thinking for 108 characters   
+💫 Executing python3 -c "from langfuse import Langfuse; help(Langfuse.create_prompt)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "from langfuse import Langfuse; help(Langfuse.get_prompt)" 2>&1 | head -60 ✔ 
+💭 Thinking for 78 characters   
+💫 Executing python3 -c "
+from langfuse.model import ChatPromptClient
+print([attr for attr in dir(ChatPromptClient) if not attr.startswith('_')])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from langfuse.model import ChatPromptClient
+import inspect
+src = inspect.getsource(ChatPromptClient)
+print(src)
+" 2>&1 ✔ 
+💭 Thinking for 114 characters   
+💫 Executing python3 -c "
+from langfuse.model import BasePromptClient
+import inspect
+src = inspect.getsource(BasePromptClient)
+print(src)
+" 2>&1 ✔ 
+💭 Thinking for 1449 characters   
+Now I have all the information needed. Let me write the script.   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/create_prompt.py ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 create_prompt.py ✔ 
+💭 Thinking for 72 characters   
+📖 Reading /home/user/myproject/output.log ✔ 
+💭 Thinking for 306 characters   
+All acceptance criteria are verified: - ✅ Prompt name: `invoice-extractor-zr-sxwsqam` (uses `ZEALT_RUN_ID`) - ✅ Prompt version: `1` (integer) - ✅ Prompt type: `chat` - ✅ Config keys: `model, temperature, response_format` - ✅ Labels: `production, staging` - ✅ Chat messages include `{{invoice_text}}` Mustache variable - ✅ Config includes `model`, `temperature`, and `response_format` with nested `json_schema` - ✅ `langfuse.flush()` called before exit - ✅ `cache_ttl_seconds=0` used when fetching prompt back   
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+Successfully created and executed the Langfuse prompt management script at `/home/user/myproject/create_prompt.py`. The script:
+
+1. **Reads** the `ZEALT_RUN_ID` environment variable and constructs the prompt name `invoice-extractor-zr-sxwsqam`
+2. **Creates** a chat prompt via `langfuse.create_prompt()` with:
+   - A system message and a user message containing the `{{invoice_text}}` Mustache variable
+   - A `config` object with `model` ("gpt-4o"), `temperature` (0.1), and `response_format` (containing a `json_schema` for invoice extraction)
+   - Labels `["production", "staging"]`
+3. **Flushes** the Langfuse client to ensure the create request is sent
+4. **Fetches** the prompt back with `cache_ttl_seconds=0` to bypass the in-process cache
+5. **Writes** a structured summary to `/home/user/myproject/output.log`
+
+The log file contains:
+```
+Prompt name: invoice-extractor-zr-sxwsqam
+Prompt version: 1
+Prompt type: chat
+Config keys: model, temperature, response_format
+Labels: production, staging
+```   
+  

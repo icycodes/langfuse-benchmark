@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 8 items
+
+bootstrap/test_initial_state.py::test_langfuse_cli_available PASSED
+bootstrap/test_initial_state.py::test_jq_available PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_trace_id_file_exists FAILED
+bootstrap/test_initial_state.py::test_trace_id_file_has_valid_id FAILED
+bootstrap/test_initial_state.py::test_langfuse_public_key_env_var_set PASSED
+bootstrap/test_initial_state.py::test_langfuse_secret_key_env_var_set PASSED
+bootstrap/test_initial_state.py::test_langfuse_base_url_env_var_set PASSED
+
+=================================== FAILURES ===================================
+__________________________ test_trace_id_file_exists ___________________________
+
+    def test_trace_id_file_exists():
+>       assert os.path.isfile(TRACE_ID_FILE), (
+            f"Trace ID file {TRACE_ID_FILE} does not exist. The initial state must contain "
+            "the pre-created Langfuse trace ID at this path."
+        )
+E       AssertionError: Trace ID file /home/user/task/trace_id.txt does not exist. The initial state must contain the pre-created Langfuse trace ID at this path.
+E       assert False
+E        +  where False = <function isfile at 0x78aa2f884220>('/home/user/task/trace_id.txt')
+E        +    where <function isfile at 0x78aa2f884220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:29: AssertionError
+_______________________ test_trace_id_file_has_valid_id ________________________
+
+    def test_trace_id_file_has_valid_id():
+>       with open(TRACE_ID_FILE, "r", encoding="utf-8") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/task/trace_id.txt'
+
+bootstrap/test_initial_state.py:36: FileNotFoundError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_trace_id_file_exists - Assertion...
+FAILED bootstrap/test_initial_state.py::test_trace_id_file_has_valid_id - Fil...
+========================= 2 failed, 6 passed in 0.03s ==========================

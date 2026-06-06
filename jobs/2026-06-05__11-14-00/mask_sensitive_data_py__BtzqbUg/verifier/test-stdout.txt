@@ -1,0 +1,145 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py FEEEEE                                         [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of test_trace_name_matches_run_id _______________
+
+    @pytest.fixture(scope="module")
+    def trace_payload():
+        assert RUN_ID, "ZEALT_RUN_ID environment variable is not set during verification."
+        assert LANGFUSE_PUBLIC_KEY, "LANGFUSE_PUBLIC_KEY is not set during verification."
+        assert LANGFUSE_SECRET_KEY, "LANGFUSE_SECRET_KEY is not set during verification."
+    
+>       trace_id = _read_trace_id_from_log()
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_trace_id_from_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x77149d500220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x77149d500220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+____ ERROR at setup of test_trace_input_output_contain_all_redaction_tokens ____
+
+    @pytest.fixture(scope="module")
+    def trace_payload():
+        assert RUN_ID, "ZEALT_RUN_ID environment variable is not set during verification."
+        assert LANGFUSE_PUBLIC_KEY, "LANGFUSE_PUBLIC_KEY is not set during verification."
+        assert LANGFUSE_SECRET_KEY, "LANGFUSE_SECRET_KEY is not set during verification."
+    
+>       trace_id = _read_trace_id_from_log()
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_trace_id_from_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x77149d500220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x77149d500220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+_________ ERROR at setup of test_trace_input_output_contain_no_raw_pii _________
+
+    @pytest.fixture(scope="module")
+    def trace_payload():
+        assert RUN_ID, "ZEALT_RUN_ID environment variable is not set during verification."
+        assert LANGFUSE_PUBLIC_KEY, "LANGFUSE_PUBLIC_KEY is not set during verification."
+        assert LANGFUSE_SECRET_KEY, "LANGFUSE_SECRET_KEY is not set during verification."
+    
+>       trace_id = _read_trace_id_from_log()
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_trace_id_from_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x77149d500220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x77149d500220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+_____________ ERROR at setup of test_generation_observation_exists _____________
+
+    @pytest.fixture(scope="module")
+    def trace_payload():
+        assert RUN_ID, "ZEALT_RUN_ID environment variable is not set during verification."
+        assert LANGFUSE_PUBLIC_KEY, "LANGFUSE_PUBLIC_KEY is not set during verification."
+        assert LANGFUSE_SECRET_KEY, "LANGFUSE_SECRET_KEY is not set during verification."
+    
+>       trace_id = _read_trace_id_from_log()
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_trace_id_from_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x77149d500220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x77149d500220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+___________ ERROR at setup of test_generation_input_output_redacted ____________
+
+    @pytest.fixture(scope="module")
+    def trace_payload():
+        assert RUN_ID, "ZEALT_RUN_ID environment variable is not set during verification."
+        assert LANGFUSE_PUBLIC_KEY, "LANGFUSE_PUBLIC_KEY is not set during verification."
+        assert LANGFUSE_SECRET_KEY, "LANGFUSE_SECRET_KEY is not set during verification."
+    
+>       trace_id = _read_trace_id_from_log()
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_trace_id_from_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x77149d500220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x77149d500220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+=================================== FAILURES ===================================
+______________________ test_log_file_exists_with_trace_id ______________________
+
+    def test_log_file_exists_with_trace_id():
+>       trace_id = _read_trace_id_from_log()
+
+tests/test_final_state.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_trace_id_from_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x77149d500220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x77149d500220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_trace_name_matches_run_id - AssertionEr...
+ERROR tests/test_final_state.py::test_trace_input_output_contain_all_redaction_tokens
+ERROR tests/test_final_state.py::test_trace_input_output_contain_no_raw_pii
+ERROR tests/test_final_state.py::test_generation_observation_exists - Asserti...
+ERROR tests/test_final_state.py::test_generation_input_output_redacted - Asse...
+FAILED tests/test_final_state.py::test_log_file_exists_with_trace_id - Assert...
+========================= 1 failed, 5 errors in 0.12s ==========================
