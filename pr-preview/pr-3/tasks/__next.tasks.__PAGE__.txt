@@ -1,46 +1,8 @@
 1:"$Sreact.fragment"
 2:"$Sreact.suspense"
 3:I[42654,["/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/babff0e7418ab052.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/3ecbb78a8ff87549.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/985d95d831fd99c3.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
-14:I[75049,["/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/d2c13bb33c4fcd54.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-4:Te00,# Create a Langfuse Dataset with Items via the Python SDK
-
-## Background
-Langfuse [Datasets](https://langfuse.com/docs/evaluation/dataset-runs/datasets) are versioned collections of `(input, expected_output, metadata)` items. They are the foundation for offline evaluation: you upload curated test cases once and then run experiments against them. Your team wants a small, reproducible Python script that bootstraps a brand new Langfuse-hosted QA dataset and seeds it with three labelled question/answer pairs so the evaluation pipeline has something to run against.
-
-The Langfuse Public API and the Langfuse Cloud project for this task are pre-configured in the environment. Credentials are exposed as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` so the Python SDK can pick them up automatically.
-
-## Requirements
-- Write a Python script that uses the Langfuse Python SDK (`langfuse` package) to:
-  - Create a new Langfuse-hosted dataset.
-  - Create exactly three dataset items inside that dataset, each with an `input`, an `expected_output`, and a `metadata` object.
-- The dataset name must be derived from the `ZEALT_RUN_ID` environment variable so that concurrent runs do not collide.
-- The script must flush all pending events to Langfuse before exiting so the dataset and items are durably persisted.
-- After the script runs, the dataset and all three items must be retrievable through the Langfuse Public API (`/api/public/v2/datasets/{datasetName}` and `/api/public/dataset-items?datasetName=...`).
-
-## Implementation Hints
-- Install the Python SDK with `pip install langfuse` (it is already available in the environment).
-- Use `langfuse.get_client()` (or `Langfuse()`); the client picks up `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from environment variables.
-- The primary SDK methods you need are `langfuse.create_dataset(name=..., description=..., metadata=...)` and `langfuse.create_dataset_item(dataset_name=..., input=..., expected_output=..., metadata=...)`.
-- Read the `ZEALT_RUN_ID` environment variable inside the script and use it as the suffix when constructing the dataset name.
-- Call `langfuse.flush()` at the very end of the script so the writes are not lost when the process exits.
-- Append a single status line to the log file containing the dataset name actually used so the verifier can find the resource on the Langfuse side.
-
-## Acceptance Criteria
-- Project path: /home/user/myproject
-- Ensure the script is executed and the side effects on the Langfuse project are real.
-- Command: `python3 /home/user/myproject/seed_dataset.py`
-- Log file: /home/user/myproject/output.log
-- The script must:
-  - Read `run-id` from the `ZEALT_RUN_ID` environment variable.
-  - Create a Langfuse-hosted dataset whose name is exactly `qa-eval-${run-id}` (no leading or trailing whitespace).
-  - Create exactly three dataset items inside that dataset; each item must have a non-empty `input`, a non-empty `expectedOutput`, and a `metadata` object that includes the key `source` with value `harbor-task`.
-  - Flush all pending events to Langfuse before exiting.
-- The log file must contain the dataset name in the format: `Dataset name: qa-eval-<run-id>`
-- After execution, the Langfuse Public API must report:
-  - `GET /api/public/v2/datasets/qa-eval-${run-id}` returns HTTP 200 with `name == "qa-eval-${run-id}"`.
-  - `GET /api/public/dataset-items?datasetName=qa-eval-${run-id}&limit=50` returns exactly three items, each with non-empty `input`, non-empty `expectedOutput`, and `metadata.source == "harbor-task"`.
-
-5:Tdcf,# Create Langfuse Score Configurations via the Langfuse CLI
+e:I[75049,["/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/d2c13bb33c4fcd54.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:Tdcf,# Create Langfuse Score Configurations via the Langfuse CLI
 
 ## Background
 Langfuse Score Configs are typed, project-scoped schemas that ensure scores follow a consistent structure (data type, value range, allowed categories). They power both manual annotation in the UI and programmatic score ingestion via the SDKs/API.
@@ -81,7 +43,7 @@ In this task you will use the [Langfuse CLI](https://github.com/langfuse/langfus
 
   where `<name>` is the full config name (including the `run-id` suffix) and `<id>` is the `id` field returned by the Langfuse API for that score config.
 
-6:Tea0,# Create a Versioned Text Prompt with the Langfuse CLI
+5:Tea0,# Create a Versioned Text Prompt with the Langfuse CLI
 
 ## Background
 Langfuse is an open-source AI engineering platform. It provides first-class versioned prompt management exposed through its public REST API, Python/JS SDKs, **and** an official Node-based CLI (`langfuse-cli`) that dynamically wraps the OpenAPI spec. Your team wants to script the creation of new prompt versions from CI scripts, so they need a reproducible CLI-based workflow that can author a brand new prompt, attach deployment labels, tags, a config blob, and a commit message — all in a single invocation — and then record the result for downstream tooling.
@@ -122,53 +84,7 @@ You must complete this prompt-creation flow using the **`langfuse-cli`** (NOT th
 - The created prompt's `prompt` text must equal `Hello {{name}}, welcome to {{service}}! Your plan is {{plan}}.` exactly.
 - The log file must contain a line in the format: `Prompt created: name=<prompt_name> version=<version>` matching the actually created prompt name and version.
 
-7:T13d9,# Instrument a LangChain Chain with the Langfuse CallbackHandler (Python)
-
-## Background
-You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a LangChain pipeline. Langfuse's LangChain integration is built around a `CallbackHandler` (from `langfuse.langchain`) that plugs into LangChain's callback system: every chain/LLM invocation is captured as a trace with nested observations. Your goal is to wire that handler into a small chain that takes a topic and returns a fact, and to attach trace-level attributes (user, session, tags) dynamically per invocation so the team can later filter traces in the Langfuse UI.
-
-The environment has internet access to `${LANGFUSE_BASE_URL}` and the credentials `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are pre-set as environment variables. The environment is **offline with respect to LLM providers** — there is no OpenAI / Anthropic / etc. API key. You **must not** call a real model provider; use a deterministic local fake chat model (e.g. `FakeListChatModel` from `langchain_community.chat_models.fake`) so the chain is fully reproducible.
-
-## Requirements
-- Build a Python script `app.py` under `/home/user/myproject` that uses LangChain together with the Langfuse Python SDK.
-- Construct a LangChain chain composed of (1) a `ChatPromptTemplate` that takes a single variable `topic`, and (2) a fake chat model that returns a deterministic answer (no real model provider may be called).
-- Initialize the Langfuse `CallbackHandler` (`from langfuse.langchain import CallbackHandler`) and attach it to the chain invocation via `config={"callbacks": [...]}`.
-- Set trace-level attributes **dynamically via the chain's `metadata`** using the documented keys `langfuse_user_id`, `langfuse_session_id`, and `langfuse_tags` (see [Trace Attributes](https://langfuse.com/integrations/frameworks/langchain#trace-attributes)). All values must be derived from `${ZEALT_RUN_ID}` so concurrent task runs do not collide:
-  - `langfuse_user_id` = `lc-user-${ZEALT_RUN_ID}`
-  - `langfuse_session_id` = `lc-session-${ZEALT_RUN_ID}`
-  - `langfuse_tags` must contain **both** of the literal strings `harbor-langchain` and `run-${ZEALT_RUN_ID}` (any order, any extras allowed).
-- Pass `run_name="langchain-fact-${ZEALT_RUN_ID}"` (LangChain's `runName`/`run_name` config option) when invoking the chain so the resulting Langfuse trace `name` is exactly that string.
-- Invoke the chain with `{"topic": "langfuse"}` so a real trace and a nested generation observation are produced.
-- Capture the resulting Langfuse trace ID from the callback handler (`handler.last_trace_id`) and persist it to a log file.
-- Flush the Langfuse client before the process exits so all spans are delivered before verification.
-
-## Implementation Hints
-- The official `langchain` and `langchain-community` packages, plus `langfuse`, are pre-installed in the environment. Use `FakeListChatModel(responses=[...])` (returns a deterministic answer per call) instead of any cloud model.
-- The Langfuse client picks up credentials from `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`; do not hardcode them.
-- LangChain's LCEL chains expose a `config` kwarg in `.invoke(...)`. Use it to pass the callback handler, the `metadata` keys above, and `run_name`.
-- After `invoke` returns, read `handler.last_trace_id` and call `langfuse.flush()` (or use `with langfuse:` / `langfuse.shutdown()`) before the script exits — Langfuse ingestion is asynchronous.
-- The Langfuse public REST API uses HTTP Basic auth (public key as username, secret key as password). `GET /api/public/traces/{traceId}` returns the trace including its `userId`, `sessionId`, `tags`, and `observations` array — use this to sanity-check locally.
-- Be aware ingestion is eventually consistent; if you verify yourself, retry the GET a few times with a short sleep.
-
-## Acceptance Criteria
-- Project path: `/home/user/myproject`
-- Ensure the script is **actually executed** so the trace, the nested generation, and the trace-level attributes exist on the configured Langfuse server. Do not mock the Langfuse client or the LangChain callback flow.
-- Log file: `/home/user/myproject/output.log`
-- The log file must contain exactly these lines (one per line, in any order, with no other formatting):
-  - `Trace ID: <trace_id>`
-  - `Trace name: langchain-fact-${ZEALT_RUN_ID}`
-  - `User ID: lc-user-${ZEALT_RUN_ID}`
-  - `Session ID: lc-session-${ZEALT_RUN_ID}`
-  - `Status: OK`
-  where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
-- The corresponding trace on the Langfuse server (queryable via `GET /api/public/traces/{trace_id}`) must satisfy:
-  - `name` equals `langchain-fact-${ZEALT_RUN_ID}`.
-  - `userId` equals `lc-user-${ZEALT_RUN_ID}`.
-  - `sessionId` equals `lc-session-${ZEALT_RUN_ID}`.
-  - `tags` (array of strings) contains **both** `harbor-langchain` and `run-${ZEALT_RUN_ID}`.
-  - `observations` contains at least one entry whose `type` equals `GENERATION` (case-insensitive against the canonical Langfuse `GENERATION` type).
-
-8:Te86,# Custom OTel Tracing of an LLM Agent with the Langfuse JS/TS SDK
+6:Te86,# Custom OTel Tracing of an LLM Agent with the Langfuse JS/TS SDK
 
 ## Background
 You are building a small TypeScript Node.js script that simulates a weather assistant. The team wants every run of this script to produce a fully structured Langfuse trace so they can inspect the model call inside the Langfuse UI.
@@ -203,7 +119,7 @@ Langfuse's JS/TS SDK is OpenTelemetry-native: spans created with `@langfuse/trac
 - The trace must contain at least one nested observation of type `GENERATION` named `llm-call`, with the `model` field set to a non-empty string.
 - Both the root observation and the nested generation must have non-null `input` and `output` payloads as returned by `GET /api/public/traces/{traceId}` (i.e. the `observations` array in the response).
 
-9:T16a7,# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+7:T16a7,# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
 
 ## Background
 You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
@@ -250,7 +166,7 @@ The environment already has the `langfuse` Python SDK installed and the followin
   - `Session ID: session-${ZEALT_RUN_ID}`
   - `Status: OK`
 
-a:Te79,# Link a Langfuse Prompt to a Generation Observation (Python SDK)
+8:Te79,# Link a Langfuse Prompt to a Generation Observation (Python SDK)
 
 ## Background
 [Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that combines observability, prompt management, and evaluation. Linking a managed prompt to a generation observation enables Langfuse to aggregate metrics (latency, tokens, cost, scores) per prompt version. This is the foundation of the Prompt Metrics view used to compare prompt versions in production.
@@ -284,7 +200,7 @@ In this task, you will use the Langfuse Python SDK to (1) create a versioned cha
 - The `promptVersion` recorded on that generation observation must match the version of the prompt that currently carries the `production` label.
 - The log file `/home/user/myproject/output.log` must contain a single line in the exact format `Trace ID: <trace_id>`, where `<trace_id>` is the 32-character hexadecimal OpenTelemetry trace ID returned by `langfuse.get_current_trace_id()` inside the active generation.
 
-b:Tdb7,# Manage a Langfuse Evaluation Dataset with the Langfuse CLI
+9:Tdb7,# Manage a Langfuse Evaluation Dataset with the Langfuse CLI
 
 ## Background
 Langfuse is an open-source LLM engineering platform. One of its three product surfaces is Evaluation, which is built around versioned datasets, scores, and experiments. The Langfuse CLI (`langfuse-cli`, distributed via npm) dynamically wraps the entire Langfuse Public API, so every dataset and dataset-item endpoint is available as a terminal command. You will use the CLI in scripts/CI-style workflows to seed an evaluation dataset for a small geography QA app.
@@ -321,149 +237,7 @@ Your Langfuse project is already provisioned. The credentials are exposed as env
   - `Item count: 3`
   - One `Item id: <id>` line per created dataset item (three lines total).
 
-c:Td40,# Prompt Promotion Workflow with the Langfuse CLI
-
-## Background
-Langfuse manages prompts as first-class versioned objects. A typical GitOps-style promotion workflow looks like this: create an initial version under a `staging` label, iterate by creating a new version (still on `staging`), and finally promote the validated version by giving it the `production` label so the SDKs pick it up automatically.
-
-You will perform this whole flow from a Bash script using the [Langfuse CLI](https://langfuse.com/docs/api-and-data-platform/features/cli), which wraps the full [Langfuse Public API](https://api.reference.langfuse.com/) (every OpenAPI endpoint is exposed under `langfuse api <resource> <action>`). The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` (alias `LANGFUSE_HOST`) from the environment and authenticates using HTTP Basic auth.
-
-## Requirements
-- Use the Langfuse CLI (not the Python or JS SDKs) for every Langfuse interaction.
-- Read the value of `run-id` from the `ZEALT_RUN_ID` environment variable and isolate all externally visible side effects by appending it to the prompt name (so concurrent runs do not collide).
-- Create a text prompt with two sequential versions and use labels to model a `staging` → `production` promotion.
-- Write a structured log so the verifier can extract the prompt name and the promoted version number.
-
-## Implementation Hints
-- Install the CLI globally with `npm i -g langfuse-cli`, or invoke it through `npx langfuse-cli ...` — either is fine as long as the version you use accepts the documented commands.
-- Explore what is available with `langfuse api __schema`, `langfuse api prompts --help`, and `langfuse api prompt-version --help`.
-- The endpoints you will need correspond to: `POST /api/public/v2/prompts` (create a new prompt version) and `PATCH /api/public/v2/prompts/{name}/versions/{version}` (update labels on a specific version). Pass JSON output through `--json` when scripting.
-- Remember that whenever you create a version with the same prompt name, Langfuse appends a new version — you do not need to pass an explicit version number on create.
-- A `production` label can only point to one version of a given prompt at a time; assigning it to a newer version will automatically remove it from the previous one.
-- Make sure the script is idempotent enough that the verifier sees a consistent end state (e.g. exit non-zero on failure, do not silently swallow CLI errors).
-
-## Acceptance Criteria
-- Project path: /home/user/myproject
-- Ensure the real Langfuse CLI calls are executed and the log artifact exists.
-- Log file: /home/user/myproject/output.log
-- Read `run-id` from the `ZEALT_RUN_ID` environment variable.
-- The prompt name created in Langfuse must be `movie-critic-${run-id}`.
-- The prompt must be of type `text` and have **exactly two versions** (versions `1` and `2`).
-- Version `1` content must be: `As a {{criticlevel}} critic, do you like {{movie}}?` and must include the label `staging`.
-- Version `2` content must be: `As an {{criticlevel}} film critic, do you enjoy {{movie}}?` and must include the labels `staging` and `production` (the `production` label must be present on version 2 and must NOT be present on version 1).
-- The log file must contain:
-  - A line in the format: `Prompt name: movie-critic-<run-id>`
-  - A line in the format: `Promoted version: 2`
-
-d:T1433,# Create and Compile a Text Prompt with the Langfuse TypeScript SDK
-
-## Background
-You are integrating [Langfuse](https://langfuse.com/) prompt management into a small Node.js TypeScript service that asks an LLM movie-related questions. The service must store its prompt template centrally in Langfuse (so non-engineers can edit it) and pull a labelled version at runtime. Your job is to use the **Langfuse JS/TS SDK** (`@langfuse/client`) to create a versioned **text** prompt, then fetch the `production` version, compile it with concrete variables, and persist both the metadata and the compiled rendering to a log file the team can grep.
-
-The environment already has Node.js (v20+) and TypeScript available. The following environment variables are already exported and must be used by the SDK to talk to Langfuse:
-- `LANGFUSE_PUBLIC_KEY`
-- `LANGFUSE_SECRET_KEY`
-- `LANGFUSE_BASE_URL`
-
-The `ZEALT_RUN_ID` environment variable contains a unique run identifier that you **must** use when naming the Langfuse prompt so concurrent task runs do not collide.
-
-## Requirements
-- Build a Node.js + TypeScript project under `/home/user/myproject`.
-- Use the `@langfuse/client` package to create a **text** prompt (not chat) with two versions on the Langfuse server:
-  - Version 1 (created first) is a baseline template that must be labeled `staging`.
-  - Version 2 (created second) is an improved template that must be labeled `production`. (This automatically becomes the default version served when no label is specified.)
-- Both versions must reference Langfuse template variables using the double-curly-brace syntax (e.g. `{{criticlevel}}`, `{{movie}}`).
-- The prompt name must be `movie-critic-text-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
-- After creating both versions, fetch the `production` version using the SDK (`langfuse.prompt.get(...)`) and `compile` it with the variables `criticlevel = "expert"` and `movie = "Dune 2"`.
-- The compiled (rendered) string must reference `"expert"` and `"Dune 2"` and must **not** contain any remaining unrendered `{{` or `}}` placeholder markers.
-- The TypeScript program must be runnable via `npm run start` from the project root.
-- Write a log file at `/home/user/myproject/output.log` summarising the result.
-
-## Implementation Hints
-- Install the `@langfuse/client` package (>= 4.x) plus `typescript` and `tsx` (or `ts-node`) so `npm run start` can execute the TypeScript entrypoint without a separate compile step.
-- Initialise the client with `new LangfuseClient()` — it picks up `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the process environment, so do **not** hardcode credentials.
-- Create prompts via `langfuse.prompt.create({ name, type: "text", prompt, labels })`. Pass `labels: ["production"]` on the second creation — Langfuse will automatically move that label off the older version.
-- Fetch with `langfuse.prompt.get(name, { label: "production", type: "text" })` and call `.compile({ ... })` on the returned object to render variables.
-- The returned prompt objects expose a `.version` (integer) property — capture these so you can write them to the log file.
-- Remember that `prompt.get` employs an in-process cache; for a short-lived script that creates the prompt and then immediately reads it, simply fetch with the `production` label (Langfuse will return the freshly created v2).
-- For graceful shutdown of any background workers, you can call `await langfuse.shutdown()` (or rely on `process.exit(0)`) so the script exits cleanly.
-
-## Acceptance Criteria
-- Project path: `/home/user/myproject`
-- Ensure the script is executed end-to-end so the prompt versions actually exist on the Langfuse server. Do **not** mock the Langfuse client.
-- The script must be runnable from the project root with `npm run start`.
-- The project's `package.json` must declare `@langfuse/client` as a dependency.
-- Log file: `/home/user/myproject/output.log`
-- The Langfuse prompt name must be `movie-critic-text-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
-- Two versions of the prompt must exist on the Langfuse server.
-- Version 1 must carry the label `staging` and must NOT carry the label `production`.
-- Version 2 must carry the label `production`.
-- Both versions must be of type `text` (not `chat`) and must contain Langfuse template variables in `{{variable}}` syntax.
-- The version 1 prompt body must reference at least `{{criticlevel}}` and `{{movie}}`.
-- The version 2 prompt body must reference at least `{{criticlevel}}` and `{{movie}}`.
-- Fetching the prompt with no label (default `production`) via the Langfuse API must return version 2.
-- The log file must contain the following lines (one per line, in any order, additional content allowed elsewhere in the file):
-  - `Prompt name: <prompt_name>`
-  - `Staging version: <integer>`
-  - `Production version: <integer>`
-  - `Compiled prompt: <rendered text>`
-- The `Compiled prompt:` line must contain both the substring `expert` and the substring `Dune 2`, and must NOT contain `{{` or `}}` (no unrendered placeholders).
-
-e:T152d,# Run a Langfuse Experiment with Custom Evaluators (Python SDK)
-
-## Background
-You are extending an LLM evaluation workflow with [Langfuse](https://langfuse.com/), an open-source AI engineering platform. Your goal is to programmatically create a Langfuse-hosted dataset, then execute an `Experiment` against it using the Python SDK. The experiment must compute both **item-level** scores and a **run-level** aggregate score, all of which are stored back in Langfuse and inspectable via the public REST API.
-
-The environment is offline-friendly: there is **no external LLM provider configured**. Your `task` function must be deterministic Python logic that runs locally — no OpenAI/Anthropic calls.
-
-The following environment variables are already exported in the container and must be used to talk to Langfuse:
-- `LANGFUSE_PUBLIC_KEY`
-- `LANGFUSE_SECRET_KEY`
-- `LANGFUSE_BASE_URL`
-
-## Requirements
-1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. Use it to make every external resource collision-safe.
-2. Using the Langfuse Python SDK, create a Langfuse-hosted **dataset** named `harbor-eval-${run-id}`.
-3. Add exactly **5** dataset items to it. Each item must have:
-   - `input`: a short English sentence (string).
-   - `expected_output`: the lowercase **sentiment label** for that sentence — one of `"positive"`, `"negative"`, or `"neutral"`.
-   - The five items must collectively cover **at least two** distinct labels (i.e., not all the same label).
-4. Implement a deterministic Python task function `classify_sentiment` that returns a sentiment label string (`"positive"`, `"negative"`, or `"neutral"`) for each dataset item's `input`. **Do not call any external LLM API.** A simple keyword / rule-based classifier is sufficient. The function must not return `None`.
-5. Implement an **item-level evaluator** named `accuracy` that emits a Langfuse `Evaluation` with:
-   - `name="accuracy"`
-   - `value=1.0` when the task output exactly equals `expected_output` (case-insensitive), `value=0.0` otherwise.
-6. Implement a **run-level evaluator** named `avg_accuracy` that emits a Langfuse `Evaluation` with `name="avg_accuracy"` and `value` equal to the mean of all `accuracy` values from the item-level results (a float between 0.0 and 1.0).
-7. Run the experiment against the Langfuse-hosted dataset using the SDK's experiment runner so that a real **dataset run** is created in Langfuse. The dataset run must be named `experiment-${run-id}`.
-8. Flush the Langfuse client before the process exits so all traces, scores, and the dataset run are persisted.
-9. After the run finishes, write a single log file with the resulting identifiers and metrics so the verifier can confirm the run was real.
-
-## Implementation Hints
-- The Python SDK exposes `from langfuse import get_client, Evaluation`. `get_client()` reads the env vars listed above.
-- Use `langfuse.create_dataset(name=...)` and `langfuse.create_dataset_item(dataset_name=..., input=..., expected_output=...)` to populate the dataset.
-- To trigger a dataset run, fetch the dataset with `langfuse.get_dataset(name)` and call its `.run_experiment(...)` method, or pass the Langfuse dataset items into `langfuse.run_experiment(...)`. Either way the SDK creates a dataset run when the data originates from a Langfuse-hosted dataset.
-- Pass `run_name="experiment-${run-id}"` to the experiment so the dataset run is deterministically named.
-- Item-level evaluators receive keyword arguments including `input`, `output`, `expected_output`, and `metadata`. They must return a `langfuse.Evaluation`.
-- Run-level evaluators receive `item_results` (a list with `.evaluations`) and must return a `langfuse.Evaluation`.
-- Call `langfuse.flush()` at the end of `main` to guarantee delivery before the script exits.
-- The Langfuse public REST API uses HTTP Basic auth (public key as username, secret key as password). Useful endpoints if you want to verify locally: `GET /api/public/v2/datasets/{datasetName}`, `GET /api/public/datasets/{datasetName}/runs/{runName}`, `GET /api/public/v2/scores?datasetRunId=...`.
-
-## Acceptance Criteria
-- Project path: `/home/user/myproject`
-- Ensure the script is executed end-to-end so the Langfuse-hosted dataset, dataset items, dataset run, and scores actually exist in the configured Langfuse project. Do **not** mock the Langfuse client.
-- Log file: `/home/user/myproject/output.log`
-- The log file must contain exactly these lines (one per line, in any order, with no trailing content other than newlines):
-  - `Dataset name: harbor-eval-<run-id>`
-  - `Dataset run name: experiment-<run-id>`
-  - `Items: 5`
-  - `Accuracy: <float between 0.0 and 1.0>` — the mean accuracy across the 5 items, formatted with 2 decimal places (e.g., `0.60`).
-  - `Status: OK`
-- The dataset `harbor-eval-<run-id>` must exist in Langfuse and contain exactly 5 dataset items.
-- A Langfuse **dataset run** named `experiment-<run-id>` must exist under that dataset and contain exactly 5 dataset-run items.
-- Each dataset-run item must have at least one Langfuse **score** with `name="accuracy"` attached to its trace (5 accuracy scores total across the run).
-- The dataset run must have at least one **score** with `name="avg_accuracy"` attached to it (run-level score), and the value must match the `Accuracy:` value reported in the log file (within ±0.01).
-- `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
-
-f:Tf9f,# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
+a:Tf9f,# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
 
 ## Background
 [Langfuse](https://langfuse.com/) is an open-source AI engineering platform that provides observability, prompt management, and evaluation for LLM applications. The TypeScript SDK's `experiment.run` API loops a task function over a dataset, automatically traces every execution, and lets you attach **item-level evaluators** whose results are emitted as scores on each trace in Langfuse.
@@ -498,47 +272,8 @@ In this task you will build a small Node.js (TypeScript) project that runs a Lan
 - The script must use the Langfuse JS/TS SDK's `experiment.run` API (i.e. `langfuse.experiment.run({...})`) on a **local** dataset; do not create a Langfuse-hosted dataset for this task.
 - After the script exits, each recorded trace must exist in Langfuse and have **both** of the following scores attached: a score named `accuracy` and a score named `response_length`.
 
-10:Tee4,# Versioned Chat Prompt with Labels (Langfuse Python SDK)
-
-## Background
-You are setting up [Langfuse](https://langfuse.com/) prompt management for a movie review assistant. The team wants to keep an actively-tested `staging` version of the prompt alongside the currently-deployed `production` version, so engineers can iterate safely. Your job is to use the **Langfuse Python SDK** to programmatically register two versions of a chat prompt and attach the correct labels, so the application can fetch each version by label at runtime.
-
-The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use when naming the Langfuse prompt to avoid conflicts with concurrent task runs.
-
-## Requirements
-- Write a Python script `create_prompts.py` that uses the Langfuse Python SDK (`from langfuse import Langfuse` or `from langfuse import get_client`) to create a single chat prompt with two versions in your Langfuse project.
-- The prompt **name** must be `movie-critic-chat-${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment).
-- Both versions must be created as `chat` prompts (a list of role/content message dicts) and must use Langfuse template variables (double-curly-brace syntax).
-- Version 1 (created first) is a baseline prompt that must be labeled `staging`.
-- Version 2 (created second) is an enhanced prompt that must be labeled `production` (this becomes the default version served when no label is specified).
-- Execute the script so that both prompt versions are actually created on the Langfuse server.
-- Write a log file at `/home/user/langfuse_task/output.log` summarising the result.
-
-## Implementation Hints
-- Initialise the SDK without hardcoding credentials; the client reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
-- Use the SDK's `create_prompt` method with `type="chat"` and a `prompt` payload that is a list of `{"role": ..., "content": ...}` dicts.
-- Use the `labels` parameter of `create_prompt` to attach labels at creation time. Each label may only point at one version at a time, so creating version 2 with `labels=["production"]` will automatically move that label off the older version.
-- Remember to `flush()` (or otherwise ensure cleanup) so background events are delivered before the script exits.
-- The two versions returned by the SDK expose a `.version` attribute (an integer) that you should write to the log file.
-
-## Acceptance Criteria
-- Project path: `/home/user/langfuse_task`
-- Ensure the script is executed and the prompt versions actually exist on the Langfuse server.
-- Log file: `/home/user/langfuse_task/output.log`
-- The Langfuse prompt name must be `movie-critic-chat-${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
-- Two versions of the prompt must exist on the Langfuse server.
-- The first-created version must carry the label `staging`.
-- The second-created version must carry the label `production` (and must NOT carry the `staging` label).
-- Both versions must be of type `chat` and must contain template variables written with Langfuse's `{{variable}}` syntax.
-- The version 1 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}` and `{{movie}}`.
-- The version 2 chat prompt must contain a `system` role message and a `user` role message that together reference `{{criticlevel}}`, `{{movie}}`, and `{{genre}}`.
-- The log file must contain the following lines (in any order):
-  - `Prompt name: <prompt_name>`
-  - `Staging version: <integer>`
-  - `Production version: <integer>`
-
-0:{"buildId":"kUYDrAEkVDOVXYIbCVGXQ","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"create_dataset_items_py","instruction":"$4","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_dataset_items_py__CGxGrZD","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":140.376,"latency_breakdown":{"env_setup":49.549,"agent_setup":21.238,"agent_exec":50.131,"verifier":1.832},"taskName":"create_dataset_items_py","jobId":"CGxGrZD","exec_duration":50.131},{"job_name":"2026-06-04__13-07-49","trial_name":"create_dataset_items_py__Q2o4XAQ","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":193.89,"latency_breakdown":{"env_setup":27.55,"agent_setup":21.271,"agent_exec":122.419,"verifier":1.828},"taskName":"create_dataset_items_py","jobId":"Q2o4XAQ","exec_duration":122.419},{"job_name":"2026-06-04__13-07-49","trial_name":"create_dataset_items_py__YhiimvQ","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":153.636,"latency_breakdown":{"env_setup":37.785,"agent_setup":20.322,"agent_exec":68.612,"verifier":1.9},"taskName":"create_dataset_items_py","jobId":"YhiimvQ","exec_duration":68.612}]},{"taskName":"create_score_configs_cli","instruction":"$5","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__VzfrFmW","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":778.097,"latency_breakdown":{"env_setup":106.647,"agent_setup":46.925,"agent_exec":600.21,"verifier":0.783},"taskName":"create_score_configs_cli","jobId":"VzfrFmW","exec_duration":600.21},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__8sH4hCG","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":800.437,"latency_breakdown":{"env_setup":151.258,"agent_setup":21.129,"agent_exec":600.197,"verifier":0.894},"taskName":"create_score_configs_cli","jobId":"8sH4hCG","exec_duration":600.197},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__bdwz2uU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":359.179,"latency_breakdown":{"env_setup":117.863,"agent_setup":19.698,"agent_exec":203.119,"verifier":1.261},"taskName":"create_score_configs_cli","jobId":"bdwz2uU","exec_duration":203.119}]},{"taskName":"create_text_prompt_cli","instruction":"$6","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__pWowAS8","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":677.56,"latency_breakdown":{"env_setup":30.484,"agent_setup":20.296,"agent_exec":600.191,"verifier":0.95},"taskName":"create_text_prompt_cli","jobId":"pWowAS8","exec_duration":600.191},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__uQQJpVq","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":678.574,"latency_breakdown":{"env_setup":21.974,"agent_setup":39.7,"agent_exec":594.584,"verifier":1.502},"taskName":"create_text_prompt_cli","jobId":"uQQJpVq","exec_duration":594.584},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__iHepZt6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":682.169,"latency_breakdown":{"env_setup":21.304,"agent_setup":42.289,"agent_exec":600.213,"verifier":0.815},"taskName":"create_text_prompt_cli","jobId":"iHepZt6","exec_duration":600.213}]},{"taskName":"instrument_langchain_callback_py","instruction":"$7","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_langchain_callback_py__AQfqZEr","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":230.542,"latency_breakdown":{"env_setup":60.146,"agent_setup":22.028,"agent_exec":127.673,"verifier":1.813},"taskName":"instrument_langchain_callback_py","jobId":"AQfqZEr","exec_duration":127.673},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_langchain_callback_py__xmUDfDG","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":291.934,"latency_breakdown":{"env_setup":47.149,"agent_setup":20.374,"agent_exec":194.028,"verifier":2.391},"taskName":"instrument_langchain_callback_py","jobId":"xmUDfDG","exec_duration":194.028},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_langchain_callback_py__yFftZhk","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":162.589,"latency_breakdown":{"env_setup":20.978,"agent_setup":22.964,"agent_exec":98.246,"verifier":1.776},"taskName":"instrument_langchain_callback_py","jobId":"yFftZhk","exec_duration":98.246}]},{"taskName":"instrument_otel_tracing_ts","instruction":"$8","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8nTLMXZ","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.795,"latency_breakdown":{"env_setup":79.393,"agent_setup":20.897,"agent_exec":205.892,"verifier":2.2},"taskName":"instrument_otel_tracing_ts","jobId":"8nTLMXZ","exec_duration":205.892},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__dGcpAFu","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":834.107,"latency_breakdown":{"env_setup":44.293,"agent_setup":21.02,"agent_exec":600.229,"verifier":137.118},"taskName":"instrument_otel_tracing_ts","jobId":"dGcpAFu","exec_duration":600.229},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8dcjd79","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":354.736,"latency_breakdown":{"env_setup":83.599,"agent_setup":21.104,"agent_exec":158.803,"verifier":72.84},"taskName":"instrument_otel_tracing_ts","jobId":"8dcjd79","exec_duration":158.803}]},{"taskName":"instrument_trace_with_scores_py","instruction":"$9","trials":[{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__DRddzmk","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":386.074,"latency_breakdown":{"env_setup":101.689,"agent_setup":20.027,"agent_exec":245.447,"verifier":1.876},"taskName":"instrument_trace_with_scores_py","jobId":"DRddzmk","exec_duration":245.447},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__aAE7J9h","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":387.586,"latency_breakdown":{"env_setup":161.189,"agent_setup":20.113,"agent_exec":186.873,"verifier":2.201},"taskName":"instrument_trace_with_scores_py","jobId":"aAE7J9h","exec_duration":186.873},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__Rk8GwEE","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":836.198,"latency_breakdown":{"env_setup":193.544,"agent_setup":21.703,"agent_exec":600.201,"verifier":2.168},"taskName":"instrument_trace_with_scores_py","jobId":"Rk8GwEE","exec_duration":600.201}]},{"taskName":"link_prompt_to_generation_py","instruction":"$a","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__EDNF8fM","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.887,"latency_breakdown":{"env_setup":50.75,"agent_setup":21.415,"agent_exec":114.211,"verifier":3.059},"taskName":"link_prompt_to_generation_py","jobId":"EDNF8fM","exec_duration":114.211},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__xyi3U6t","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":714.359,"latency_breakdown":{"env_setup":63.739,"agent_setup":29.027,"agent_exec":600.205,"verifier":3.205},"taskName":"link_prompt_to_generation_py","jobId":"xyi3U6t","exec_duration":600.205},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__p8xYAcq","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.975,"latency_breakdown":{"env_setup":52.13,"agent_setup":20.319,"agent_exec":108.704,"verifier":2.744},"taskName":"link_prompt_to_generation_py","jobId":"p8xYAcq","exec_duration":108.704}]},{"taskName":"manage_dataset_cli","instruction":"$b","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__GBY7rmR","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":558.515,"latency_breakdown":{"env_setup":42.107,"agent_setup":22.074,"agent_exec":473.287,"verifier":2.243},"taskName":"manage_dataset_cli","jobId":"GBY7rmR","exec_duration":473.287},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__PNQfww6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":749.773,"latency_breakdown":{"env_setup":106.891,"agent_setup":22.067,"agent_exec":600.188,"verifier":2.394},"taskName":"manage_dataset_cli","jobId":"PNQfww6","exec_duration":600.188},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__29vzXUv","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":667.387,"latency_breakdown":{"env_setup":129.746,"agent_setup":20.829,"agent_exec":499.342,"verifier":2.246},"taskName":"manage_dataset_cli","jobId":"29vzXUv","exec_duration":499.342}]},{"taskName":"promote_prompt_version_cli","instruction":"$c","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"promote_prompt_version_cli__to2deRo","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":684.245,"latency_breakdown":{"env_setup":42.038,"agent_setup":20.246,"agent_exec":600.179,"verifier":2.794},"taskName":"promote_prompt_version_cli","jobId":"to2deRo","exec_duration":600.179},{"job_name":"2026-06-04__13-07-49","trial_name":"promote_prompt_version_cli__VxaF2bx","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":472.787,"latency_breakdown":{"env_setup":48.188,"agent_setup":32.994,"agent_exec":369.479,"verifier":3.516},"taskName":"promote_prompt_version_cli","jobId":"VxaF2bx","exec_duration":369.479},{"job_name":"2026-06-04__13-07-49","trial_name":"promote_prompt_version_cli__76EbJ4r","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":691.901,"latency_breakdown":{"env_setup":49.33,"agent_setup":24.111,"agent_exec":600.193,"verifier":2.824},"taskName":"promote_prompt_version_cli","jobId":"76EbJ4r","exec_duration":600.193}]},{"taskName":"prompt_create_and_compile_ts","instruction":"$d","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"prompt_create_and_compile_ts__AdD7UtQ","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":354.017,"latency_breakdown":{"env_setup":150.968,"agent_setup":19.875,"agent_exec":164.627,"verifier":2.419},"taskName":"prompt_create_and_compile_ts","jobId":"AdD7UtQ","exec_duration":164.627},{"job_name":"2026-06-04__13-07-49","trial_name":"prompt_create_and_compile_ts__39fodY3","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":327.316,"latency_breakdown":{"env_setup":131.168,"agent_setup":20.905,"agent_exec":158.82,"verifier":2.311},"taskName":"prompt_create_and_compile_ts","jobId":"39fodY3","exec_duration":158.82},{"job_name":"2026-06-04__13-07-49","trial_name":"prompt_create_and_compile_ts__KanGXYt","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":266.208,"latency_breakdown":{"env_setup":107.326,"agent_setup":46.059,"agent_exec":92.326,"verifier":2.358},"taskName":"prompt_create_and_compile_ts","jobId":"KanGXYt","exec_duration":92.326}]},{"taskName":"run_experiment_with_evaluators_py","instruction":"$e","trials":[{"job_name":"2026-06-04__11-37-00","trial_name":"run_experiment_with_evaluators_p__VUmupZq","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":233.724,"latency_breakdown":{"env_setup":98.542,"agent_setup":21.98,"agent_exec":88.418,"verifier":4.931},"taskName":"run_experiment_with_evaluators_p","jobId":"VUmupZq","exec_duration":88.418},{"job_name":"2026-06-04__11-37-00","trial_name":"run_experiment_with_evaluators_p__yF76tBa","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":346.457,"latency_breakdown":{"env_setup":160.13,"agent_setup":20.315,"agent_exec":147.453,"verifier":3.061},"taskName":"run_experiment_with_evaluators_p","jobId":"yF76tBa","exec_duration":147.453},{"job_name":"2026-06-04__11-37-00","trial_name":"run_experiment_with_evaluators_p__uD5QKvC","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":439.234,"latency_breakdown":{"env_setup":16.041,"agent_setup":19.391,"agent_exec":384.155,"verifier":2.977},"taskName":"run_experiment_with_evaluators_p","jobId":"uD5QKvC","exec_duration":384.155}]},{"taskName":"run_experiment_with_evaluators_ts","instruction":"$f","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__tQ5K5Mb","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":203.103,"latency_breakdown":{"env_setup":14.881,"agent_setup":19.837,"agent_exec":137.963,"verifier":9.959},"taskName":"run_experiment_with_evaluators_t","jobId":"tQ5K5Mb","exec_duration":137.963},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__hjP8KW8","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.689,"latency_breakdown":{"env_setup":43.205,"agent_setup":40.61,"agent_exec":222.886,"verifier":6.63},"taskName":"run_experiment_with_evaluators_t","jobId":"hjP8KW8","exec_duration":222.886},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__EC88g64","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":458.848,"latency_breakdown":{"env_setup":55.285,"agent_setup":25.095,"agent_exec":349.296,"verifier":9.65},"taskName":"run_experiment_with_evaluators_t","jobId":"EC88g64","exec_duration":349.296}]},{"taskName":"versioned_prompt_labels_py","instruction":"$10","trials":[{"job_name":"2026-06-04__11-37-00","trial_name":"versioned_prompt_labels_py__Gezn9Pe","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":264.139,"latency_breakdown":{"env_setup":159.494,"agent_setup":21.131,"agent_exec":66.713,"verifier":2.389},"taskName":"versioned_prompt_labels_py","jobId":"Gezn9Pe","exec_duration":66.713},{"job_name":"2026-06-04__11-37-00","trial_name":"versioned_prompt_labels_py__rVMkVPn","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":355.857,"latency_breakdown":{"env_setup":192.878,"agent_setup":30.056,"agent_exec":115.489,"verifier":2.326},"taskName":"versioned_prompt_labels_py","jobId":"rVMkVPn","exec_duration":115.489},{"job_name":"2026-06-04__11-37-00","trial_name":"versioned_prompt_labels_py__ME9v9S7","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":317.438,"latency_breakdown":{"env_setup":93.056,"agent_setup":27.84,"agent_exec":179.641,"verifier":2.353},"taskName":"versioned_prompt_labels_py","jobId":"ME9v9S7","exec_duration":179.641}]}]}]}]]}],["$L11","$L12"],"$L13"]}],"loading":null,"isPartial":false}
-11:["$","script","script-0",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/985d95d831fd99c3.js","async":true}]
-12:["$","script","script-1",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/f9f579c42c486944.js","async":true}]
-13:["$","$L14",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]
-15:null
+0:{"buildId":"UHPe3vDCtPF_a7G4gTatD","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"create_score_configs_cli","instruction":"$4","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__VzfrFmW","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":778.097,"latency_breakdown":{"env_setup":106.647,"agent_setup":46.925,"agent_exec":600.21,"verifier":0.783},"taskName":"create_score_configs_cli","jobId":"VzfrFmW","exec_duration":600.21},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__8sH4hCG","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":800.437,"latency_breakdown":{"env_setup":151.258,"agent_setup":21.129,"agent_exec":600.197,"verifier":0.894},"taskName":"create_score_configs_cli","jobId":"8sH4hCG","exec_duration":600.197},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__bdwz2uU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":359.179,"latency_breakdown":{"env_setup":117.863,"agent_setup":19.698,"agent_exec":203.119,"verifier":1.261},"taskName":"create_score_configs_cli","jobId":"bdwz2uU","exec_duration":203.119}]},{"taskName":"create_text_prompt_cli","instruction":"$5","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__pWowAS8","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":677.56,"latency_breakdown":{"env_setup":30.484,"agent_setup":20.296,"agent_exec":600.191,"verifier":0.95},"taskName":"create_text_prompt_cli","jobId":"pWowAS8","exec_duration":600.191},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__uQQJpVq","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":678.574,"latency_breakdown":{"env_setup":21.974,"agent_setup":39.7,"agent_exec":594.584,"verifier":1.502},"taskName":"create_text_prompt_cli","jobId":"uQQJpVq","exec_duration":594.584},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__iHepZt6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":682.169,"latency_breakdown":{"env_setup":21.304,"agent_setup":42.289,"agent_exec":600.213,"verifier":0.815},"taskName":"create_text_prompt_cli","jobId":"iHepZt6","exec_duration":600.213}]},{"taskName":"instrument_otel_tracing_ts","instruction":"$6","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8nTLMXZ","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.795,"latency_breakdown":{"env_setup":79.393,"agent_setup":20.897,"agent_exec":205.892,"verifier":2.2},"taskName":"instrument_otel_tracing_ts","jobId":"8nTLMXZ","exec_duration":205.892},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__dGcpAFu","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":834.107,"latency_breakdown":{"env_setup":44.293,"agent_setup":21.02,"agent_exec":600.229,"verifier":137.118},"taskName":"instrument_otel_tracing_ts","jobId":"dGcpAFu","exec_duration":600.229},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8dcjd79","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":354.736,"latency_breakdown":{"env_setup":83.599,"agent_setup":21.104,"agent_exec":158.803,"verifier":72.84},"taskName":"instrument_otel_tracing_ts","jobId":"8dcjd79","exec_duration":158.803}]},{"taskName":"instrument_trace_with_scores_py","instruction":"$7","trials":[{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__DRddzmk","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":386.074,"latency_breakdown":{"env_setup":101.689,"agent_setup":20.027,"agent_exec":245.447,"verifier":1.876},"taskName":"instrument_trace_with_scores_py","jobId":"DRddzmk","exec_duration":245.447},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__aAE7J9h","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":387.586,"latency_breakdown":{"env_setup":161.189,"agent_setup":20.113,"agent_exec":186.873,"verifier":2.201},"taskName":"instrument_trace_with_scores_py","jobId":"aAE7J9h","exec_duration":186.873},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__Rk8GwEE","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":836.198,"latency_breakdown":{"env_setup":193.544,"agent_setup":21.703,"agent_exec":600.201,"verifier":2.168},"taskName":"instrument_trace_with_scores_py","jobId":"Rk8GwEE","exec_duration":600.201}]},{"taskName":"link_prompt_to_generation_py","instruction":"$8","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__EDNF8fM","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.887,"latency_breakdown":{"env_setup":50.75,"agent_setup":21.415,"agent_exec":114.211,"verifier":3.059},"taskName":"link_prompt_to_generation_py","jobId":"EDNF8fM","exec_duration":114.211},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__xyi3U6t","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":714.359,"latency_breakdown":{"env_setup":63.739,"agent_setup":29.027,"agent_exec":600.205,"verifier":3.205},"taskName":"link_prompt_to_generation_py","jobId":"xyi3U6t","exec_duration":600.205},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__p8xYAcq","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.975,"latency_breakdown":{"env_setup":52.13,"agent_setup":20.319,"agent_exec":108.704,"verifier":2.744},"taskName":"link_prompt_to_generation_py","jobId":"p8xYAcq","exec_duration":108.704}]},{"taskName":"manage_dataset_cli","instruction":"$9","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__GBY7rmR","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":558.515,"latency_breakdown":{"env_setup":42.107,"agent_setup":22.074,"agent_exec":473.287,"verifier":2.243},"taskName":"manage_dataset_cli","jobId":"GBY7rmR","exec_duration":473.287},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__PNQfww6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":749.773,"latency_breakdown":{"env_setup":106.891,"agent_setup":22.067,"agent_exec":600.188,"verifier":2.394},"taskName":"manage_dataset_cli","jobId":"PNQfww6","exec_duration":600.188},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__29vzXUv","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":667.387,"latency_breakdown":{"env_setup":129.746,"agent_setup":20.829,"agent_exec":499.342,"verifier":2.246},"taskName":"manage_dataset_cli","jobId":"29vzXUv","exec_duration":499.342}]},{"taskName":"run_experiment_with_evaluators_ts","instruction":"$a","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__tQ5K5Mb","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":203.103,"latency_breakdown":{"env_setup":14.881,"agent_setup":19.837,"agent_exec":137.963,"verifier":9.959},"taskName":"run_experiment_with_evaluators_t","jobId":"tQ5K5Mb","exec_duration":137.963},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__hjP8KW8","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.689,"latency_breakdown":{"env_setup":43.205,"agent_setup":40.61,"agent_exec":222.886,"verifier":6.63},"taskName":"run_experiment_with_evaluators_t","jobId":"hjP8KW8","exec_duration":222.886},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__EC88g64","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":458.848,"latency_breakdown":{"env_setup":55.285,"agent_setup":25.095,"agent_exec":349.296,"verifier":9.65},"taskName":"run_experiment_with_evaluators_t","jobId":"EC88g64","exec_duration":349.296}]}]}]}]]}],["$Lb","$Lc"],"$Ld"]}],"loading":null,"isPartial":false}
+b:["$","script","script-0",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/985d95d831fd99c3.js","async":true}]
+c:["$","script","script-1",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/f9f579c42c486944.js","async":true}]
+d:["$","$Le",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null
