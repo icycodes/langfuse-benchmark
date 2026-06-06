@@ -1,8 +1,353 @@
 1:"$Sreact.fragment"
 2:"$Sreact.suspense"
 3:I[42654,["/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/babff0e7418ab052.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/3ecbb78a8ff87549.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/985d95d831fd99c3.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
-e:I[75049,["/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/d2c13bb33c4fcd54.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-4:Tdcf,# Create Langfuse Score Configurations via the Langfuse CLI
+20:I[75049,["/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/d2c13bb33c4fcd54.js","/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:Te61,# Attach Numeric, Categorical, and Boolean Scores to a Langfuse Trace via the TypeScript SDK
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that captures OpenTelemetry-based traces for LLM applications and exposes a public REST API plus modular TypeScript SDKs (`@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client`). After a trace is ingested, you can attach **scores** to it with the `LangfuseClient.score.create(...)` method. Scores can be numeric, categorical, boolean, or text and are a primary way of evaluating LLM application quality.
+
+In this task, you will build a small Node.js / TypeScript script that creates a Langfuse trace (with one nested generation observation) and then attaches three scores of different data types to that trace using the Langfuse JS/TS SDK.
+
+## Requirements
+- Initialise the Langfuse OpenTelemetry exporter (`LangfuseSpanProcessor` from `@langfuse/otel`) and the Node OTel SDK before any traced code runs.
+- Create a single trace whose name is `multi-score-demo-${run-id}` (replace `${run-id}` with the value of the `ZEALT_RUN_ID` environment variable).
+- Inside that trace, create one nested observation of type `generation` whose name is `llm-call`.
+- Use `LangfuseClient` from `@langfuse/client` to attach exactly **three** scores to the trace (not the observation) with the following names, data types, and values:
+  - `correctness` — NUMERIC — value `0.92`
+  - `sentiment` — CATEGORICAL — value `"positive"`
+  - `helpfulness` — BOOLEAN — value `1`
+- Flush both the OTel SDK and the Langfuse client so traces and scores are delivered before the process exits.
+- After successful execution, write the trace's ID to a log file so the verifier can find the trace and its scores.
+
+## Implementation Hints
+- Use the modular packages: `@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client`, and `@opentelemetry/sdk-node`.
+- The `LangfuseSpanProcessor` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment automatically.
+- `startActiveObservation` from `@langfuse/tracing` opens a trace-level span; `startObservation` (or another `startActiveObservation`) with `{ asType: "generation" }` creates a nested generation. The OTel trace ID of the active span is the Langfuse trace ID.
+- The `score.create` method on `LangfuseClient` accepts `{ traceId, name, value, dataType, comment? }`. For boolean scores you must pass `dataType: "BOOLEAN"` because numeric values would otherwise be inferred as `NUMERIC`.
+- Remember to `await otelSdk.shutdown()` and `await langfuse.flush()` before exiting; otherwise scores may be silently dropped from a short-lived script.
+- Read the run id from `process.env.ZEALT_RUN_ID` before constructing any names. Do not hardcode it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the real Langfuse ingestion is executed and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The script must read `run-id` from the `ZEALT_RUN_ID` environment variable and use the trace name `multi-score-demo-${run-id}`.
+- A single Langfuse trace named `multi-score-demo-${run-id}` must exist after the script runs, and it must contain a nested observation of type `generation` named `llm-call`.
+- Exactly three scores with names `correctness`, `sentiment`, and `helpfulness` must be attached to that trace; each must carry the correct `dataType` (`NUMERIC`, `CATEGORICAL`, `BOOLEAN`) and value (`0.92`, `"positive"`, `1`) as specified above.
+- The log file must contain a line in the exact format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace ID that was scored.
+
+5:Te0f,# Provision a Langfuse Annotation Queue via the Langfuse CLI
+
+## Background
+Langfuse Annotation Queues power human-in-the-loop evaluation workflows: reviewers pull traces or observations from a queue and score them using a predefined score configuration. In this task you must use the [Langfuse CLI](https://langfuse.com/docs/api-and-data-platform/features/cli) (`langfuse-cli`, which dynamically wraps the [Langfuse Public API](https://api.reference.langfuse.com/)) to bootstrap a complete review workflow in the Langfuse project bound to the credentials in the environment.
+
+No Langfuse resources exist for this task yet — you must create them all through the CLI. Concretely, you need to provision **(1) one numeric score configuration** and **(2) one annotation queue** that references that score config, then record both IDs to a log file so they can be verified.
+
+## Requirements
+- Use the `langfuse-cli` (either via `npx langfuse-cli ...` or a global install) for every Langfuse API call. Do not bypass it with `curl`, the SDK, or another HTTP client.
+- Create exactly one **score config** via the CLI's score-config create action (which calls `POST /api/public/score-configs`) with the following properties:
+  - `name`: `answer-quality-${ZEALT_RUN_ID}`
+  - `dataType`: `NUMERIC`
+  - `minValue`: `0`
+  - `maxValue`: `1`
+  - `description`: `Quality score for QA reviewer answers (0=bad, 1=great)`
+- Create exactly one **annotation queue** via the CLI's annotation-queue create action (which calls `POST /api/public/annotation-queues`) with:
+  - `name`: `qa-review-queue-${ZEALT_RUN_ID}`
+  - `description`: `Queue for QA reviewers to score model answers`
+  - `scoreConfigIds`: a list containing exactly the ID of the score config you just created.
+- After both resources are created, append both IDs to a log file so the verifier can locate them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` (or `LANGFUSE_HOST`) from the environment — they are already exported in the task environment.
+- Use `langfuse api __schema`, `langfuse api score-configs --help`, and `langfuse api annotation-queues --help` to discover the exact action and flag names.
+- Pass `--json` to CLI invocations to get machine-parseable output you can inspect (e.g., with `jq` or a small Python helper) to extract the new resource IDs.
+- `CreateAnnotationQueueRequest` has three fields: `name` (string, required), `scoreConfigIds` (array of strings, required), and `description` (string, optional).
+- Make every externally visible identifier unique per concurrent run by reading the `ZEALT_RUN_ID` environment variable and appending it as a suffix (as specified in Requirements).
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse-task`
+- Ensure the real score config and annotation queue are created in Langfuse via the `langfuse-cli` (no mocking, no direct `curl`/SDK workarounds).
+- Log file: `/home/user/langfuse-task/output.log`
+- The score config must exist in Langfuse with the exact `name`, `dataType`, `minValue`, `maxValue`, and `description` specified above.
+- The annotation queue must exist in Langfuse with the exact `name`, `description`, and `scoreConfigIds` (a single-element list containing only the score config's ID) specified above.
+- The log file must contain exactly two lines (any order), each on its own line, matching these formats:
+  - `Score Config ID: <score_config_id>`
+  - `Annotation Queue ID: <annotation_queue_id>`
+  where each `<id>` is the value returned by the Langfuse API for the resource you just created.
+
+6:Tc89,# Create a Versioned Chat Prompt with the Langfuse CLI
+
+## Background
+Langfuse Prompt Management lets teams version, label, and reuse prompts collaboratively. The `langfuse-cli` (`npm i -g langfuse-cli`) wraps the entire Langfuse public API and is the recommended interface for scripting prompt operations from a terminal or CI pipeline.
+
+Your job is to use the **Langfuse CLI** to create a brand-new **chat-type** prompt in the connected Langfuse project. The prompt must contain a system message and a user message with at least one `{{variable}}` placeholder, must be labelled both `production` and `staging`, must be tagged, and must carry a commit message describing the change.
+
+## Requirements
+- Use the `langfuse-cli` (NOT raw curl, NOT a SDK script) to create the prompt.
+- The CLI must authenticate via the standard Langfuse environment variables already present in the environment.
+- The prompt **type** must be `chat`.
+- The prompt must contain exactly two messages: one with `role="system"` and one with `role="user"`. The user message must contain the `{{topic}}` template variable.
+- The prompt must be created with **both** labels: `production` and `staging`.
+- The prompt must be created with at least one tag: `cli-demo`.
+- The prompt must be created with a non-empty `commitMessage`.
+- Write the created prompt's name and version to a log file so the verifier can find them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` automatically — there is no separate login step.
+- Explore available actions with `langfuse api prompts --help` and inspect the full schema with `langfuse api __schema` if you need to confirm flag names.
+- The CLI accepts complex/nested JSON values (such as the array of chat messages) as JSON strings on the command line.
+- After creation, you can confirm the result with `langfuse api prompts get --prompt-name <name>`.
+- Treat the operation as a one-off side-effecting job: do not wrap it in a long-running app, just run the CLI command(s) and record the outcome.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the real `langfuse-cli` command is executed and the prompt is actually created on the connected Langfuse instance (verified through the Langfuse public API).
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt's name must be `chat-prompt-cli-${run-id}`.
+- The prompt must have `type` = `chat`.
+- The prompt must contain exactly two chat messages with roles `system` and `user` (in that order), and the `user` message content must include the template variable `{{topic}}`.
+- The prompt version returned by Langfuse must carry **both** labels: `production` and `staging`.
+- The prompt version must include the tag `cli-demo`.
+- The prompt version must have a non-empty `commitMessage`.
+- Log file: /home/user/myproject/output.log
+- The log file must contain a line in the exact format: `Prompt name: <prompt_name>` (where `<prompt_name>` matches the `run-id`-scoped name above).
+- The log file must contain a line in the exact format: `Prompt version: <integer_version>` (the integer version number returned by Langfuse).
+
+7:Tf17,# Create a Chat Prompt with Message Placeholders (Langfuse Python SDK)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM engineering platform. Its prompt management product supports an advanced feature called **message placeholders** that allow you to insert a list of chat messages at specific positions within a chat prompt. The placeholders are resolved at runtime via the `compile()` method, so you can dynamically inject conversation history or few-shot examples while keeping the rest of the prompt versioned in Langfuse.
+
+Your job is to write a small Python script that uses the Langfuse Python SDK to create such a chat prompt in your Langfuse project, then compiles it at runtime with a real chat history list, and saves both the runtime-compiled prompt and the remote prompt ID to a log file.
+
+## Requirements
+- Use the Langfuse Python SDK (`pip install langfuse`).
+- Read the Langfuse credentials and base URL from the environment variables `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+- Read the per-trial isolation id from the `ZEALT_RUN_ID` environment variable.
+- Use the Langfuse Python SDK to create a **chat** prompt whose name is `movie-critic-chat-${run-id}` (substitute the actual value of `ZEALT_RUN_ID`).
+- The chat prompt's `prompt` payload must contain exactly three entries, in this order:
+  1. A `system` message with content `You are an {{criticlevel}} movie critic`.
+  2. A message placeholder named `chat_history`.
+  3. A `user` message with content `What should I watch next?`.
+- The prompt must be created with the label `production`.
+- After creation, fetch the prompt back from Langfuse (using the SDK) and compile it with:
+  - the variable `criticlevel="expert"`, and
+  - the placeholder `chat_history` resolved to the following two messages (in this order):
+    - `{"role": "user", "content": "I love Ron Fricke movies like Baraka"}`
+    - `{"role": "user", "content": "Also, the Korean movie Memories of a Murderer"}`.
+- Save the result to `/home/user/myproject/output.log` (see Acceptance Criteria for the exact format).
+- Make sure pending events are flushed before the script exits.
+
+## Implementation Hints
+- Use `from langfuse import get_client` and `langfuse = get_client()` to instantiate the SDK. The client will pick up credentials from the standard `LANGFUSE_*` environment variables.
+- To embed a placeholder, include a dict with `{"type": "placeholder", "name": "<placeholder-name>"}` in the chat `prompt` list.
+- The Python SDK accepts placeholder values as keyword arguments to `compile(...)`, alongside string variables.
+- For short-lived scripts, call `langfuse.flush()` before the process exits to avoid losing data.
+- Refer to the Langfuse docs on prompt management and message placeholders for the exact method signatures.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed against the real Langfuse project, the prompt is created remotely, and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The prompt name must be `movie-critic-chat-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The remotely created prompt must be a `chat` prompt whose ordered messages match:
+  1. `{"role": "system", "content": "You are an {{criticlevel}} movie critic"}`
+  2. `{"type": "placeholder", "name": "chat_history"}`
+  3. `{"role": "user", "content": "What should I watch next?"}`
+- The prompt must include `production` in its `labels`.
+- The log file must contain the following two lines (exact prefixes, with the JSON payload on a single line):
+  - `Prompt name: <prompt_name>`
+  - `Compiled prompt: <json-encoded list of chat messages>`
+  where `<json-encoded list of chat messages>` is the JSON serialization of the compiled chat prompt returned by `prompt.compile(...)`.
+
+8:Td86,# Create a Langfuse Dataset with Items using the TypeScript SDK
+
+## Background
+Your team is bootstrapping an evaluation pipeline in Langfuse. As a first step, you need to programmatically create a versioned dataset and seed it with a small set of question/expected-answer items using the official TypeScript/JavaScript SDK (`@langfuse/client`). The created dataset will later be used to run experiments.
+
+Langfuse is a multi-tenant cloud service shared across many test runs, so the dataset name must be scoped with the current `run-id` to avoid collisions between concurrent trials.
+
+## Requirements
+- Write a TypeScript program that uses the `@langfuse/client` package to talk to Langfuse Cloud.
+- Create a dataset whose name is exactly `qa-dataset-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+  - Set the dataset description to `Geography QA seeded by TS SDK`.
+  - Set the dataset metadata to a JSON object that includes a `language` field with the value `typescript`.
+- Add the following three dataset items (in any order) to that dataset:
+  1. `input = { "question": "What is the capital of France?" }`, `expectedOutput = { "answer": "Paris" }`
+  2. `input = { "question": "What is the capital of Germany?" }`, `expectedOutput = { "answer": "Berlin" }`
+  3. `input = { "question": "What is the capital of Japan?" }`, `expectedOutput = { "answer": "Tokyo" }`
+- After the dataset and its items have been persisted to Langfuse Cloud, write a log file that records the dataset name, its server-side `id`, and the number of items created.
+
+## Implementation Hints
+- Authenticate using the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables; the `@langfuse/client` `LangfuseClient` constructor picks these up automatically when no arguments are passed.
+- The `LangfuseClient` exposes typed API methods under `langfuse.api` that wrap the Langfuse public REST API; look for the methods that create datasets and dataset items.
+- Read `ZEALT_RUN_ID` from `process.env` and concatenate it onto the base dataset name.
+- Remember that the SDK calls return promises; await them so that the dataset and items are actually persisted before the process exits.
+- You can use either `tsx` / `ts-node` or transpile to JS to run the program; both `node`, `tsx`, and `npx` are available in the environment.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is actually executed against Langfuse Cloud and the artifacts exist; do not stub or mock the SDK.
+- Log file: /home/user/myproject/output.log
+- The created dataset name MUST be exactly `qa-dataset-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The dataset description on the server side must equal `Geography QA seeded by TS SDK`.
+- The dataset metadata on the server side must be a JSON object that contains a `language` field whose value is the string `typescript`.
+- The dataset must contain exactly three dataset items, whose `input.question` values cover the set {"What is the capital of France?", "What is the capital of Germany?", "What is the capital of Japan?"} and whose corresponding `expectedOutput.answer` values are {"Paris", "Berlin", "Tokyo"} (matched pair-wise to the question).
+- The log file must contain the following lines (each on its own line, in this exact format):
+  - `Dataset name: <dataset_name>`
+  - `Dataset ID: <dataset_id>`
+  - `Items created: 3`
+
+9:T10a3,# Emit a Langfuse Event Observation with the Python SDK
+
+## Background
+Langfuse traces are built from `observations`. In addition to generic spans and LLM generations, Langfuse supports a lightweight `event` observation type that represents a single point-in-time action inside a trace (e.g. "user logged in", "cache hit", "tool invoked"). Event observations are first-class observations in Langfuse: they appear in the trace timeline, the public Observations API, and metrics.
+
+In this task, you will write a small Python program that uses the Langfuse Python SDK (v4+, `from langfuse import get_client`) to emit a structured `event`-type observation inside a parent trace, and you will record the resulting Langfuse IDs to a log file so the result can be verified through the Langfuse Cloud Public API.
+
+## Requirements
+- Create a Python script at `/home/user/myproject/main.py` that uses the official Langfuse Python SDK to:
+  - Start a parent observation (span) that becomes the root of a Langfuse trace, named `harbor-event-trace-${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable).
+  - Inside that trace, create exactly one nested observation whose Langfuse observation type is `event`, named `user-login-event-${ZEALT_RUN_ID}`.
+  - On that event observation, set:
+    - `input` to the JSON object `{"user_id": "u-42"}`
+    - `output` to the JSON object `{"status": "success"}`
+    - `metadata` to a JSON object that contains at least the keys `source` (value `"auth-service"`) and `region` (value `"us-east-1"`).
+  - Make sure all buffered events are flushed to Langfuse Cloud before the script exits.
+  - Append two lines to `/home/user/myproject/output.log` so the verifier can locate the just-created Langfuse objects:
+    - `Trace ID: <trace_id>`
+    - `Observation ID: <event_observation_id>`
+    where `<trace_id>` is the Langfuse trace ID of the parent trace and `<event_observation_id>` is the Langfuse observation ID of the event observation that was just created.
+- The script must be runnable as `python3 /home/user/myproject/main.py`.
+
+## Implementation Hints
+- Use the Langfuse Python SDK's `get_client()` (v4+) and its observation APIs. The SDK supports specifying the observation type with an `as_type` parameter; the value for events is documented in Langfuse's observation-types docs.
+- The Langfuse Python SDK reads credentials from `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. These are already exported in the environment.
+- Read the `ZEALT_RUN_ID` environment variable and use it as a suffix on the trace and event names so that concurrent runs do not collide.
+- The SDK is asynchronous; remember to flush or shut down the client before the process exits, otherwise events may be lost.
+- You can capture the Langfuse trace and observation IDs from the SDK (e.g. via the active span helpers or directly from the returned observation object) and write them to the log file before the script exits.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Script path: /home/user/myproject/main.py
+- Log file: /home/user/myproject/output.log
+- Ensure the script is executed once so that the trace and event observation are actually created in Langfuse Cloud, and the log file is written.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. The created Langfuse trace name must be `harbor-event-trace-${run-id}` and the created event observation name must be `user-login-event-${run-id}`.
+- The log file must contain exactly one line of the form `Trace ID: <trace_id>` and exactly one line of the form `Observation ID: <event_observation_id>`, where the IDs are the real Langfuse IDs returned by the SDK.
+- When the recorded observation is fetched from the Langfuse Public API, it must have observation type `EVENT`, its `name` must equal `user-login-event-${run-id}`, its `traceId` must equal the recorded trace ID, its `input` must be the JSON object `{"user_id": "u-42"}`, its `output` must be the JSON object `{"status": "success"}`, and its `metadata` must include `source = "auth-service"` and `region = "us-east-1"`.
+- When the recorded trace is fetched from the Langfuse Public API, its `name` must equal `harbor-event-trace-${run-id}`.
+
+a:Tdf0,# Register a Custom Model Definition via the Langfuse CLI
+
+## Background
+Langfuse uses **Model definitions** to compute USD cost and token usage for every generation it ingests. Built-in models cover popular providers, but teams running fine-tuned, proprietary, or self-hosted models need to register their own definitions so that traces, dashboards, and cost metrics light up correctly. The full set of model definitions is exposed through the public REST API at `/api/public/models` and, by extension, through the [Langfuse CLI](https://github.com/langfuse/langfuse-cli) which dynamically wraps the OpenAPI spec.
+
+In this task you will use the Langfuse CLI (already installed globally as `langfuse`) to programmatically register a single custom model definition in the connected Langfuse project. Because the same project is shared across parallel evaluation runs, the model name must be uniquely suffixed with the current `run-id` to avoid collisions with other concurrent trials.
+
+## Requirements
+- Project path: `/home/user/myproject`.
+- Use the `langfuse-cli` (already on PATH as `langfuse`) to create the custom model definition by talking to the Langfuse public API. Do **NOT** use the Python SDK, the JS/TS SDK, or raw `curl`/HTTP requests for the creation step.
+- The new model definition must have all of the following properties:
+  - `modelName`: `harbor-llm-${run-id}` (with the `run-id` substituted from the `ZEALT_RUN_ID` environment variable).
+  - `matchPattern`: an exact case-insensitive regex that matches only `modelName`, i.e. `(?i)^harbor-llm-${run-id}$`.
+  - `unit`: `TOKENS`.
+  - `inputPrice`: `0.000003` USD per input token.
+  - `outputPrice`: `0.000009` USD per output token.
+- Record the `id` returned by the Langfuse API for the created model in a structured log file so the verifier can locate the exact record (other rows may share the same `modelName` from prior failed runs).
+
+## Implementation Hints
+- The Langfuse CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment — they are already exported for you. There is no separate `login` step.
+- Discover the relevant resource and its flags with `langfuse api __schema`, `langfuse api models --help`, and `langfuse api models create --help`.
+- The CLI maps directly to the public REST endpoint `POST /api/public/models`. The required body fields are `modelName`, `matchPattern`, and `unit`; `inputPrice` and `outputPrice` are optional numeric fields.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable **once** at the start of your script and build the model name and match pattern from it.
+- Use `--json` to obtain machine-readable output from the CLI so you can parse the returned `id` reliably and write it to the log file.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the custom model definition is actually created in the connected Langfuse project (real side effect, not mocked).
+- Log file: `/home/user/myproject/output.log`
+- The model definition must be created using the Langfuse CLI (`langfuse api models create ...`).
+- The model definition must use the `run-id`-scoped `modelName` and `matchPattern` defined in Requirements (with `run-id` read from the `ZEALT_RUN_ID` environment variable).
+- The log file `/home/user/myproject/output.log` must contain exactly one non-empty line in the format:
+
+  ```
+  Model: <modelName>=<id>
+  ```
+
+  where `<modelName>` is the full `run-id`-scoped model name and `<id>` is the `id` field returned by the Langfuse API for the created model definition.
+
+b:Td24,# Create a Versioned Prompt with Config using the Langfuse Python SDK
+
+## Background
+Your team is onboarding a new `invoice-extractor` LLM workflow into [Langfuse Prompt Management](https://langfuse.com/docs/prompt-management/get-started). The Langfuse `config` feature lets you store model parameters (model name, temperature, structured-output schema) **versioned together with the prompt**, so engineers can switch models or tweak schemas without touching application code. Your task is to create the first version of this prompt programmatically via the Langfuse Python SDK and verify it round-trips correctly.
+
+## Requirements
+- Write a Python script that uses the Langfuse Python SDK (`langfuse` package) to create a NEW chat prompt with an attached `config` object and labels.
+- The prompt must be a chat prompt (`type="chat"`) consisting of a system message and a user message. At least one of the messages must include a Mustache-style variable using the `{{variable}}` syntax (e.g. `{{invoice_text}}`).
+- The `config` object must include the keys `model` (string), `temperature` (number), and `response_format` (object containing a `json_schema` definition for invoice extraction).
+- At creation time, attach both labels `production` and `staging` to the new prompt version.
+- After creating the prompt, fetch it back using `langfuse.get_prompt(...)` with caching disabled (so the fetch hits the API) and write a structured summary to a log file.
+- The script must call `langfuse.flush()` before exiting so the create call is not silently dropped.
+
+## Implementation Hints
+- Read the deterministic run id from the `ZEALT_RUN_ID` environment variable.
+- Langfuse credentials are provided via the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables. The Python SDK picks them up automatically when you call `get_client()`.
+- Use `langfuse.create_prompt(name=..., type="chat", prompt=[...], config=..., labels=[...])` to create the versioned prompt object.
+- Use `langfuse.get_prompt(name, cache_ttl_seconds=0)` to read it back without hitting the in-process cache.
+- Use `prompt.config`, `prompt.version`, `prompt.labels`, and `prompt.prompt_type` (or equivalent attributes) on the returned object when writing the log file.
+- Common pitfall: scripts that exit immediately can lose buffered create requests — always flush before exiting.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the artifacts exist.
+- Log file: `/home/user/myproject/output.log`
+- The script must read the `ZEALT_RUN_ID` environment variable; the created prompt name MUST be exactly `invoice-extractor-${ZEALT_RUN_ID}`.
+- The created prompt's `type` MUST be `chat`.
+- The created prompt's `config` MUST contain the keys `model`, `temperature`, and `response_format` (with a nested `json_schema`).
+- The created prompt MUST have both labels `production` and `staging` attached (in addition to the auto-assigned `latest` label).
+- At least one of the chat messages MUST contain a `{{...}}` Mustache variable placeholder.
+- The log file MUST contain the following lines (one per line, in any order):
+  - `Prompt name: invoice-extractor-<run-id>`
+  - `Prompt version: <integer>`
+  - `Prompt type: chat`
+  - `Config keys: model, temperature, response_format`
+  - `Labels: production, staging`
+
+c:Tc35,# Define Score Configs in Langfuse via the Python SDK
+
+## Background
+Your team standardizes how evaluation scores are collected across projects in [Langfuse](https://langfuse.com/). To make sure annotators and automated evaluators submit scores in a consistent shape, you want to predefine two score configurations in the project using the **Langfuse Python SDK** (not the CLI):
+
+- A **NUMERIC** score config (range bounded) used to rate response quality.
+- A **CATEGORICAL** score config used to record sentiment buckets.
+
+The SDK exposes the public API for managing score configs via the `langfuse.api.score_configs.create(...)` method (see [Manage Score Configs](https://langfuse.com/faq/all/manage-score-configs) and the [Public API Reference](https://api.reference.langfuse.com/)).
+
+## Requirements
+- Implement a Python script `create_configs.py` that uses the Langfuse Python SDK (`langfuse` package) to create the two score configs described below in the Langfuse project authenticated by `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` against the host `LANGFUSE_BASE_URL`.
+- The names of both score configs **must** be suffixed with the current `run-id` (read from the `ZEALT_RUN_ID` environment variable) so that parallel runs do not collide.
+- After both configs are created, write the resulting IDs to a log file so that the verifier can locate them.
+
+## Implementation Hints
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable before constructing config names.
+- Initialize the SDK client with `from langfuse import get_client` and call `langfuse.api.score_configs.create(...)` for each config. The request body for the public endpoint is documented in the API reference under `ScoreConfigs / POST /api/public/score-configs`.
+- For the NUMERIC config you must set the data type, a description, and bounded `minValue` / `maxValue`. For the CATEGORICAL config you must set the data type, a description, and the list of allowed `categories` (each with a numeric `value` and string `label`).
+- The response object exposes the new `id` of each config — capture both and write them to the log file in the exact format documented in the Acceptance Criteria.
+- Remember to call `langfuse.flush()` (or rely on the SDK's exit handlers) before the script terminates so all events are delivered.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable and appended to every score config name created by the task.
+- A NUMERIC score config must exist in the Langfuse project with name `quality-${run-id}` and bounded numeric range.
+- A CATEGORICAL score config must exist in the Langfuse project with name `sentiment-${run-id}` and the three sentiment categories defined in the task truth.
+- The log file must contain exactly the following two lines (in any order), where each `<id>` is the `id` returned by the Langfuse API for the corresponding score config:
+  - `Numeric Score Config ID: <id>`
+  - `Categorical Score Config ID: <id>`
+
+d:Tdcf,# Create Langfuse Score Configurations via the Langfuse CLI
 
 ## Background
 Langfuse Score Configs are typed, project-scoped schemas that ensure scores follow a consistent structure (data type, value range, allowed categories). They power both manual annotation in the UI and programmatic score ingestion via the SDKs/API.
@@ -43,7 +388,43 @@ In this task you will use the [Langfuse CLI](https://github.com/langfuse/langfus
 
   where `<name>` is the full config name (including the `run-id` suffix) and `<id>` is the `id` field returned by the Langfuse API for that score config.
 
-5:Tea0,# Create a Versioned Text Prompt with the Langfuse CLI
+e:Tb18,# Attach Scores to an Existing Trace with the Langfuse CLI
+
+## Background
+
+Langfuse exposes a [public CLI (`langfuse-cli`)](https://langfuse.com/docs/api-and-data-platform/features/cli) that dynamically wraps the Langfuse REST API. A common quality-assurance workflow is to ingest a trace into Langfuse and then attach one or more [scores](https://langfuse.com/docs/evaluation/evaluation-methods/custom-scores) (numeric, categorical, boolean, text) to that trace from a CI/CD job, a review script, or a terminal session.
+
+A QA reviewer has already pushed a Langfuse trace into the project and has saved its trace ID to disk. You must now use the `langfuse-cli` to attach two scores — one numeric and one categorical — to that exact trace, then record the score IDs returned by the API in a log file.
+
+## Requirements
+
+- Use the `langfuse-cli` (installed in the environment as the `langfuse` command) to talk to the Langfuse API. The CLI authenticates via the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables that are already set.
+- Read the target trace ID from `/home/user/task/trace_id.txt`. This file contains a single line: the 32-character OTel trace ID.
+- Create exactly two scores against that trace:
+  1. A **numeric** score with name `qa_quality`, value `0.95`, data type `NUMERIC`, and comment `Approved by QA team`.
+  2. A **categorical** score with name `qa_verdict`, value `approved`, data type `CATEGORICAL`, and comment `Looks good`.
+- After each successful score creation, append a line containing the returned score ID to `/home/user/task/output.log`.
+
+## Implementation Hints
+
+- Use `langfuse api __schema` or `langfuse api scores --help` to discover the correct subcommand and flag names for creating a score.
+- The score-creation endpoint returns a JSON object containing an `id` field. Use the `--json` flag and a JSON-parsing tool (such as `jq`) to extract the ID.
+- Make sure both scores reference the same trace ID read from `trace_id.txt`.
+- Do **not** modify or recreate the source trace; only attach scores to it.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/task`
+- Ensure the score-creation actions are actually executed via the Langfuse CLI and that the resulting score IDs are persisted to the log artifact.
+- Log file: `/home/user/task/output.log`
+- The log file must contain exactly two lines, one per score, in the following formats (order matters):
+  - Line 1: `Numeric score ID: <score_id>`
+  - Line 2: `Categorical score ID: <score_id>`
+- After execution, querying the Langfuse Scores API for the trace must return:
+  - A score with `name = qa_quality`, `value = 0.95`, `dataType = NUMERIC`, and `comment = Approved by QA team`.
+  - A score with `name = qa_verdict`, `stringValue = approved`, `dataType = CATEGORICAL`, and `comment = Looks good`.
+
+f:Tea0,# Create a Versioned Text Prompt with the Langfuse CLI
 
 ## Background
 Langfuse is an open-source AI engineering platform. It provides first-class versioned prompt management exposed through its public REST API, Python/JS SDKs, **and** an official Node-based CLI (`langfuse-cli`) that dynamically wraps the OpenAPI spec. Your team wants to script the creation of new prompt versions from CI scripts, so they need a reproducible CLI-based workflow that can author a brand new prompt, attach deployment labels, tags, a config blob, and a commit message — all in a single invocation — and then record the result for downstream tooling.
@@ -84,7 +465,86 @@ You must complete this prompt-creation flow using the **`langfuse-cli`** (NOT th
 - The created prompt's `prompt` text must equal `Hello {{name}}, welcome to {{service}}! Your plan is {{plan}}.` exactly.
 - The log file must contain a line in the format: `Prompt created: name=<prompt_name> version=<version>` matching the actually created prompt name and version.
 
-6:Te86,# Custom OTel Tracing of an LLM Agent with the Langfuse JS/TS SDK
+10:Tac4,# Create a Text Prompt via the Langfuse Python SDK
+
+## Background
+You are working with [Langfuse](https://langfuse.com/), an open-source AI engineering platform that provides versioned prompt management. The Langfuse Python SDK is preinstalled and authenticated via environment variables. Your job is to write a one-off Python script that creates a new **text** prompt in your Langfuse project so the rest of the team can fetch it at runtime by label.
+
+## Requirements
+- Implement a Python script that uses the Langfuse Python SDK (`langfuse` package) to create a single **text**-type prompt.
+- The prompt must contain at least one Langfuse variable placeholder using the `{{variable}}` syntax (so it can later be compiled at runtime).
+- The new prompt version must be created with a non-empty `config` dictionary (e.g., model parameters) and at least one `tag`.
+- The new prompt version must be created with `production` as one of its labels so it becomes the default version served by the SDK.
+- After the SDK call succeeds, the script must log the resulting prompt's name and version to a log file so the operation can be audited.
+
+## Implementation Hints
+- Read the `run-id` from the `ZEALT_RUN_ID` environment variable and append it to the prompt name to keep concurrent runs isolated.
+- The Langfuse Python SDK is initialised via `from langfuse import get_client; langfuse = get_client()`, which reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- `langfuse.create_prompt(...)` is the primary entry point for creating both text and chat prompts. Pass `type="text"` for a text prompt.
+- For short-lived scripts you should call `langfuse.flush()` before exit so all pending background work is sent to the API.
+- See: https://langfuse.com/docs/prompt-management/get-started and https://langfuse.com/docs/prompt-management/features/prompt-version-control.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The script must use the Langfuse Python SDK (not raw HTTP calls or the CLI) to create the prompt.
+- The prompt name must be `movie-critic-text-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt must be of type `text`, must contain at least one `{{variable}}` placeholder, must have a non-empty `config` object, and must have at least one tag.
+- The labels of the created prompt version must include `production`.
+- The log file must contain a line in the format: `Prompt Name: <name>`
+- The log file must contain a line in the format: `Prompt Version: <version>` (where `<version>` is the integer version number returned by Langfuse).
+
+11:T1286,# Group Multi-Turn Chat Traces into a Langfuse Session
+
+## Background
+You are building a small chatbot prototype and want to use [Langfuse](https://langfuse.com/) to observe whole conversations, not just one-off LLM calls. Langfuse uses OpenTelemetry under the hood: every interaction is a `trace` made up of nested `observations` (`span`, `generation`, ...). Traces that share the same `session_id` are grouped together in the Langfuse UI as a single replayable conversation, and a trace-level `user_id` lets you slice traffic per end-user.
+
+For this task, you must instrument a script with the Langfuse **Python SDK v3+** so that one run of the script produces a complete Langfuse session containing **multiple traces**, all tagged with the same `user_id` and a shared tag.
+
+The Langfuse credentials are pre-configured via environment variables (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_HOST`) and a pre-existing project at `/home/user/myproject` already has `langfuse` installed.
+
+## Requirements
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and derive these identifiers (use lowercase, no spaces):
+  - Session ID: `chat-session-${run-id}`
+  - User ID: `chat-user-${run-id}`
+  - Tag: `harbor-demo-${run-id}`
+- Implement `/home/user/myproject/chat_session.py` so that running it once with `python3 /home/user/myproject/chat_session.py` produces **exactly three** traces in the derived session, in order, with these `trace.name` values:
+  - `greeting-turn`
+  - `followup-turn`
+  - `farewell-turn`
+- Every trace must:
+  - Be linked to the derived Session ID (so that all three appear under the same Langfuse session).
+  - Have `user_id` set to the derived User ID.
+  - Have `tags` that include the derived tag.
+  - Contain at least one nested observation of type `generation` (the simulated LLM response). The generation must have a `model` attribute (you may use any string, e.g. `gpt-4o-mini`) and a non-empty `output`.
+- The script must call `langfuse.flush()` before exit so traces are delivered before the process terminates.
+- After all three traces are emitted and flushed, the script must append a single line to `/home/user/myproject/output.log` (creating the file if it does not exist) in the exact format:
+  - `Session ID: <session_id>`
+
+No real LLM call is required; you may use any deterministic string as the generation's output.
+
+## Implementation Hints
+- Use `from langfuse import get_client` and the `start_as_current_observation(as_type="span", name=...)` / `start_as_current_observation(as_type="generation", name=..., model=...)` context managers from the v3+ Python SDK. ([Get Started with Tracing](https://langfuse.com/docs/observability/get-started))
+- To attach `session_id`, `user_id`, and `tags` to the enclosing trace, call the trace-update helper on the root span (e.g. `span.update_trace(session_id=..., user_id=..., tags=[...])`) **inside** the root span's context. ([Sessions](https://langfuse.com/docs/observability/features/sessions), [User Tracking](https://langfuse.com/docs/observability/features/users), [Tags](https://langfuse.com/docs/observability/features/tags))
+- Each chat turn should be its own trace (its own outer span). Three turns => three separate top-level spans => three traces in the same session.
+- Don't forget `langfuse.flush()` at the end — short-lived scripts otherwise drop spans on exit. ([Background processing](https://langfuse.com/docs/observability/data-model#background-processing))
+- Verification will query the Langfuse public REST API for the session and its traces, so the IDs and tags above must match exactly.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Script path: /home/user/myproject/chat_session.py
+- Log file: /home/user/myproject/output.log
+- Ensure the script is actually executed against Langfuse Cloud and the resulting traces exist in the project; the verifier will call the Langfuse REST API to check them.
+- The `run-id` MUST be read from the `ZEALT_RUN_ID` environment variable and used as the suffix for the session ID, user ID, and tag as specified in Requirements.
+- The log file must contain a line in the format: `Session ID: chat-session-${run-id}`.
+- Running `python3 /home/user/myproject/chat_session.py` must exit with status code 0.
+- After the script runs:
+  - `GET /api/public/sessions/{sessionId}` for the derived session ID must return HTTP 200 and contain three traces.
+  - `GET /api/public/traces?sessionId={sessionId}` must list traces named `greeting-turn`, `followup-turn`, and `farewell-turn`, each with `userId` equal to the derived user ID and `tags` including the derived tag.
+  - Each of those traces must contain at least one observation whose `type` is `GENERATION`.
+
+12:Te86,# Custom OTel Tracing of an LLM Agent with the Langfuse JS/TS SDK
 
 ## Background
 You are building a small TypeScript Node.js script that simulates a weather assistant. The team wants every run of this script to produce a fully structured Langfuse trace so they can inspect the model call inside the Langfuse UI.
@@ -119,7 +579,7 @@ Langfuse's JS/TS SDK is OpenTelemetry-native: spans created with `@langfuse/trac
 - The trace must contain at least one nested observation of type `GENERATION` named `llm-call`, with the `model` field set to a non-empty string.
 - Both the root observation and the nested generation must have non-null `input` and `output` payloads as returned by `GET /api/public/traces/{traceId}` (i.e. the `observations` array in the response).
 
-7:T16a7,# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+13:T16a7,# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
 
 ## Background
 You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
@@ -166,7 +626,7 @@ The environment already has the `langfuse` Python SDK installed and the followin
   - `Session ID: session-${ZEALT_RUN_ID}`
   - `Status: OK`
 
-8:Te79,# Link a Langfuse Prompt to a Generation Observation (Python SDK)
+14:Te79,# Link a Langfuse Prompt to a Generation Observation (Python SDK)
 
 ## Background
 [Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that combines observability, prompt management, and evaluation. Linking a managed prompt to a generation observation enables Langfuse to aggregate metrics (latency, tokens, cost, scores) per prompt version. This is the foundation of the Prompt Metrics view used to compare prompt versions in production.
@@ -200,7 +660,7 @@ In this task, you will use the Langfuse Python SDK to (1) create a versioned cha
 - The `promptVersion` recorded on that generation observation must match the version of the prompt that currently carries the `production` label.
 - The log file `/home/user/myproject/output.log` must contain a single line in the exact format `Trace ID: <trace_id>`, where `<trace_id>` is the 32-character hexadecimal OpenTelemetry trace ID returned by `langfuse.get_current_trace_id()` inside the active generation.
 
-9:Tdb7,# Manage a Langfuse Evaluation Dataset with the Langfuse CLI
+15:Tdb7,# Manage a Langfuse Evaluation Dataset with the Langfuse CLI
 
 ## Background
 Langfuse is an open-source LLM engineering platform. One of its three product surfaces is Evaluation, which is built around versioned datasets, scores, and experiments. The Langfuse CLI (`langfuse-cli`, distributed via npm) dynamically wraps the entire Langfuse Public API, so every dataset and dataset-item endpoint is available as a terminal command. You will use the CLI in scripts/CI-style workflows to seed an evaluation dataset for a small geography QA app.
@@ -237,7 +697,126 @@ Your Langfuse project is already provisioned. The credentials are exposed as env
   - `Item count: 3`
   - One `Item id: <id>` line per created dataset item (three lines total).
 
-a:Tf9f,# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
+16:T1179,# Redact PII Before Sending Traces to Langfuse (Python SDK)
+
+## Background
+Your team is shipping an LLM application that processes customer support messages containing personally identifiable information (PII) such as email addresses, phone numbers, and credit-card numbers. Compliance requires that this data never reach the Langfuse server, yet you still want full trace visibility for debugging.
+
+Langfuse supports a server-side masking pattern: the Python SDK accepts a `mask` callable that is applied to every observation's `input`, `output`, and `metadata` **before** the event is exported. Your job is to implement that masking and prove via the Langfuse public API that the sensitive data is gone from the trace.
+
+## Requirements
+- Create a Python project at `/home/user/myproject` with a runnable script `run.py`.
+- The script must initialize the Langfuse Python SDK with a custom `mask` function that, when applied to string data, replaces:
+  - email addresses with the literal token `[REDACTED EMAIL]`
+  - North American phone numbers in the form `NNN-NNN-NNNN` (with `-`, `.`, or space separators) with the literal token `[REDACTED PHONE]`
+  - 13–19 digit credit-card numbers (groups optionally separated by spaces or dashes) with the literal token `[REDACTED CREDIT CARD]`
+- The script must create exactly one Langfuse trace whose top-level (root) observation:
+  - has the name `mask-demo-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable,
+  - has an `input` and `output` that, **before masking**, contain at least one email address, one phone number, and one credit-card number (all three PII types must appear together in both `input` and `output`).
+- The script must create at least one **child generation observation** under the root span; its `input` and `output` must also contain at least one of the PII types above before masking.
+- After all observations are recorded, the script must flush events to Langfuse so the data is persisted server-side.
+- The script must write the trace identifier to a log file using the exact format described in Acceptance Criteria.
+
+## Implementation Hints
+- Install the Langfuse Python SDK (`langfuse`) into the project's virtual environment.
+- Langfuse credentials are already exported as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+- Configure masking by passing a `mask=` callable when constructing the `Langfuse` client, then obtain the active client (e.g. via `get_client()`) and use its context-manager APIs to create the span and nested generation.
+- The mask callable receives the raw value (which may be a string, dict, or list) and should return a sanitized value of the same shape. Recurse into dicts and lists so nested fields are also redacted.
+- The trace ID is the OpenTelemetry trace ID of the root observation. You can obtain it from the span object returned by Langfuse's context manager (e.g. via `trace_id` on the span wrapper).
+- Remember to flush before the process exits, otherwise the events are dropped silently.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the artifacts exist.
+- Log file: `/home/user/myproject/output.log`
+- The script entry point must be runnable as `python3 /home/user/myproject/run.py`.
+- The root trace observation name must be `mask-demo-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- After the script runs, the log file must contain exactly one line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse / OpenTelemetry trace ID of the recorded trace.
+- When fetching the trace via the Langfuse public API endpoint `GET /api/public/traces/{traceId}`, the returned trace and its observations must satisfy all of the following:
+  - The trace `name` equals `mask-demo-${run-id}`.
+  - The trace `input` and `output`, when serialized to a string, contain the literal tokens `[REDACTED EMAIL]`, `[REDACTED PHONE]`, and `[REDACTED CREDIT CARD]`.
+  - The trace `input` and `output`, when serialized to a string, contain none of the original PII values that the agent's script fed in (i.e. no raw email, phone, or credit-card digits leak through).
+  - At least one observation of type `GENERATION` exists, and its `input` and `output`, when serialized to a string, also contain at least one of the `[REDACTED EMAIL]`, `[REDACTED PHONE]`, or `[REDACTED CREDIT CARD]` tokens and none of the original PII values.
+
+17:Te8e,# Instrument a Pipeline with the Langfuse `@observe` Decorator (Python)
+
+## Background
+Your team uses [Langfuse](https://langfuse.com/) for LLM observability. You need to instrument a small multi-step Python pipeline that simulates a user query being processed by an LLM. Instead of manually opening spans with context managers, you must use the Langfuse Python SDK's `@observe()` decorator to automatically capture each step's inputs, outputs, timings, and errors. You must also enrich the resulting Langfuse trace with `user_id`, `session_id`, and `tags` so it can be filtered in the UI and via the public API.
+
+Langfuse credentials are already exported in the environment as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+
+## Requirements
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build collision-free identifiers (see Acceptance Criteria for the exact naming rules).
+- Implement a Python script at `/home/user/myproject/run_pipeline.py` that:
+  - Uses `@observe()` from the Langfuse Python SDK on a top-level pipeline function (a Langfuse-span).
+  - Uses a second `@observe()` on a nested function that simulates an LLM call (a Langfuse-generation). No real LLM call is required — a hard-coded response string is fine.
+  - Propagates `user_id`, `session_id`, and `tags` so they are attached to the resulting Langfuse trace.
+  - Forces all queued events to be delivered to Langfuse before the process exits.
+- After the script finishes, write the Langfuse trace id to a log file so the verifier can fetch the trace from the public API.
+
+## Implementation Hints
+- Install the Langfuse Python SDK with `pip install langfuse`.
+- The `@observe()` decorator and the helpers needed to set the trace attributes are exported from `langfuse` (e.g. `from langfuse import observe, get_client, propagate_attributes`). Read the [Python instrumentation docs](https://langfuse.com/docs/observability/sdk/python/instrumentation) for the exact API.
+- Mark the nested function as a generation observation by passing `as_type="generation"` to `@observe()`, and set a model name on it.
+- Langfuse is asynchronous — short-lived scripts must call `flush()` (or `shutdown()`) on the client before exit, otherwise events are silently dropped.
+- You can obtain the current trace id with `langfuse.get_current_trace_id()` from inside an active observation.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (the verifier will not re-run the pipeline).
+- Log file: /home/user/myproject/output.log
+- The script entrypoint must be `/home/user/myproject/run_pipeline.py` and must be executed once with `python3 /home/user/myproject/run_pipeline.py`.
+- `run-id` MUST be read from the `ZEALT_RUN_ID` environment variable and used to build the identifiers below:
+  - `session_id` MUST equal `obs-deco-session-${run-id}`.
+  - `user_id` MUST equal `obs-deco-user-${run-id}`.
+  - The trace MUST carry the tags `obs-decorator` and `harbor-${run-id}` (both tags required).
+- A Langfuse trace MUST be created such that, when fetched via `GET /api/public/traces/{traceId}`, it satisfies all of:
+  - The trace contains at least two observations.
+  - Exactly one observation has `type` equal to `GENERATION` and a non-empty `model` field.
+  - There is at least one observation with `type` equal to `SPAN` that is the parent of the generation (the generation is nested inside the span observation).
+  - The trace `userId`, `sessionId`, and `tags` match the values defined above.
+- The log file MUST contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace id created by the run.
+
+18:Td00,# Attach User, Session, and Tags to a Langfuse Trace (Python SDK)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM observability platform. Beyond raw spans, Langfuse exposes first-class concepts for **user tracking**, **sessions**, and **tags** that let you aggregate metrics, replay multi-turn conversations, and slice traces in the UI. The Langfuse Python SDK propagates these attributes through any nested observation via the `propagate_attributes` context manager.
+
+You will write a small Python program that produces **one** trace and one nested generation observation, and that propagates a `user_id`, a `session_id`, and a list of `tags` onto the trace. The trace must be flushed to Langfuse Cloud before the program exits.
+
+## Requirements
+- Create a Python project that uses the official `langfuse` Python SDK (v3+).
+- The program must produce exactly **one** Langfuse trace whose root span is named `chat-turn`. The root span must contain one nested observation of type `generation` named `assistant-reply`.
+- Use `propagate_attributes` to attach the following trace-level attributes to that trace:
+  - `user_id` = `"user-${run-id}"`
+  - `session_id` = `"session-${run-id}"`
+  - `tags` = `["demo-${run-id}", "python-sdk"]`
+  where `${run-id}` is read from the `ZEALT_RUN_ID` environment variable.
+- The Langfuse client must be configured from the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables (already set in the environment).
+- After the script finishes its work it must call `langfuse.flush()` so the trace is reliably delivered to Langfuse Cloud before process exit.
+- The script must print the resulting Langfuse trace ID to a log file in the form `Trace ID: <trace_id>`.
+
+## Implementation Hints
+- The `langfuse` package exposes `get_client()`, `start_as_current_observation(as_type=...)`, and `propagate_attributes(user_id=..., session_id=..., tags=[...])`. Combine them so the propagation context wraps the work that creates the generation.
+- The propagated attributes must be active **before** the generation is created so they appear on the trace in Langfuse.
+- Use `langfuse.get_current_trace_id()` to obtain the active trace ID and write it to the log file.
+- Short-lived scripts must call `langfuse.flush()` (or `shutdown()`) at the end, otherwise the trace will not appear in Langfuse Cloud.
+- The agent does not need to make a real LLM call. The generation observation can be created with hard-coded `input`/`output` values via the SDK; it just needs the right `as_type="generation"` and name `assistant-reply`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed once and the resulting trace exists in Langfuse Cloud.
+- Log file: /home/user/myproject/output.log
+- In the log file, print the Langfuse trace ID in the format `Trace ID: <trace_id>` on its own line.
+- The trace fetched from Langfuse Cloud must satisfy:
+  - `name` of the root observation is `chat-turn`.
+  - `userId` equals `user-${run-id}`.
+  - `sessionId` equals `session-${run-id}`.
+  - `tags` contains both `demo-${run-id}` and `python-sdk`.
+  - The trace contains at least one observation of `type == "GENERATION"` named `assistant-reply`.
+- `${run-id}` must be read at runtime from the `ZEALT_RUN_ID` environment variable.
+
+19:Tf9f,# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
 
 ## Background
 [Langfuse](https://langfuse.com/) is an open-source AI engineering platform that provides observability, prompt management, and evaluation for LLM applications. The TypeScript SDK's `experiment.run` API loops a task function over a dataset, automatically traces every execution, and lets you attach **item-level evaluators** whose results are emitted as scores on each trace in Langfuse.
@@ -272,8 +851,118 @@ In this task you will build a small Node.js (TypeScript) project that runs a Lan
 - The script must use the Langfuse JS/TS SDK's `experiment.run` API (i.e. `langfuse.experiment.run({...})`) on a **local** dataset; do not create a Langfuse-hosted dataset for this task.
 - After the script exits, each recorded trace must exist in Langfuse and have **both** of the following scores attached: a score named `accuracy` and a score named `response_length`.
 
-0:{"buildId":"UHPe3vDCtPF_a7G4gTatD","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"create_score_configs_cli","instruction":"$4","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__VzfrFmW","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":778.097,"latency_breakdown":{"env_setup":106.647,"agent_setup":46.925,"agent_exec":600.21,"verifier":0.783},"taskName":"create_score_configs_cli","jobId":"VzfrFmW","exec_duration":600.21},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__8sH4hCG","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":800.437,"latency_breakdown":{"env_setup":151.258,"agent_setup":21.129,"agent_exec":600.197,"verifier":0.894},"taskName":"create_score_configs_cli","jobId":"8sH4hCG","exec_duration":600.197},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__bdwz2uU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":359.179,"latency_breakdown":{"env_setup":117.863,"agent_setup":19.698,"agent_exec":203.119,"verifier":1.261},"taskName":"create_score_configs_cli","jobId":"bdwz2uU","exec_duration":203.119}]},{"taskName":"create_text_prompt_cli","instruction":"$5","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__pWowAS8","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":677.56,"latency_breakdown":{"env_setup":30.484,"agent_setup":20.296,"agent_exec":600.191,"verifier":0.95},"taskName":"create_text_prompt_cli","jobId":"pWowAS8","exec_duration":600.191},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__uQQJpVq","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":678.574,"latency_breakdown":{"env_setup":21.974,"agent_setup":39.7,"agent_exec":594.584,"verifier":1.502},"taskName":"create_text_prompt_cli","jobId":"uQQJpVq","exec_duration":594.584},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__iHepZt6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":682.169,"latency_breakdown":{"env_setup":21.304,"agent_setup":42.289,"agent_exec":600.213,"verifier":0.815},"taskName":"create_text_prompt_cli","jobId":"iHepZt6","exec_duration":600.213}]},{"taskName":"instrument_otel_tracing_ts","instruction":"$6","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8nTLMXZ","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.795,"latency_breakdown":{"env_setup":79.393,"agent_setup":20.897,"agent_exec":205.892,"verifier":2.2},"taskName":"instrument_otel_tracing_ts","jobId":"8nTLMXZ","exec_duration":205.892},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__dGcpAFu","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":834.107,"latency_breakdown":{"env_setup":44.293,"agent_setup":21.02,"agent_exec":600.229,"verifier":137.118},"taskName":"instrument_otel_tracing_ts","jobId":"dGcpAFu","exec_duration":600.229},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8dcjd79","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":354.736,"latency_breakdown":{"env_setup":83.599,"agent_setup":21.104,"agent_exec":158.803,"verifier":72.84},"taskName":"instrument_otel_tracing_ts","jobId":"8dcjd79","exec_duration":158.803}]},{"taskName":"instrument_trace_with_scores_py","instruction":"$7","trials":[{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__DRddzmk","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":386.074,"latency_breakdown":{"env_setup":101.689,"agent_setup":20.027,"agent_exec":245.447,"verifier":1.876},"taskName":"instrument_trace_with_scores_py","jobId":"DRddzmk","exec_duration":245.447},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__aAE7J9h","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":387.586,"latency_breakdown":{"env_setup":161.189,"agent_setup":20.113,"agent_exec":186.873,"verifier":2.201},"taskName":"instrument_trace_with_scores_py","jobId":"aAE7J9h","exec_duration":186.873},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__Rk8GwEE","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":836.198,"latency_breakdown":{"env_setup":193.544,"agent_setup":21.703,"agent_exec":600.201,"verifier":2.168},"taskName":"instrument_trace_with_scores_py","jobId":"Rk8GwEE","exec_duration":600.201}]},{"taskName":"link_prompt_to_generation_py","instruction":"$8","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__EDNF8fM","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.887,"latency_breakdown":{"env_setup":50.75,"agent_setup":21.415,"agent_exec":114.211,"verifier":3.059},"taskName":"link_prompt_to_generation_py","jobId":"EDNF8fM","exec_duration":114.211},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__xyi3U6t","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":714.359,"latency_breakdown":{"env_setup":63.739,"agent_setup":29.027,"agent_exec":600.205,"verifier":3.205},"taskName":"link_prompt_to_generation_py","jobId":"xyi3U6t","exec_duration":600.205},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__p8xYAcq","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.975,"latency_breakdown":{"env_setup":52.13,"agent_setup":20.319,"agent_exec":108.704,"verifier":2.744},"taskName":"link_prompt_to_generation_py","jobId":"p8xYAcq","exec_duration":108.704}]},{"taskName":"manage_dataset_cli","instruction":"$9","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__GBY7rmR","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":558.515,"latency_breakdown":{"env_setup":42.107,"agent_setup":22.074,"agent_exec":473.287,"verifier":2.243},"taskName":"manage_dataset_cli","jobId":"GBY7rmR","exec_duration":473.287},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__PNQfww6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":749.773,"latency_breakdown":{"env_setup":106.891,"agent_setup":22.067,"agent_exec":600.188,"verifier":2.394},"taskName":"manage_dataset_cli","jobId":"PNQfww6","exec_duration":600.188},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__29vzXUv","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":667.387,"latency_breakdown":{"env_setup":129.746,"agent_setup":20.829,"agent_exec":499.342,"verifier":2.246},"taskName":"manage_dataset_cli","jobId":"29vzXUv","exec_duration":499.342}]},{"taskName":"run_experiment_with_evaluators_ts","instruction":"$a","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__tQ5K5Mb","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":203.103,"latency_breakdown":{"env_setup":14.881,"agent_setup":19.837,"agent_exec":137.963,"verifier":9.959},"taskName":"run_experiment_with_evaluators_t","jobId":"tQ5K5Mb","exec_duration":137.963},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__hjP8KW8","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.689,"latency_breakdown":{"env_setup":43.205,"agent_setup":40.61,"agent_exec":222.886,"verifier":6.63},"taskName":"run_experiment_with_evaluators_t","jobId":"hjP8KW8","exec_duration":222.886},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__EC88g64","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":458.848,"latency_breakdown":{"env_setup":55.285,"agent_setup":25.095,"agent_exec":349.296,"verifier":9.65},"taskName":"run_experiment_with_evaluators_t","jobId":"EC88g64","exec_duration":349.296}]}]}]}]]}],["$Lb","$Lc"],"$Ld"]}],"loading":null,"isPartial":false}
-b:["$","script","script-0",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/985d95d831fd99c3.js","async":true}]
-c:["$","script","script-1",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/f9f579c42c486944.js","async":true}]
-d:["$","$Le",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
-f:null
+1a:T1168,# Track LLM Generation Token Usage and Cost with the Langfuse Python SDK
+
+## Background
+
+When building production LLM applications, accurately tracking per-call token usage and cost is essential for billing, capacity planning, and cost optimization. [Langfuse](https://langfuse.com/) supports first-class **token & cost tracking** on observations of type `generation` (and `embedding`) via the `usage_details` and `cost_details` parameters, which can be **ingested directly** by your code instead of being inferred from a model definition.
+
+In this task, you will write a small Python script that simulates an LLM call and creates a Langfuse `generation` observation that captures the exact token usage and per-token USD cost reported by the (simulated) provider. The generation must be nested inside a span so that the resulting trace has the structure parent-span → child-generation. After the data has been ingested, your script must flush the SDK and persist the resulting `trace_id` to a log file so that an external verifier can fetch the trace from the Langfuse Public API and confirm that the usage and cost fields were ingested correctly.
+
+## Requirements
+
+- Implement a single-shot Python script that uses the Langfuse Python SDK (v3+, package `langfuse`) and reads credentials from the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and include it in the trace name so that concurrent runs do not collide.
+- Create one parent observation of type `span` named `chat-pipeline-${run-id}` that becomes the root of the trace.
+- Inside the span, create one nested observation of type `generation` named `chat-completion`. The generation MUST set:
+  - `model` = `"gpt-4o-mini"`
+  - `input` = a list of chat messages of the form `[{"role": "user", "content": "Summarize Langfuse in one sentence."}]`
+  - `output` = the string `"Langfuse is an open-source LLM engineering platform for observability, prompts, and evals."`
+  - `usage_details` containing the integer keys `input`, `output`, and `total` with the exact values `25`, `40`, and `65` respectively
+  - `cost_details` containing the numeric keys `input`, `output`, and `total` with the exact USD values `0.000125`, `0.00040`, and `0.000525` respectively
+- Call `langfuse.flush()` (or otherwise block until ingestion has been queued) before the script exits so the data is delivered to the Langfuse backend.
+- Write the resulting Langfuse trace ID to the log file in the format `Trace ID: <trace_id>` (single line, no extra characters around the ID).
+
+## Implementation Hints
+
+- The Python SDK exposes a singleton client through `from langfuse import get_client`; once env vars are set the client picks them up automatically.
+- The primary API for nested instrumentation is the `start_as_current_observation(as_type=..., name=...)` context manager. Use `as_type="span"` for the parent and `as_type="generation"` for the child.
+- `usage_details` and `cost_details` are passed as plain `dict`s and can be supplied either when starting the generation or later via `generation.update(...)`. Langfuse will only persist them if the observation type is `generation` (or `embedding`).
+- Use `langfuse.get_current_trace_id()` (called from inside the active span) to obtain the trace ID that the verifier will look up; do **not** invent an ID yourself.
+- Read `run-id` from `os.environ["ZEALT_RUN_ID"]` and apply it consistently to the span name.
+
+## Acceptance Criteria
+
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (a real trace is ingested into Langfuse Cloud and the log file is written).
+- Log file: /home/user/myproject/output.log
+- The log file must contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse-assigned trace identifier returned by the SDK.
+- The ingested trace must contain an observation of type `GENERATION` named `chat-completion` whose `providedModelName` is `gpt-4o-mini`, whose `usageDetails` map exposes the exact values for the keys `input`, `output`, and `total`, and whose `costDetails` map exposes the exact USD values for the same three keys (as documented in the Requirements section).
+- The ingested trace must contain a parent observation of type `SPAN` whose name is `chat-pipeline-${run-id}` where `run-id` is the value read from the `ZEALT_RUN_ID` environment variable.
+
+1b:Tdd2,# Promote a Prompt Version with Langfuse Python SDK
+
+## Background
+Your team uses Langfuse to manage versioned prompts. A movie-critic chat prompt has already been published with two versions in your Langfuse project: version 1 carries the `production` label (currently deployed) and version 2 carries the `staging` label (under review). You have validated version 2 in QA and you now need to promote it to production while also tagging it as `approved`.
+
+Langfuse models prompt versioning through versions and labels. Labels are unique across versions of the same prompt — assigning `production` to a new version automatically removes it from the previously labeled version, giving you a deterministic deployment pointer. Read more in the [Prompt Version Control](https://langfuse.com/docs/prompt-management/features/prompt-version-control) docs.
+
+You must perform the promotion using the Langfuse Python SDK (not the CLI, not the UI) and log evidence of the change to a log file.
+
+## Requirements
+- Read the per-run identifier from the `ZEALT_RUN_ID` environment variable. The prompt to update is named `movie-critic-${ZEALT_RUN_ID}` (lowercase, with the dash).
+- Use the Langfuse Python SDK to update the labels of **version 2** of that prompt so that the new label set is exactly `["production", "approved"]`.
+- After the update, fetch version 2 from Langfuse and append a log line to the log file in the format `Promoted version: <version> labels: <comma-separated-sorted-labels>`.
+- Also append a log line that records the label set of version 1 after the promotion in the format `Previous version: 1 labels: <comma-separated-sorted-labels>` (since `production` is a unique label, version 1 must no longer carry it).
+
+## Implementation Hints
+- Install the `langfuse` Python SDK and authenticate via the standard `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables.
+- The SDK exposes a dedicated `update_prompt` method that takes a prompt `name`, a `version`, and a `new_labels` list to replace the labels of an existing version.
+- The SDK's `get_prompt` (or equivalent) call lets you read back a specific version. Bypass cached results by passing a small `cache_ttl_seconds` such as `0` when re-fetching to verify the change.
+- Make sure to flush or close the client before the process exits so writes are not dropped.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed against the real Langfuse backend and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Langfuse prompt named `movie-critic-${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable) must satisfy the following after the script runs:
+  - Version 2 carries exactly the labels `production` and `approved` (and the auto-managed `latest` label).
+  - Version 1 no longer carries the `production` label.
+- The log file must contain a line in the format: `Promoted version: 2 labels: <comma-separated-sorted-labels>` listing the labels currently attached to version 2 (excluding the auto-managed `latest`), sorted alphabetically and joined with `,` (no spaces).
+- The log file must contain a line in the format: `Previous version: 1 labels: <comma-separated-sorted-labels>` listing the labels currently attached to version 1 (excluding the auto-managed `latest`), sorted alphabetically and joined with `,` (no spaces). If version 1 has no remaining labels (excluding `latest`), the value must be the literal string `none`.
+
+1c:Td28,# Tag a Langfuse Trace with Release, Session, User, and Tags using the JS/TS SDK
+
+## Background
+You are instrumenting an LLM-style application with [Langfuse](https://langfuse.com/) using the JS/TS SDK. To make traces searchable in production, you need to enrich a single trace with release, version, sessionId, userId, tags, and a public visibility flag, and emit the trace to Langfuse via OpenTelemetry.
+
+You are working in an empty Node.js project at `/home/user/myproject`. The Langfuse credentials (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) are already exported in the environment.
+
+## Requirements
+- Build a Node.js script (TypeScript or JavaScript) that uses the Langfuse JS/TS SDK to create exactly one trace and update its top-level trace attributes with the values listed under *Acceptance Criteria*.
+- The trace must be ingested through OpenTelemetry using `LangfuseSpanProcessor`, with the OTel SDK shut down (or flushed) before the process exits so the span is delivered.
+- The Langfuse trace ID created by the run must be written to a log file so verification can fetch the trace via the Langfuse Public API.
+- All externally visible resource names must be scoped by `run-id` to allow concurrent runs.
+
+## Implementation Hints
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build per-run identifiers.
+- Install the Langfuse tracing packages (`@langfuse/tracing`, `@langfuse/otel`) together with the OpenTelemetry Node SDK (`@opentelemetry/sdk-node`).
+- Initialize the OpenTelemetry NodeSDK with a `LangfuseSpanProcessor` **before** any traced code runs.
+- Use `startActiveObservation` from `@langfuse/tracing` to open a root span and `updateActiveTrace` to set the trace-level fields (`name`, `sessionId`, `userId`, `tags`, `release`, `version`, `public`, plus `input`/`output`).
+- Retrieve the active OpenTelemetry trace ID from inside the active span (this is the Langfuse trace ID) and append a line in the form `Trace ID: <trace_id>` to the log file before exiting.
+- Call `sdk.shutdown()` (or the equivalent flush) on the OpenTelemetry SDK before the process exits to guarantee the trace is sent to Langfuse.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed once and the trace is delivered to Langfuse.
+- Log file: /home/user/myproject/output.log
+- The Langfuse JS/TS SDK and `LangfuseSpanProcessor` must be used (no direct REST calls to ingest the trace).
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. All `run-id`-scoped identifiers below MUST be derived from this value.
+- The script must create exactly one Langfuse trace with the following top-level fields:
+    - `name`: `release-test-${run-id}`
+    - `sessionId`: `session-${run-id}`
+    - `userId`: `user-${run-id}`
+    - `tags`: a list that includes both `staging` and `run-${run-id}`
+    - `release`: `v1.2.3`
+    - `version`: `v1.0.0`
+    - `public`: `true`
+    - `input`: any non-empty JSON value
+    - `output`: any non-empty JSON value
+- The log file must contain a line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the 32-hex-character OpenTelemetry/Langfuse trace ID emitted by the run.
+- The trace must be retrievable through the Langfuse Public API at `GET /api/public/traces/{traceId}` and its returned fields must match the values above.
+
+0:{"buildId":"WFQMSoOMsN_NdmoJXrx1E","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"attach_multi_type_scores_ts","instruction":"$4","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"attach_multi_type_scores_ts__g5BfZq4","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":279.769,"latency_breakdown":{"env_setup":57.175,"agent_setup":22.789,"agent_exec":178.499,"verifier":3.713},"taskName":"attach_multi_type_scores_ts","jobId":"g5BfZq4","exec_duration":178.499},{"job_name":"2026-06-05__11-14-00","trial_name":"attach_multi_type_scores_ts__Hc9pubK","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":643.414,"latency_breakdown":{"env_setup":64.485,"agent_setup":22.043,"agent_exec":74.884,"verifier":463.387},"taskName":"attach_multi_type_scores_ts","jobId":"Hc9pubK","exec_duration":74.884},{"job_name":"2026-06-05__11-14-00","trial_name":"attach_multi_type_scores_ts__wnH5ZSC","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":399.957,"latency_breakdown":{"env_setup":16.211,"agent_setup":21.244,"agent_exec":339.536,"verifier":4.024},"taskName":"attach_multi_type_scores_ts","jobId":"wnH5ZSC","exec_duration":339.536}]},{"taskName":"create_annotation_queue_cli","instruction":"$5","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_annotation_queue_cli__6ju2LuU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":339.313,"latency_breakdown":{"env_setup":70.488,"agent_setup":20.7,"agent_exec":229.47,"verifier":2.303},"taskName":"create_annotation_queue_cli","jobId":"6ju2LuU","exec_duration":229.47},{"job_name":"2026-06-05__11-14-00","trial_name":"create_annotation_queue_cli__H49CWgV","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":693.172,"latency_breakdown":{"env_setup":41.616,"agent_setup":20.92,"agent_exec":600.172,"verifier":2.019},"taskName":"create_annotation_queue_cli","jobId":"H49CWgV","exec_duration":600.172},{"job_name":"2026-06-05__11-14-00","trial_name":"create_annotation_queue_cli__va92MCF","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":712.792,"latency_breakdown":{"env_setup":58.276,"agent_setup":21.172,"agent_exec":600.173,"verifier":2.053},"taskName":"create_annotation_queue_cli","jobId":"va92MCF","exec_duration":600.173}]},{"taskName":"create_chat_prompt_cli","instruction":"$6","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_chat_prompt_cli__nc7TnLw","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":728.069,"latency_breakdown":{"env_setup":87.281,"agent_setup":21.788,"agent_exec":600.16,"verifier":0.804},"taskName":"create_chat_prompt_cli","jobId":"nc7TnLw","exec_duration":600.16},{"job_name":"2026-06-05__11-14-00","trial_name":"create_chat_prompt_cli__s7EzAdo","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":707.193,"latency_breakdown":{"env_setup":59.379,"agent_setup":19.944,"agent_exec":600.151,"verifier":0.956},"taskName":"create_chat_prompt_cli","jobId":"s7EzAdo","exec_duration":600.151},{"job_name":"2026-06-05__11-14-00","trial_name":"create_chat_prompt_cli__XSJ9KUe","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":614.564,"latency_breakdown":{"env_setup":86.217,"agent_setup":20.923,"agent_exec":484.544,"verifier":2.283},"taskName":"create_chat_prompt_cli","jobId":"XSJ9KUe","exec_duration":484.544}]},{"taskName":"create_chat_prompt_with_placeholders_py","instruction":"$7","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_chat_prompt_with_placehol__5eq8Hky","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":125.293,"latency_breakdown":{"env_setup":40.587,"agent_setup":22.384,"agent_exec":46.474,"verifier":1.295},"taskName":"create_chat_prompt_with_placehol","jobId":"5eq8Hky","exec_duration":46.474},{"job_name":"2026-06-05__11-14-00","trial_name":"create_chat_prompt_with_placehol__einyU6q","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":166.117,"latency_breakdown":{"env_setup":62.17,"agent_setup":22.347,"agent_exec":65.054,"verifier":1.314},"taskName":"create_chat_prompt_with_placehol","jobId":"einyU6q","exec_duration":65.054},{"job_name":"2026-06-05__11-14-00","trial_name":"create_chat_prompt_with_placehol__dT5VCCo","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":189.407,"latency_breakdown":{"env_setup":36.383,"agent_setup":20.189,"agent_exec":115.399,"verifier":1.356},"taskName":"create_chat_prompt_with_placehol","jobId":"dT5VCCo","exec_duration":115.399}]},{"taskName":"create_dataset_items_ts","instruction":"$8","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_dataset_items_ts__vTh8ycu","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":415.018,"latency_breakdown":{"env_setup":79.165,"agent_setup":19.996,"agent_exec":73.857,"verifier":2.041},"taskName":"create_dataset_items_ts","jobId":"vTh8ycu","exec_duration":73.857},{"job_name":"2026-06-05__11-14-00","trial_name":"create_dataset_items_ts__84NKEZh","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":470.876,"latency_breakdown":{"env_setup":32.026,"agent_setup":19.815,"agent_exec":198.83,"verifier":1.986},"taskName":"create_dataset_items_ts","jobId":"84NKEZh","exec_duration":198.83},{"job_name":"2026-06-05__11-14-00","trial_name":"create_dataset_items_ts__CdpGSGh","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":445.648,"latency_breakdown":{"env_setup":72.832,"agent_setup":20.204,"agent_exec":106.918,"verifier":1.866},"taskName":"create_dataset_items_ts","jobId":"CdpGSGh","exec_duration":106.918}]},{"taskName":"create_event_observation_py","instruction":"$9","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_event_observation_py__tbYFEfF","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":479.397,"latency_breakdown":{"env_setup":188.36,"agent_setup":19.861,"agent_exec":247.559,"verifier":2.166},"taskName":"create_event_observation_py","jobId":"tbYFEfF","exec_duration":247.559},{"job_name":"2026-06-05__11-14-00","trial_name":"create_event_observation_py__vdvGsjT","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":262.009,"latency_breakdown":{"env_setup":115.098,"agent_setup":23.791,"agent_exec":98.7,"verifier":9.982},"taskName":"create_event_observation_py","jobId":"vdvGsjT","exec_duration":98.7},{"job_name":"2026-06-05__11-14-00","trial_name":"create_event_observation_py__ntv4RwU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":320.931,"latency_breakdown":{"env_setup":186.001,"agent_setup":21.351,"agent_exec":90.018,"verifier":2.456},"taskName":"create_event_observation_py","jobId":"ntv4RwU","exec_duration":90.018}]},{"taskName":"create_model_definition_cli","instruction":"$a","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_model_definition_cli__q7Mk77w","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":360.265,"latency_breakdown":{"env_setup":53.208,"agent_setup":21.543,"agent_exec":260.98,"verifier":2.299},"taskName":"create_model_definition_cli","jobId":"q7Mk77w","exec_duration":260.98},{"job_name":"2026-06-05__11-14-00","trial_name":"create_model_definition_cli__VmGmN7u","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":296.235,"latency_breakdown":{"env_setup":70.725,"agent_setup":21.214,"agent_exec":186.413,"verifier":2.322},"taskName":"create_model_definition_cli","jobId":"VmGmN7u","exec_duration":186.413},{"job_name":"2026-06-05__11-14-00","trial_name":"create_model_definition_cli__AV9cNk6","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":364.401,"latency_breakdown":{"env_setup":59.965,"agent_setup":21.144,"agent_exec":256.812,"verifier":2.433},"taskName":"create_model_definition_cli","jobId":"AV9cNk6","exec_duration":256.812}]},{"taskName":"create_prompt_with_config_py","instruction":"$b","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_prompt_with_config_py__qyQ44Bm","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":198.634,"latency_breakdown":{"env_setup":29.307,"agent_setup":21.067,"agent_exec":126.557,"verifier":1.787},"taskName":"create_prompt_with_config_py","jobId":"qyQ44Bm","exec_duration":126.557},{"job_name":"2026-06-05__11-14-00","trial_name":"create_prompt_with_config_py__ncXBeNp","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":475.052,"latency_breakdown":{"env_setup":40.189,"agent_setup":20.601,"agent_exec":393.735,"verifier":1.915},"taskName":"create_prompt_with_config_py","jobId":"ncXBeNp","exec_duration":393.735},{"job_name":"2026-06-05__11-14-00","trial_name":"create_prompt_with_config_py__SXwsqam","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":261.664,"latency_breakdown":{"env_setup":73.568,"agent_setup":20.189,"agent_exec":148.324,"verifier":1.845},"taskName":"create_prompt_with_config_py","jobId":"SXwsqam","exec_duration":148.324}]},{"taskName":"create_score_config_py","instruction":"$c","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_score_config_py__fhqkhcA","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":280.117,"latency_breakdown":{"env_setup":49.072,"agent_setup":20.234,"agent_exec":188.357,"verifier":2.298},"taskName":"create_score_config_py","jobId":"fhqkhcA","exec_duration":188.357},{"job_name":"2026-06-05__11-14-00","trial_name":"create_score_config_py__qq5KFGo","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":195.565,"latency_breakdown":{"env_setup":35.319,"agent_setup":21.558,"agent_exec":115.67,"verifier":2.298},"taskName":"create_score_config_py","jobId":"qq5KFGo","exec_duration":115.67},{"job_name":"2026-06-05__11-14-00","trial_name":"create_score_config_py__xvsF3hK","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":606.53,"latency_breakdown":{"env_setup":53.746,"agent_setup":21.948,"agent_exec":510.793,"verifier":2.243},"taskName":"create_score_config_py","jobId":"xvsF3hK","exec_duration":510.793}]},{"taskName":"create_score_configs_cli","instruction":"$d","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__VzfrFmW","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":778.097,"latency_breakdown":{"env_setup":106.647,"agent_setup":46.925,"agent_exec":600.21,"verifier":0.783},"taskName":"create_score_configs_cli","jobId":"VzfrFmW","exec_duration":600.21},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__8sH4hCG","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":800.437,"latency_breakdown":{"env_setup":151.258,"agent_setup":21.129,"agent_exec":600.197,"verifier":0.894},"taskName":"create_score_configs_cli","jobId":"8sH4hCG","exec_duration":600.197},{"job_name":"2026-06-04__13-07-49","trial_name":"create_score_configs_cli__bdwz2uU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":359.179,"latency_breakdown":{"env_setup":117.863,"agent_setup":19.698,"agent_exec":203.119,"verifier":1.261},"taskName":"create_score_configs_cli","jobId":"bdwz2uU","exec_duration":203.119}]},{"taskName":"create_score_for_trace_cli","instruction":"$e","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_score_for_trace_cli__n8G3EJj","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":105.292,"latency_breakdown":{"env_setup":63.672,"agent_setup":21.432,"agent_exec":1.004,"verifier":null},"taskName":"create_score_for_trace_cli","jobId":"n8G3EJj","exec_duration":1.004},{"job_name":"2026-06-05__11-14-00","trial_name":"create_score_for_trace_cli__NSwDKFz","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":90.54,"latency_breakdown":{"env_setup":44.202,"agent_setup":21.421,"agent_exec":1.053,"verifier":null},"taskName":"create_score_for_trace_cli","jobId":"NSwDKFz","exec_duration":1.053},{"job_name":"2026-06-05__11-14-00","trial_name":"create_score_for_trace_cli__qD6L8vj","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":98.117,"latency_breakdown":{"env_setup":52.634,"agent_setup":22.154,"agent_exec":0.983,"verifier":null},"taskName":"create_score_for_trace_cli","jobId":"qD6L8vj","exec_duration":0.983}]},{"taskName":"create_text_prompt_cli","instruction":"$f","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__pWowAS8","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":677.56,"latency_breakdown":{"env_setup":30.484,"agent_setup":20.296,"agent_exec":600.191,"verifier":0.95},"taskName":"create_text_prompt_cli","jobId":"pWowAS8","exec_duration":600.191},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__uQQJpVq","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":678.574,"latency_breakdown":{"env_setup":21.974,"agent_setup":39.7,"agent_exec":594.584,"verifier":1.502},"taskName":"create_text_prompt_cli","jobId":"uQQJpVq","exec_duration":594.584},{"job_name":"2026-06-04__13-07-49","trial_name":"create_text_prompt_cli__iHepZt6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":682.169,"latency_breakdown":{"env_setup":21.304,"agent_setup":42.289,"agent_exec":600.213,"verifier":0.815},"taskName":"create_text_prompt_cli","jobId":"iHepZt6","exec_duration":600.213}]},{"taskName":"create_text_prompt_py","instruction":"$10","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"create_text_prompt_py__n8YSvuF","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":150.2,"latency_breakdown":{"env_setup":50.275,"agent_setup":21.144,"agent_exec":46.55,"verifier":1.485},"taskName":"create_text_prompt_py","jobId":"n8YSvuF","exec_duration":46.55},{"job_name":"2026-06-05__11-14-00","trial_name":"create_text_prompt_py__sy28GgH","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":128.667,"latency_breakdown":{"env_setup":31.896,"agent_setup":21.27,"agent_exec":47.791,"verifier":1.431},"taskName":"create_text_prompt_py","jobId":"sy28GgH","exec_duration":47.791},{"job_name":"2026-06-05__11-14-00","trial_name":"create_text_prompt_py__p3ENm27","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":188.931,"latency_breakdown":{"env_setup":64.395,"agent_setup":21.953,"agent_exec":83.19,"verifier":1.52},"taskName":"create_text_prompt_py","jobId":"p3ENm27","exec_duration":83.19}]},{"taskName":"group_traces_by_session_py","instruction":"$11","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"group_traces_by_session_py__v3DYm42","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":555.545,"latency_breakdown":{"env_setup":47.137,"agent_setup":20.288,"agent_exec":467.803,"verifier":0.957},"taskName":"group_traces_by_session_py","jobId":"v3DYm42","exec_duration":467.803},{"job_name":"2026-06-05__11-14-00","trial_name":"group_traces_by_session_py__mKrWADK","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":342.131,"latency_breakdown":{"env_setup":63.46,"agent_setup":21.317,"agent_exec":235.977,"verifier":1.047},"taskName":"group_traces_by_session_py","jobId":"mKrWADK","exec_duration":235.977},{"job_name":"2026-06-05__11-14-00","trial_name":"group_traces_by_session_py__47nbLz7","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":697.679,"latency_breakdown":{"env_setup":54.653,"agent_setup":21.931,"agent_exec":600.195,"verifier":0.949},"taskName":"group_traces_by_session_py","jobId":"47nbLz7","exec_duration":600.195}]},{"taskName":"instrument_otel_tracing_ts","instruction":"$12","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8nTLMXZ","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.795,"latency_breakdown":{"env_setup":79.393,"agent_setup":20.897,"agent_exec":205.892,"verifier":2.2},"taskName":"instrument_otel_tracing_ts","jobId":"8nTLMXZ","exec_duration":205.892},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__dGcpAFu","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":834.107,"latency_breakdown":{"env_setup":44.293,"agent_setup":21.02,"agent_exec":600.229,"verifier":137.118},"taskName":"instrument_otel_tracing_ts","jobId":"dGcpAFu","exec_duration":600.229},{"job_name":"2026-06-04__13-07-49","trial_name":"instrument_otel_tracing_ts__8dcjd79","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":354.736,"latency_breakdown":{"env_setup":83.599,"agent_setup":21.104,"agent_exec":158.803,"verifier":72.84},"taskName":"instrument_otel_tracing_ts","jobId":"8dcjd79","exec_duration":158.803}]},{"taskName":"instrument_trace_with_scores_py","instruction":"$13","trials":[{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__DRddzmk","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":386.074,"latency_breakdown":{"env_setup":101.689,"agent_setup":20.027,"agent_exec":245.447,"verifier":1.876},"taskName":"instrument_trace_with_scores_py","jobId":"DRddzmk","exec_duration":245.447},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__aAE7J9h","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":387.586,"latency_breakdown":{"env_setup":161.189,"agent_setup":20.113,"agent_exec":186.873,"verifier":2.201},"taskName":"instrument_trace_with_scores_py","jobId":"aAE7J9h","exec_duration":186.873},{"job_name":"2026-06-04__11-37-00","trial_name":"instrument_trace_with_scores_py__Rk8GwEE","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":836.198,"latency_breakdown":{"env_setup":193.544,"agent_setup":21.703,"agent_exec":600.201,"verifier":2.168},"taskName":"instrument_trace_with_scores_py","jobId":"Rk8GwEE","exec_duration":600.201}]},{"taskName":"link_prompt_to_generation_py","instruction":"$14","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__EDNF8fM","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.887,"latency_breakdown":{"env_setup":50.75,"agent_setup":21.415,"agent_exec":114.211,"verifier":3.059},"taskName":"link_prompt_to_generation_py","jobId":"EDNF8fM","exec_duration":114.211},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__xyi3U6t","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":714.359,"latency_breakdown":{"env_setup":63.739,"agent_setup":29.027,"agent_exec":600.205,"verifier":3.205},"taskName":"link_prompt_to_generation_py","jobId":"xyi3U6t","exec_duration":600.205},{"job_name":"2026-06-04__13-07-49","trial_name":"link_prompt_to_generation_py__p8xYAcq","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.975,"latency_breakdown":{"env_setup":52.13,"agent_setup":20.319,"agent_exec":108.704,"verifier":2.744},"taskName":"link_prompt_to_generation_py","jobId":"p8xYAcq","exec_duration":108.704}]},{"taskName":"manage_dataset_cli","instruction":"$15","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__GBY7rmR","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":558.515,"latency_breakdown":{"env_setup":42.107,"agent_setup":22.074,"agent_exec":473.287,"verifier":2.243},"taskName":"manage_dataset_cli","jobId":"GBY7rmR","exec_duration":473.287},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__PNQfww6","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":749.773,"latency_breakdown":{"env_setup":106.891,"agent_setup":22.067,"agent_exec":600.188,"verifier":2.394},"taskName":"manage_dataset_cli","jobId":"PNQfww6","exec_duration":600.188},{"job_name":"2026-06-04__13-07-49","trial_name":"manage_dataset_cli__29vzXUv","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":667.387,"latency_breakdown":{"env_setup":129.746,"agent_setup":20.829,"agent_exec":499.342,"verifier":2.246},"taskName":"manage_dataset_cli","jobId":"29vzXUv","exec_duration":499.342}]},{"taskName":"mask_sensitive_data_py","instruction":"$16","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"mask_sensitive_data_py__BtzqbUg","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":706.083,"latency_breakdown":{"env_setup":70.229,"agent_setup":19.325,"agent_exec":600.188,"verifier":0.878},"taskName":"mask_sensitive_data_py","jobId":"BtzqbUg","exec_duration":600.188},{"job_name":"2026-06-05__11-14-00","trial_name":"mask_sensitive_data_py__Tp4QC2m","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":368.959,"latency_breakdown":{"env_setup":69.751,"agent_setup":21.191,"agent_exec":252.285,"verifier":1.743},"taskName":"mask_sensitive_data_py","jobId":"Tp4QC2m","exec_duration":252.285},{"job_name":"2026-06-05__11-14-00","trial_name":"mask_sensitive_data_py__HjJrSMn","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":228.555,"latency_breakdown":{"env_setup":39.706,"agent_setup":22.915,"agent_exec":137.105,"verifier":4.173},"taskName":"mask_sensitive_data_py","jobId":"HjJrSMn","exec_duration":137.105}]},{"taskName":"observe_decorator_py","instruction":"$17","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"observe_decorator_py__mAnB8r7","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":336.931,"latency_breakdown":{"env_setup":115.556,"agent_setup":20.498,"agent_exec":115.156,"verifier":63.451},"taskName":"observe_decorator_py","jobId":"mAnB8r7","exec_duration":115.156},{"job_name":"2026-06-05__11-14-00","trial_name":"observe_decorator_py__UrrKsdj","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":562.507,"latency_breakdown":{"env_setup":187.92,"agent_setup":20.74,"agent_exec":333.635,"verifier":2.65},"taskName":"observe_decorator_py","jobId":"UrrKsdj","exec_duration":333.635},{"job_name":"2026-06-05__11-14-00","trial_name":"observe_decorator_py__jcnWHh5","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":391.175,"latency_breakdown":{"env_setup":181.056,"agent_setup":20.397,"agent_exec":165.736,"verifier":3.612},"taskName":"observe_decorator_py","jobId":"jcnWHh5","exec_duration":165.736}]},{"taskName":"propagate_user_session_tags_py","instruction":"$18","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"propagate_user_session_tags_py__f8udS5y","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":294.567,"latency_breakdown":{"env_setup":185.366,"agent_setup":20.327,"agent_exec":67.663,"verifier":1.719},"taskName":"propagate_user_session_tags_py","jobId":"f8udS5y","exec_duration":67.663},{"job_name":"2026-06-05__11-14-00","trial_name":"propagate_user_session_tags_py__yQUEP5m","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":276.807,"latency_breakdown":{"env_setup":103.279,"agent_setup":24.832,"agent_exec":129.564,"verifier":1.583},"taskName":"propagate_user_session_tags_py","jobId":"yQUEP5m","exec_duration":129.564},{"job_name":"2026-06-05__11-14-00","trial_name":"propagate_user_session_tags_py__h88Q4hK","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":322.5,"latency_breakdown":{"env_setup":29.263,"agent_setup":20.318,"agent_exec":248.667,"verifier":1.592},"taskName":"propagate_user_session_tags_py","jobId":"h88Q4hK","exec_duration":248.667}]},{"taskName":"run_experiment_with_evaluators_ts","instruction":"$19","trials":[{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__tQ5K5Mb","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":203.103,"latency_breakdown":{"env_setup":14.881,"agent_setup":19.837,"agent_exec":137.963,"verifier":9.959},"taskName":"run_experiment_with_evaluators_t","jobId":"tQ5K5Mb","exec_duration":137.963},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__hjP8KW8","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.689,"latency_breakdown":{"env_setup":43.205,"agent_setup":40.61,"agent_exec":222.886,"verifier":6.63},"taskName":"run_experiment_with_evaluators_t","jobId":"hjP8KW8","exec_duration":222.886},{"job_name":"2026-06-04__13-07-49","trial_name":"run_experiment_with_evaluators_t__EC88g64","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":458.848,"latency_breakdown":{"env_setup":55.285,"agent_setup":25.095,"agent_exec":349.296,"verifier":9.65},"taskName":"run_experiment_with_evaluators_t","jobId":"EC88g64","exec_duration":349.296}]},{"taskName":"track_generation_token_usage_py","instruction":"$1a","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"track_generation_token_usage_py__coUHxWf","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":175.65,"latency_breakdown":{"env_setup":72.611,"agent_setup":20.712,"agent_exec":63.399,"verifier":1.444},"taskName":"track_generation_token_usage_py","jobId":"coUHxWf","exec_duration":63.399},{"job_name":"2026-06-05__11-14-00","trial_name":"track_generation_token_usage_py__eHUHPjg","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":272.345,"latency_breakdown":{"env_setup":80.592,"agent_setup":20.908,"agent_exec":63.125,"verifier":92.773},"taskName":"track_generation_token_usage_py","jobId":"eHUHPjg","exec_duration":63.125},{"job_name":"2026-06-05__11-14-00","trial_name":"track_generation_token_usage_py__DEmg6wN","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":320.822,"latency_breakdown":{"env_setup":70.481,"agent_setup":21.891,"agent_exec":203.753,"verifier":1.692},"taskName":"track_generation_token_usage_py","jobId":"DEmg6wN","exec_duration":203.753}]},{"taskName":"update_prompt_labels_py","instruction":"$1b","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"update_prompt_labels_py__nJrVPhJ","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":113.644,"latency_breakdown":{"env_setup":55.881,"agent_setup":35.566,"agent_exec":2.465,"verifier":null},"taskName":"update_prompt_labels_py","jobId":"nJrVPhJ","exec_duration":2.465},{"job_name":"2026-06-05__11-14-00","trial_name":"update_prompt_labels_py__fhmsYqw","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":100.812,"latency_breakdown":{"env_setup":53.377,"agent_setup":22.643,"agent_exec":2.828,"verifier":null},"taskName":"update_prompt_labels_py","jobId":"fhmsYqw","exec_duration":2.828},{"job_name":"2026-06-05__11-14-00","trial_name":"update_prompt_labels_py__bHVDmJD","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":88.464,"latency_breakdown":{"env_setup":32.825,"agent_setup":21.064,"agent_exec":2.9,"verifier":null},"taskName":"update_prompt_labels_py","jobId":"bHVDmJD","exec_duration":2.9}]},{"taskName":"update_trace_with_release_ts","instruction":"$1c","trials":[{"job_name":"2026-06-05__11-14-00","trial_name":"update_trace_with_release_ts__KUKmvCP","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":317.12,"latency_breakdown":{"env_setup":80.545,"agent_setup":22.289,"agent_exec":189.244,"verifier":1.627},"taskName":"update_trace_with_release_ts","jobId":"KUKmvCP","exec_duration":189.244},{"job_name":"2026-06-05__11-14-00","trial_name":"update_trace_with_release_ts__hfHFvMF","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":538.9,"latency_breakdown":{"env_setup":43.217,"agent_setup":21.999,"agent_exec":447.525,"verifier":1.764},"taskName":"update_trace_with_release_ts","jobId":"hfHFvMF","exec_duration":447.525},{"job_name":"2026-06-05__11-14-00","trial_name":"update_trace_with_release_ts__M4ZWPXw","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":743.514,"latency_breakdown":{"env_setup":102.677,"agent_setup":21.13,"agent_exec":600.208,"verifier":1.654},"taskName":"update_trace_with_release_ts","jobId":"M4ZWPXw","exec_duration":600.208}]}]}]}]]}],["$L1d","$L1e"],"$L1f"]}],"loading":null,"isPartial":false}
+1d:["$","script","script-0",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/985d95d831fd99c3.js","async":true}]
+1e:["$","script","script-1",{"src":"/langfuse-benchmark/pr-preview/pr-3/_next/static/chunks/f9f579c42c486944.js","async":true}]
+1f:["$","$L20",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@21"}]}]
+21:null
