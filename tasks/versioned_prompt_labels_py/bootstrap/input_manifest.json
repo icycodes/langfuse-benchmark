@@ -1,7 +1,0 @@
-{
-  "library_name": "Langfuse",
-  "task_name": "versioned_prompt_labels_py",
-  "complexity_level": "multi-step sequential command set",
-  "research_plan_path": "plan.md",
-  "output_dir": "tasks/"
-}
