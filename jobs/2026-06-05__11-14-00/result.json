@@ -1,0 +1,152 @@
+{
+    "id": "a66492c9-c83d-455b-9097-f1fec847e9fb",
+    "started_at": "2026-06-05T11:14:00.632291",
+    "updated_at": "2026-06-05T11:58:25.806100",
+    "finished_at": "2026-06-05T11:58:25.806100",
+    "n_total_trials": 54,
+    "stats": {
+        "n_completed_trials": 54,
+        "n_errored_trials": 13,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 16,
+                "n_errors": 5,
+                "metrics": [
+                    {
+                        "mean": 0.3333333333333333
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "create_event_observation_py__vdvGsjT",
+                            "observe_decorator_py__mAnB8r7",
+                            "track_generation_token_usage_py__eHUHPjg",
+                            "create_score_config_py__xvsF3hK",
+                            "group_traces_by_session_py__47nbLz7",
+                            "create_chat_prompt_cli__nc7TnLw",
+                            "create_annotation_queue_cli__H49CWgV",
+                            "mask_sensitive_data_py__HjJrSMn",
+                            "update_trace_with_release_ts__hfHFvMF",
+                            "attach_multi_type_scores_ts__Hc9pubK"
+                        ],
+                        "1.0": [
+                            "propagate_user_session_tags_py__yQUEP5m",
+                            "create_prompt_with_config_py__ncXBeNp",
+                            "create_dataset_items_ts__CdpGSGh",
+                            "create_text_prompt_py__n8YSvuF",
+                            "create_model_definition_cli__q7Mk77w",
+                            "create_chat_prompt_with_placehol__5eq8Hky"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "group_traces_by_session_py__47nbLz7",
+                        "create_chat_prompt_cli__nc7TnLw",
+                        "create_annotation_queue_cli__H49CWgV"
+                    ],
+                    "InitialStateError": [
+                        "update_prompt_labels_py__bHVDmJD",
+                        "create_score_for_trace_cli__qD6L8vj"
+                    ]
+                }
+            },
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 16,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.8333333333333334
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "create_event_observation_py__ntv4RwU",
+                            "observe_decorator_py__jcnWHh5",
+                            "propagate_user_session_tags_py__f8udS5y",
+                            "track_generation_token_usage_py__coUHxWf",
+                            "create_score_config_py__qq5KFGo",
+                            "create_prompt_with_config_py__qyQ44Bm",
+                            "create_dataset_items_ts__vTh8ycu",
+                            "create_chat_prompt_cli__XSJ9KUe",
+                            "create_annotation_queue_cli__6ju2LuU",
+                            "mask_sensitive_data_py__Tp4QC2m",
+                            "create_text_prompt_py__sy28GgH",
+                            "update_trace_with_release_ts__KUKmvCP",
+                            "create_model_definition_cli__VmGmN7u",
+                            "attach_multi_type_scores_ts__g5BfZq4",
+                            "create_chat_prompt_with_placehol__einyU6q"
+                        ],
+                        "0.0": [
+                            "group_traces_by_session_py__mKrWADK"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "InitialStateError": [
+                        "update_prompt_labels_py__nJrVPhJ",
+                        "create_score_for_trace_cli__NSwDKFz"
+                    ]
+                }
+            },
+            "pochi__glm-5.1__tasks": {
+                "n_trials": 16,
+                "n_errors": 6,
+                "metrics": [
+                    {
+                        "mean": 0.6111111111111112
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "create_event_observation_py__tbYFEfF",
+                            "observe_decorator_py__UrrKsdj",
+                            "propagate_user_session_tags_py__h88Q4hK",
+                            "track_generation_token_usage_py__DEmg6wN",
+                            "create_prompt_with_config_py__SXwsqam",
+                            "create_dataset_items_ts__84NKEZh",
+                            "create_text_prompt_py__p3ENm27",
+                            "update_trace_with_release_ts__M4ZWPXw",
+                            "create_model_definition_cli__AV9cNk6",
+                            "attach_multi_type_scores_ts__wnH5ZSC",
+                            "create_chat_prompt_with_placehol__dT5VCCo"
+                        ],
+                        "0.0": [
+                            "create_score_config_py__fhqkhcA",
+                            "group_traces_by_session_py__v3DYm42",
+                            "create_chat_prompt_cli__s7EzAdo",
+                            "create_annotation_queue_cli__va92MCF",
+                            "mask_sensitive_data_py__BtzqbUg"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "create_chat_prompt_cli__s7EzAdo",
+                        "create_annotation_queue_cli__va92MCF",
+                        "mask_sensitive_data_py__BtzqbUg",
+                        "update_trace_with_release_ts__M4ZWPXw"
+                    ],
+                    "InitialStateError": [
+                        "update_prompt_labels_py__fhmsYqw",
+                        "create_score_for_trace_cli__n8G3EJj"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 1313079,
+        "cost_usd": null
+    }
+}

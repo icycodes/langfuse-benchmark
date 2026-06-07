@@ -1,0 +1,94 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 1,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780629685933,
+            "stop": 1780629777885
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780629686030,
+                "stop": 1780629686031,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_contains_observations",
+                "status": "failed",
+                "duration": 91829,
+                "start": 1780629686031,
+                "stop": 1780629777860,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def trace_payload():\n        trace_id = _read_trace_id_from_log()\n>       return _fetch_trace(trace_id)\n\ntests/test_final_state.py:81: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id = 'eee60f97c782214f5293bd1539b6af20'\n\n    def _fetch_trace(trace_id):\n        url = f\"{_base_url()}/api/public/traces/{trace_id}\"\n        auth = _basic_auth()\n        deadline = time.time() + 90  # allow ~90s for async ingestion\n        last_status = None\n        last_body = None\n        while time.time() < deadline:\n            resp = requests.get(url, auth=auth, timeout=15)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            if resp.status_code in (401, 403):\n                pytest.fail(\n                    f\"Authentication to Langfuse Public API failed (status {resp.status_code}). \"\n                    f\"Check LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY. Body: {resp.text}\"\n                )\n            time.sleep(3)\n>       pytest.fail(\n            f\"Trace {trace_id} was not retrievable from {url} within timeout. \"\n            f\"Last status: {last_status}, last body: {last_body!r}\"\n        )\nE       Failed: Trace eee60f97c782214f5293bd1539b6af20 was not retrievable from https://us.cloud.langfuse.com/api/public/traces/eee60f97c782214f5293bd1539b6af20 within timeout. Last status: 404, last body: '{\"message\":\"Trace eee60f97c782214f5293bd1539b6af20 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:72: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_parent_span_exists_with_run_id_name",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780629777860,
+                "stop": 1780629777865,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def trace_payload():\n        trace_id = _read_trace_id_from_log()\n>       return _fetch_trace(trace_id)\n\ntests/test_final_state.py:81: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id = 'eee60f97c782214f5293bd1539b6af20'\n\n    def _fetch_trace(trace_id):\n        url = f\"{_base_url()}/api/public/traces/{trace_id}\"\n        auth = _basic_auth()\n        deadline = time.time() + 90  # allow ~90s for async ingestion\n        last_status = None\n        last_body = None\n        while time.time() < deadline:\n            resp = requests.get(url, auth=auth, timeout=15)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            if resp.status_code in (401, 403):\n                pytest.fail(\n                    f\"Authentication to Langfuse Public API failed (status {resp.status_code}). \"\n                    f\"Check LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY. Body: {resp.text}\"\n                )\n            time.sleep(3)\n>       pytest.fail(\n            f\"Trace {trace_id} was not retrievable from {url} within timeout. \"\n            f\"Last status: {last_status}, last body: {last_body!r}\"\n        )\nE       Failed: Trace eee60f97c782214f5293bd1539b6af20 was not retrievable from https://us.cloud.langfuse.com/api/public/traces/eee60f97c782214f5293bd1539b6af20 within timeout. Last status: 404, last body: '{\"message\":\"Trace eee60f97c782214f5293bd1539b6af20 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:72: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_generation_observation_exists_and_is_child_of_span",
+                "status": "failed",
+                "duration": 4,
+                "start": 1780629777866,
+                "stop": 1780629777870,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def trace_payload():\n        trace_id = _read_trace_id_from_log()\n>       return _fetch_trace(trace_id)\n\ntests/test_final_state.py:81: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id = 'eee60f97c782214f5293bd1539b6af20'\n\n    def _fetch_trace(trace_id):\n        url = f\"{_base_url()}/api/public/traces/{trace_id}\"\n        auth = _basic_auth()\n        deadline = time.time() + 90  # allow ~90s for async ingestion\n        last_status = None\n        last_body = None\n        while time.time() < deadline:\n            resp = requests.get(url, auth=auth, timeout=15)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            if resp.status_code in (401, 403):\n                pytest.fail(\n                    f\"Authentication to Langfuse Public API failed (status {resp.status_code}). \"\n                    f\"Check LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY. Body: {resp.text}\"\n                )\n            time.sleep(3)\n>       pytest.fail(\n            f\"Trace {trace_id} was not retrievable from {url} within timeout. \"\n            f\"Last status: {last_status}, last body: {last_body!r}\"\n        )\nE       Failed: Trace eee60f97c782214f5293bd1539b6af20 was not retrievable from https://us.cloud.langfuse.com/api/public/traces/eee60f97c782214f5293bd1539b6af20 within timeout. Last status: 404, last body: '{\"message\":\"Trace eee60f97c782214f5293bd1539b6af20 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:72: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_generation_model_name",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780629777870,
+                "stop": 1780629777875,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def trace_payload():\n        trace_id = _read_trace_id_from_log()\n>       return _fetch_trace(trace_id)\n\ntests/test_final_state.py:81: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id = 'eee60f97c782214f5293bd1539b6af20'\n\n    def _fetch_trace(trace_id):\n        url = f\"{_base_url()}/api/public/traces/{trace_id}\"\n        auth = _basic_auth()\n        deadline = time.time() + 90  # allow ~90s for async ingestion\n        last_status = None\n        last_body = None\n        while time.time() < deadline:\n            resp = requests.get(url, auth=auth, timeout=15)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            if resp.status_code in (401, 403):\n                pytest.fail(\n                    f\"Authentication to Langfuse Public API failed (status {resp.status_code}). \"\n                    f\"Check LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY. Body: {resp.text}\"\n                )\n            time.sleep(3)\n>       pytest.fail(\n            f\"Trace {trace_id} was not retrievable from {url} within timeout. \"\n            f\"Last status: {last_status}, last body: {last_body!r}\"\n        )\nE       Failed: Trace eee60f97c782214f5293bd1539b6af20 was not retrievable from https://us.cloud.langfuse.com/api/public/traces/eee60f97c782214f5293bd1539b6af20 within timeout. Last status: 404, last body: '{\"message\":\"Trace eee60f97c782214f5293bd1539b6af20 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:72: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_generation_usage_details",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780629777875,
+                "stop": 1780629777880,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def trace_payload():\n        trace_id = _read_trace_id_from_log()\n>       return _fetch_trace(trace_id)\n\ntests/test_final_state.py:81: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id = 'eee60f97c782214f5293bd1539b6af20'\n\n    def _fetch_trace(trace_id):\n        url = f\"{_base_url()}/api/public/traces/{trace_id}\"\n        auth = _basic_auth()\n        deadline = time.time() + 90  # allow ~90s for async ingestion\n        last_status = None\n        last_body = None\n        while time.time() < deadline:\n            resp = requests.get(url, auth=auth, timeout=15)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            if resp.status_code in (401, 403):\n                pytest.fail(\n                    f\"Authentication to Langfuse Public API failed (status {resp.status_code}). \"\n                    f\"Check LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY. Body: {resp.text}\"\n                )\n            time.sleep(3)\n>       pytest.fail(\n            f\"Trace {trace_id} was not retrievable from {url} within timeout. \"\n            f\"Last status: {last_status}, last body: {last_body!r}\"\n        )\nE       Failed: Trace eee60f97c782214f5293bd1539b6af20 was not retrievable from https://us.cloud.langfuse.com/api/public/traces/eee60f97c782214f5293bd1539b6af20 within timeout. Last status: 404, last body: '{\"message\":\"Trace eee60f97c782214f5293bd1539b6af20 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:72: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_generation_cost_details",
+                "status": "failed",
+                "duration": 5,
+                "start": 1780629777880,
+                "stop": 1780629777885,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def trace_payload():\n        trace_id = _read_trace_id_from_log()\n>       return _fetch_trace(trace_id)\n\ntests/test_final_state.py:81: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntrace_id = 'eee60f97c782214f5293bd1539b6af20'\n\n    def _fetch_trace(trace_id):\n        url = f\"{_base_url()}/api/public/traces/{trace_id}\"\n        auth = _basic_auth()\n        deadline = time.time() + 90  # allow ~90s for async ingestion\n        last_status = None\n        last_body = None\n        while time.time() < deadline:\n            resp = requests.get(url, auth=auth, timeout=15)\n            last_status = resp.status_code\n            last_body = resp.text\n            if resp.status_code == 200:\n                return resp.json()\n            if resp.status_code in (401, 403):\n                pytest.fail(\n                    f\"Authentication to Langfuse Public API failed (status {resp.status_code}). \"\n                    f\"Check LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY. Body: {resp.text}\"\n                )\n            time.sleep(3)\n>       pytest.fail(\n            f\"Trace {trace_id} was not retrievable from {url} within timeout. \"\n            f\"Last status: {last_status}, last body: {last_body!r}\"\n        )\nE       Failed: Trace eee60f97c782214f5293bd1539b6af20 was not retrievable from https://us.cloud.langfuse.com/api/public/traces/eee60f97c782214f5293bd1539b6af20 within timeout. Last status: 404, last body: '{\"message\":\"Trace eee60f97c782214f5293bd1539b6af20 not found within authorized project\",\"error\":\"LangfuseNotFoundError\"}'\n\ntests/test_final_state.py:72: Failed"
+            }
+        ]
+    }
+}

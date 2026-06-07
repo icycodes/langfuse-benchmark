@@ -1,0 +1,63 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py .F.                                            [100%]
+
+=================================== FAILURES ===================================
+____________________ test_categorical_score_config_via_api _____________________
+
+run_id = 'zr-xvsf3hk', categorical_id = 'e284d10d-f72a-4555-8403-e03afde356ab'
+
+    def test_categorical_score_config_via_api(run_id: str, categorical_id: str):
+        expected_name = f"sentiment-{run_id}"
+        response = _api_get(f"/api/public/score-configs/{categorical_id}")
+        assert response.status_code == 200, (
+            f"GET /api/public/score-configs/{categorical_id} returned "
+            f"{response.status_code}: {response.text}"
+        )
+        payload = response.json()
+        assert payload.get("id") == categorical_id, (
+            f"Score config id mismatch in API response: expected {categorical_id}, "
+            f"got {payload.get('id')!r}."
+        )
+        assert payload.get("name") == expected_name, (
+            f"Categorical score config name mismatch: expected {expected_name!r}, "
+            f"got {payload.get('name')!r}."
+        )
+        assert payload.get("dataType") == "CATEGORICAL", (
+            "Categorical score config has unexpected dataType: "
+            f"expected 'CATEGORICAL', got {payload.get('dataType')!r}."
+        )
+        categories = payload.get("categories")
+        assert isinstance(categories, list), (
+            "Categorical score config 'categories' must be a list, "
+            f"got {type(categories).__name__}."
+        )
+        actual = {(int(cat["value"]), cat["label"]) for cat in categories}
+        expected = {(0, "negative"), (1, "neutral"), (2, "positive")}
+>       assert actual == expected, (
+            "Categorical score config categories do not match the required "
+            f"sentiment buckets. Expected {expected!r}, got {actual!r}."
+        )
+E       AssertionError: Categorical score config categories do not match the required sentiment buckets. Expected {(1, 'neutral'), (0, 'negative'), (2, 'positive')}, got {(1, 'Positive'), (-1, 'Negative'), (0, 'Neutral')}.
+E       assert {(-1, 'Negati..., 'Positive')} == {(0, 'negativ..., 'positive')}
+E         Extra items in the left set:
+E         (1, 'Positive')
+E         (-1, 'Negative')
+E         (0, 'Neutral')
+E         Extra items in the right set:
+E         (2, 'positive')
+E         (0, 'negative')
+E         (1, 'neutral')
+E         Use -v to get more diff
+
+tests/test_final_state.py:124: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_numeric_score_config_via_api
+PASSED tests/test_final_state.py::test_configs_listed_via_api
+FAILED tests/test_final_state.py::test_categorical_score_config_via_api - Ass...
+========================= 1 failed, 2 passed in 1.54s ==========================

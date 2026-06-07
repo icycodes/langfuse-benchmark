@@ -1,0 +1,47 @@
+# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+
+## Background
+You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use to namespace the externally visible identifiers so concurrent task runs do not interfere.
+
+## Requirements
+- Write a Python script `instrument.py` that uses the Langfuse Python SDK to:
+  1. Open a root observation of type `span` named `process-document-${ZEALT_RUN_ID}` using `start_as_current_observation` (or an equivalent SDK API).
+  2. Attach `user_id="user-${ZEALT_RUN_ID}"` and `session_id="session-${ZEALT_RUN_ID}"` to the trace this span belongs to (so they appear on the trace returned by the public API).
+  3. Within that span, open a nested observation of type `generation` named `summarize-${ZEALT_RUN_ID}` with `model="gpt-3.5-turbo"`. Set an `input` (any string or list of role/content dicts) and an `output` (any string) on the generation. Do not call a real LLM — fabricate the input/output.
+  4. Capture the **trace ID** of the current trace and the **observation ID** of the nested generation while inside the contexts (e.g. via `langfuse.get_current_trace_id()` and `langfuse.get_current_observation_id()` or by reading the span objects' `.trace_id` / `.id`).
+  5. After both contexts are closed, attach three custom scores using the SDK's `create_score` method (or equivalent):
+     - A **trace-level** score with `name="user_satisfaction"`, `value=0.8`, `data_type="NUMERIC"`, bound to the captured trace ID only (no `observation_id`).
+     - An **observation-level** score with `name="hallucination"`, `value=0`, `data_type="BOOLEAN"`, bound to **both** the captured trace ID and the generation observation ID.
+     - An **observation-level** score with `name="relevance"`, `value="high"`, `data_type="CATEGORICAL"`, bound to both the captured trace ID and the generation observation ID.
+- Call `langfuse.flush()` before the script exits so the trace, observations, and scores are actually delivered.
+- Execute the script so the trace, the nested generation, and the three scores are persisted on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the run.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; `get_client()` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Nested observations can be created by nesting two `start_as_current_observation(as_type=...)` context managers — the inner generation is automatically a child of the outer span.
+- Use `update_current_trace(user_id=..., session_id=...)` (or pass `user_id` / `session_id` on the root observation) so the user and session attributes propagate to the trace.
+- The Python SDK's `create_score` accepts `trace_id`, `observation_id`, `name`, `value`, and `data_type`. Use `data_type="NUMERIC"`, `"BOOLEAN"`, and `"CATEGORICAL"` respectively.
+- Boolean scores must be `0` or `1` (numeric). Categorical scores are passed as strings. Numeric scores are passed as floats.
+- Capture the trace ID and observation ID **before** the context managers exit; once the scores are created you can verify them by calling `GET {LANGFUSE_BASE_URL}/api/public/v2/scores?traceId=...` with HTTP Basic auth.
+- Remember that ingestion is asynchronous — always call `flush()` (or rely on `with langfuse:`) so events are delivered before the process exits.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the trace, generation observation, and the three scores actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The root span name must be `process-document-${ZEALT_RUN_ID}`, the nested generation name must be `summarize-${ZEALT_RUN_ID}`, the trace `userId` must be `user-${ZEALT_RUN_ID}`, and the trace `sessionId` must be `session-${ZEALT_RUN_ID}`, where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The trace must contain at least one observation with `type == "GENERATION"`, the model field equal to `gpt-3.5-turbo`, and the matching generation name.
+- Three scores must be attached to the trace on the Langfuse server (queryable via `GET /api/public/v2/scores?traceId=<trace_id>`):
+  - `user_satisfaction` (NUMERIC, value `0.8`) on the trace (no `observationId`).
+  - `hallucination` (BOOLEAN, value `0`) on the generation observation (`observationId` equals the generation ID).
+  - `relevance` (CATEGORICAL, string value `"high"`) on the generation observation (`observationId` equals the generation ID).
+- The log file must contain the following lines, in any order, one per line, with no other formatting:
+  - `Trace ID: <trace_id>`
+  - `Generation ID: <generation_observation_id>`
+  - `User ID: user-${ZEALT_RUN_ID}`
+  - `Session ID: session-${ZEALT_RUN_ID}`
+  - `Status: OK`
+

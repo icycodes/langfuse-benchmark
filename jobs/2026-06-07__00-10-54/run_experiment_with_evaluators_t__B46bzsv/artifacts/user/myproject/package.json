@@ -1,0 +1,17 @@
+{
+  "name": "langfuse-experiment-item-evaluators",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@langfuse/client": "latest",
+    "@langfuse/otel": "latest",
+    "@opentelemetry/sdk-node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies": {}
+}

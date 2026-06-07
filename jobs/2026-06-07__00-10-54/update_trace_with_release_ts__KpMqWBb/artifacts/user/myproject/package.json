@@ -1,0 +1,21 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "trace.js",
+  "scripts": {
+    "start": "node trace.js",
+    "emit-trace": "node trace.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@langfuse/otel": "^5.4.1",
+    "@langfuse/tracing": "^5.4.1",
+    "@opentelemetry/api": "^1.9.1",
+    "@opentelemetry/sdk-node": "^0.218.0"
+  }
+}

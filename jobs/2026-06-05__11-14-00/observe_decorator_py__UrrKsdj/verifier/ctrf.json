@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780629787090,
+            "stop": 1780629789040
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780629787190,
+                "stop": 1780629787191,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_metadata_matches_expected",
+                "status": "passed",
+                "duration": 613,
+                "start": 1780629787191,
+                "stop": 1780629787804,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_has_nested_generation_observation",
+                "status": "passed",
+                "duration": 593,
+                "start": 1780629787804,
+                "stop": 1780629788397,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_discoverable_via_list_endpoint",
+                "status": "passed",
+                "duration": 641,
+                "start": 1780629788398,
+                "stop": 1780629789039,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 11 items
+
+tests/test_final_state.py ...........                                    [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_valid_trace_id
+PASSED tests/test_final_state.py::test_trace_id_matches_log
+PASSED tests/test_final_state.py::test_trace_name_is_run_id_scoped
+PASSED tests/test_final_state.py::test_trace_session_id
+PASSED tests/test_final_state.py::test_trace_user_id
+PASSED tests/test_final_state.py::test_trace_tags_include_staging_and_run_tag
+PASSED tests/test_final_state.py::test_trace_release
+PASSED tests/test_final_state.py::test_trace_version
+PASSED tests/test_final_state.py::test_trace_public_flag
+PASSED tests/test_final_state.py::test_trace_input_non_empty
+PASSED tests/test_final_state.py::test_trace_output_non_empty
+============================== 11 passed in 0.86s ==============================

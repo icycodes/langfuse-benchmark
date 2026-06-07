@@ -1,0 +1,101 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FF.                                            [100%]
+
+=================================== FAILURES ===================================
+______________________ test_numeric_score_config_via_api _______________________
+
+run_id = 'zr-fhqkhca', numeric_id = '4ebc818b-59ef-4ee4-bf7c-5ff2d1fd51ba'
+
+    def test_numeric_score_config_via_api(run_id: str, numeric_id: str):
+        expected_name = f"quality-{run_id}"
+        response = _api_get(f"/api/public/score-configs/{numeric_id}")
+        assert response.status_code == 200, (
+            f"GET /api/public/score-configs/{numeric_id} returned "
+            f"{response.status_code}: {response.text}"
+        )
+        payload = response.json()
+        assert payload.get("id") == numeric_id, (
+            f"Score config id mismatch in API response: expected {numeric_id}, "
+            f"got {payload.get('id')!r}."
+        )
+        assert payload.get("name") == expected_name, (
+            f"Numeric score config name mismatch: expected {expected_name!r}, "
+            f"got {payload.get('name')!r}."
+        )
+        assert payload.get("dataType") == "NUMERIC", (
+            "Numeric score config has unexpected dataType: "
+            f"expected 'NUMERIC', got {payload.get('dataType')!r}."
+        )
+        assert payload.get("minValue") == 0, (
+            f"Numeric score config minValue mismatch: expected 0, "
+            f"got {payload.get('minValue')!r}."
+        )
+>       assert payload.get("maxValue") == 10, (
+            f"Numeric score config maxValue mismatch: expected 10, "
+            f"got {payload.get('maxValue')!r}."
+        )
+E       AssertionError: Numeric score config maxValue mismatch: expected 10, got 5.
+E       assert 5 == 10
+E        +  where 5 = <built-in method get of dict object at 0x7eee45664a80>('maxValue')
+E        +    where <built-in method get of dict object at 0x7eee45664a80> = {'categories': None, 'createdAt': '2026-06-05T03:25:27.794Z', 'dataType': 'NUMERIC', 'description': 'Response quality rating on a bounded numeric scale.', ...}.get
+
+tests/test_final_state.py:86: AssertionError
+____________________ test_categorical_score_config_via_api _____________________
+
+run_id = 'zr-fhqkhca', categorical_id = '7075a6cc-7ebf-4bb6-a248-6bf5d2477c1b'
+
+    def test_categorical_score_config_via_api(run_id: str, categorical_id: str):
+        expected_name = f"sentiment-{run_id}"
+        response = _api_get(f"/api/public/score-configs/{categorical_id}")
+        assert response.status_code == 200, (
+            f"GET /api/public/score-configs/{categorical_id} returned "
+            f"{response.status_code}: {response.text}"
+        )
+        payload = response.json()
+        assert payload.get("id") == categorical_id, (
+            f"Score config id mismatch in API response: expected {categorical_id}, "
+            f"got {payload.get('id')!r}."
+        )
+        assert payload.get("name") == expected_name, (
+            f"Categorical score config name mismatch: expected {expected_name!r}, "
+            f"got {payload.get('name')!r}."
+        )
+        assert payload.get("dataType") == "CATEGORICAL", (
+            "Categorical score config has unexpected dataType: "
+            f"expected 'CATEGORICAL', got {payload.get('dataType')!r}."
+        )
+        categories = payload.get("categories")
+        assert isinstance(categories, list), (
+            "Categorical score config 'categories' must be a list, "
+            f"got {type(categories).__name__}."
+        )
+        actual = {(int(cat["value"]), cat["label"]) for cat in categories}
+        expected = {(0, "negative"), (1, "neutral"), (2, "positive")}
+>       assert actual == expected, (
+            "Categorical score config categories do not match the required "
+            f"sentiment buckets. Expected {expected!r}, got {actual!r}."
+        )
+E       AssertionError: Categorical score config categories do not match the required sentiment buckets. Expected {(1, 'neutral'), (0, 'negative'), (2, 'positive')}, got {(-1, 'negative'), (1, 'positive'), (0, 'neutral')}.
+E       assert {(-1, 'negati..., 'positive')} == {(0, 'negativ..., 'positive')}
+E         Extra items in the left set:
+E         (-1, 'negative')
+E         (1, 'positive')
+E         (0, 'neutral')
+E         Extra items in the right set:
+E         (1, 'neutral')
+E         (0, 'negative')
+E         (2, 'positive')
+E         Use -v to get more diff
+
+tests/test_final_state.py:124: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_configs_listed_via_api
+FAILED tests/test_final_state.py::test_numeric_score_config_via_api - Asserti...
+FAILED tests/test_final_state.py::test_categorical_score_config_via_api - Ass...
+========================= 2 failed, 1 passed in 1.59s ==========================

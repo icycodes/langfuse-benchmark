@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_trace_id
+PASSED tests/test_final_state.py::test_run_id_is_set
+PASSED tests/test_final_state.py::test_trace_exists_with_expected_name
+PASSED tests/test_final_state.py::test_trace_has_generation_observation_named_llm_call
+PASSED tests/test_final_state.py::test_correctness_numeric_score_attached
+PASSED tests/test_final_state.py::test_sentiment_categorical_score_attached
+PASSED tests/test_final_state.py::test_helpfulness_boolean_score_attached
+============================== 7 passed in 3.05s ===============================

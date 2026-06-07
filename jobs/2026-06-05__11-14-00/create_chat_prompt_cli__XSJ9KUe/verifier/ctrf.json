@@ -1,0 +1,133 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780630790720,
+            "stop": 1780630792299
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630790838,
+                "stop": 1780630790839,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_expected_prompt_name",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780630790839,
+                "stop": 1780630790839,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_prompt_version_integer",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780630790840,
+                "stop": 1780630790840,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_name_matches",
+                "status": "passed",
+                "duration": 506,
+                "start": 1780630790840,
+                "stop": 1780630791346,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_type_is_chat",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630791347,
+                "stop": 1780630791348,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_version_matches_log",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780630791349,
+                "stop": 1780630791351,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_messages_structure",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630791351,
+                "stop": 1780630791352,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_has_both_labels",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630791353,
+                "stop": 1780630791354,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_has_required_tag",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630791354,
+                "stop": 1780630791355,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_has_non_empty_commit_message",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780630791355,
+                "stop": 1780630791357,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_production_label_resolves_to_same_version",
+                "status": "passed",
+                "duration": 474,
+                "start": 1780630791357,
+                "stop": 1780630791831,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_staging_label_resolves_to_same_version",
+                "status": "passed",
+                "duration": 467,
+                "start": 1780630791831,
+                "stop": 1780630792298,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

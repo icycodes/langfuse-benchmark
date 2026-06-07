@@ -1,0 +1,7 @@
+{
+  "library_name": "Langfuse",
+  "task_name": "run_experiment_with_evaluators_ts",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

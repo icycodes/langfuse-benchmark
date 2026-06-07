@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780630824058,
+            "stop": 1780630827484
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists_with_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630824135,
+                "stop": 1780630824136,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_name_matches_run_id",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3344,
+                "start": 1780630824136,
+                "stop": 1780630827480,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "trace_payload = {'bookmarked': False, 'createdAt': '2026-06-05T03:40:14.000Z', 'environment': 'default', 'externalId': None, ...}\n\n    def test_trace_name_matches_run_id(trace_payload):\n        expected_name = f\"mask-demo-{RUN_ID}\"\n        actual_name = trace_payload.get(\"name\")\n>       assert actual_name == expected_name, (\n            f\"Expected trace.name to be {expected_name!r}, got {actual_name!r}.\"\n        )\nE       AssertionError: Expected trace.name to be 'mask-demo-zr-hjjrsmn', got 'mask-demo-final-run-456'.\nE       assert 'mask-demo-final-run-456' == 'mask-demo-zr-hjjrsmn'\nE         - mask-demo-zr-hjjrsmn\nE         + mask-demo-final-run-456\n\ntests/test_final_state.py:100: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_trace_input_output_contain_all_redaction_tokens",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780630827481,
+                "stop": 1780630827481,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_input_output_contain_no_raw_pii",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780630827482,
+                "stop": 1780630827482,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_observation_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780630827483,
+                "stop": 1780630827483,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_input_output_redacted",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780630827483,
+                "stop": 1780630827484,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

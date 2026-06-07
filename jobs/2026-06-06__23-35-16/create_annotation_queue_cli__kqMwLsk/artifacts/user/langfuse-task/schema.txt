@@ -1,0 +1,40 @@
+langfuse
+OpenAPI: 3.0.1
+Servers: 0
+Auth Schemes: 1
+Spec: langfuse
+
+Resources: 28
+
+- annotation-queues (10 actions)
+- blob-storage-integrations (4 actions)
+- comments (3 actions)
+- dataset-items (4 actions)
+- dataset-run-items (2 actions)
+- datasets (6 actions)
+- healths (1 actions)
+- ingestions (1 actions)
+- legacy-metrics-v1s (1 actions)
+- legacy-observations-v1s (2 actions)
+- legacy-score-v1s (2 actions)
+- llm-connections (3 actions)
+- medias (3 actions)
+- metrics (1 actions)
+- models (4 actions)
+- observations (1 actions)
+- opentelemetries (1 actions)
+- organizations (8 actions)
+- projects (7 actions)
+- prompt-versions (1 actions)
+- prompts (4 actions)
+- scims (7 actions)
+- score-configs (4 actions)
+- scores (2 actions)
+- sessions (2 actions)
+- traces (4 actions)
+- unstable-evaluation-rules (5 actions)
+- unstable-evaluators (3 actions)
+
+Next:
+- langfuse api <resource> --help
+- langfuse api <resource> <action> --help

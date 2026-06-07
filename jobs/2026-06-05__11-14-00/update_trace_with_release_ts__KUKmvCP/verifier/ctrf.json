@@ -1,0 +1,124 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780631257617,
+            "stop": 1780631258395
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_valid_trace_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631257786,
+                "stop": 1780631257788,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_id_matches_log",
+                "status": "passed",
+                "duration": 590,
+                "start": 1780631257788,
+                "stop": 1780631258378,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_name_is_run_id_scoped",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258378,
+                "stop": 1780631258380,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_session_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258380,
+                "stop": 1780631258382,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_user_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258382,
+                "stop": 1780631258384,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_tags_include_staging_and_run_tag",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258384,
+                "stop": 1780631258386,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_release",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780631258386,
+                "stop": 1780631258387,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_version",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780631258388,
+                "stop": 1780631258389,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_public_flag",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258389,
+                "stop": 1780631258391,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_input_non_empty",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258391,
+                "stop": 1780631258393,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_output_non_empty",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780631258393,
+                "stop": 1780631258395,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

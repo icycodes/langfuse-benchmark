@@ -1,0 +1,56 @@
+{
+    "id": "862964d0-79d2-4d48-b416-0ed76be9f25f",
+    "started_at": "2026-06-07T00:10:54.334533",
+    "updated_at": "2026-06-07T00:28:37.781201",
+    "finished_at": "2026-06-07T00:28:37.781201",
+    "n_total_trials": 16,
+    "stats": {
+        "n_completed_trials": 16,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gpt-5.5__tasks": {
+                "n_trials": 16,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.8125
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "create_event_observation_py__xRSi5Ca",
+                            "create_score_configs_cli__xyxQNwm",
+                            "manage_dataset_cli__zVRGski",
+                            "run_experiment_with_evaluators_t__B46bzsv",
+                            "observe_decorator_py__LUVnied",
+                            "create_text_prompt_cli__S8mSH8U",
+                            "track_generation_token_usage_py__RK9fEB7",
+                            "create_chat_prompt_cli__KMMYeqk",
+                            "mask_sensitive_data_py__HEq7Hy3",
+                            "instrument_trace_with_scores_py__idTPBRS",
+                            "update_trace_with_release_ts__KpMqWBb",
+                            "attach_multi_type_scores_ts__XawjJij",
+                            "link_prompt_to_generation_py__qyyyDch"
+                        ],
+                        "0.0": [
+                            "create_score_config_py__DGyBMm7",
+                            "create_annotation_queue_cli__tsUkrdB",
+                            "instrument_otel_tracing_ts__zYtznvo"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 646415,
+        "cost_usd": null
+    }
+}

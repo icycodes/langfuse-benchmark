@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_records_prompt_name_matches_run_id
+PASSED tests/test_final_state.py::test_prompt_exists_via_api
+PASSED tests/test_final_state.py::test_prompt_is_text_type
+PASSED tests/test_final_state.py::test_prompt_body_matches
+PASSED tests/test_final_state.py::test_prompt_labels_include_production_and_staging
+PASSED tests/test_final_state.py::test_prompt_tags_include_onboarding
+PASSED tests/test_final_state.py::test_prompt_commit_message_matches
+PASSED tests/test_final_state.py::test_prompt_config_contains_model_and_temperature
+============================== 8 passed in 0.79s ===============================

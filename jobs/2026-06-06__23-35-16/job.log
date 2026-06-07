@@ -1,0 +1,2844 @@
+Skipping image OS validation for hb__manage_dataset_cli: docker inspect returned 1
+Skipping image OS validation for hb__run_experiment_with_evaluators_ts: docker inspect returned 1
+Skipping image OS validation for hb__create_event_observation_py: docker inspect returned 1
+Skipping image OS validation for hb__create_score_configs_cli: docker inspect returned 1
+Skipping image OS validation for hb__create_score_configs_cli: docker inspect returned 1
+Skipping image OS validation for hb__create_event_observation_py: docker inspect returned 1
+Skipping image OS validation for hb__run_experiment_with_evaluators_ts: docker inspect returned 1
+Skipping image OS validation for hb__manage_dataset_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: echo zr-yfejgkf > /logs/artifacts/run-id && echo create_event_observation_py__Yfejgkf > /logs/artifacts/trial_id
+Running command: echo zr-2nnnvgz > /logs/artifacts/run-id && echo create_score_configs_cli__2nnNvGz > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Emit a Langfuse Event Observation with the Python SDK
+
+## Background
+Langfuse traces are built from `observations`. In addition to generic spans and LLM generations, Langfuse supports a lightweight `event` observation type that represents a single point-in-time action inside a trace (e.g. "user logged in", "cache hit", "tool invoked"). Event observations are first-class observations in Langfuse: they appear in the trace timeline, the public Observations API, and metrics.
+
+In this task, you will write a small Python program that uses the Langfuse Python SDK (v4+, `from langfuse import get_client`) to emit a structured `event`-type observation inside a parent trace, and you will record the resulting Langfuse IDs to a log file so the result can be verified through the Langfuse Cloud Public API.
+
+## Requirements
+- Create a Python script at `/home/user/myproject/main.py` that uses the official Langfuse Python SDK to:
+  - Start a parent observation (span) that becomes the root of a Langfuse trace, named `harbor-event-trace-${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable).
+  - Inside that trace, create exactly one nested observation whose Langfuse observation type is `event`, named `user-login-event-${ZEALT_RUN_ID}`.
+  - On that event observation, set:
+    - `input` to the JSON object `{"user_id": "u-42"}`
+    - `output` to the JSON object `{"status": "success"}`
+    - `metadata` to a JSON object that contains at least the keys `source` (value `"auth-service"`) and `region` (value `"us-east-1"`).
+  - Make sure all buffered events are flushed to Langfuse Cloud before the script exits.
+  - Append two lines to `/home/user/myproject/output.log` so the verifier can locate the just-created Langfuse objects:
+    - `Trace ID: <trace_id>`
+    - `Observation ID: <event_observation_id>`
+    where `<trace_id>` is the Langfuse trace ID of the parent trace and `<event_observation_id>` is the Langfuse observation ID of the event observation that was just created.
+- The script must be runnable as `python3 /home/user/myproject/main.py`.
+
+## Implementation Hints
+- Use the Langfuse Python SDK's `get_client()` (v4+) and its observation APIs. The SDK supports specifying the observation type with an `as_type` parameter; the value for events is documented in Langfuse's observation-types docs.
+- The Langfuse Python SDK reads credentials from `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. These are already exported in the environment.
+- Read the `ZEALT_RUN_ID` environment variable and use it as a suffix on the trace and event names so that concurrent runs do not collide.
+- The SDK is asynchronous; remember to flush or shut down the client before the process exits, otherwise events may be lost.
+- You can capture the Langfuse trace and observation IDs from the SDK (e.g. via the active span helpers or directly from the returned observation object) and write them to the log file before the script exits.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Script path: /home/user/myproject/main.py
+- Log file: /home/user/myproject/output.log
+- Ensure the script is executed once so that the trace and event observation are actually created in Langfuse Cloud, and the log file is written.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. The created Langfuse trace name must be `harbor-event-trace-${run-id}` and the created event observation name must be `user-login-event-${run-id}`.
+- The log file must contain exactly one line of the form `Trace ID: <trace_id>` and exactly one line of the form `Observation ID: <event_observation_id>`, where the IDs are the real Langfuse IDs returned by the SDK.
+- When the recorded observation is fetched from the Langfuse Public API, it must have observation type `EVENT`, its `name` must equal `user-login-event-${run-id}`, its `traceId` must equal the recorded trace ID, its `input` must be the JSON object `{"user_id": "u-42"}`, its `output` must be the JSON object `{"status": "success"}`, and its `metadata` must include `source = "auth-service"` and `region = "us-east-1"`.
+- When the recorded trace is fetched from the Langfuse Public API, its `name` must equal `harbor-event-trace-${run-id}`.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create Langfuse Score Configurations via the Langfuse CLI
+
+## Background
+Langfuse Score Configs are typed, project-scoped schemas that ensure scores follow a consistent structure (data type, value range, allowed categories). They power both manual annotation in the UI and programmatic score ingestion via the SDKs/API.
+
+In this task you will use the [Langfuse CLI](https://github.com/langfuse/langfuse-cli) — a thin wrapper around the public REST API — to programmatically create three score configurations (one of each non-text data type) in the connected Langfuse project. Because the project may be shared across parallel evaluation runs, every config name must be uniquely suffixed with the current `run-id` to avoid collisions.
+
+## Requirements
+- Project path: `/home/user/myproject`.
+- Use the `langfuse-cli` (already installed globally as `langfuse`) to create three score configurations in the connected Langfuse project. Do **NOT** use the Python SDK, JS SDK, or raw HTTP requests for the creation step.
+- The three score configs must be:
+  1. A **NUMERIC** score config with `minValue = 0` and `maxValue = 10`.
+  2. A **CATEGORICAL** score config with exactly three categories: `positive` (value `1`), `neutral` (value `0`), `negative` (value `-1`).
+  3. A **BOOLEAN** score config (no extra constraints).
+- Each score config name must be suffixed with the current `run-id`, read from the `ZEALT_RUN_ID` environment variable (see Implementation Hints for exact names).
+- Record the returned `id` of every created score config in a structured log file so verification can locate them.
+
+## Implementation Hints
+- The Langfuse CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment — they are already exported for you. You do not need to log in.
+- Discover the relevant resource and its flags with `langfuse api __schema` and `langfuse api score-configs --help` / `langfuse api score-configs create --help`.
+- The CLI maps directly to the public API: `POST /api/public/score-configs`. Required fields are `name` and `dataType`. For `CATEGORICAL`, you must additionally supply a list of `categories` where each entry is `{ "label": string, "value": number }`. For `NUMERIC`, supply `minValue` / `maxValue`. For `BOOLEAN`, no extra fields are needed.
+- Use `--json` to get machine-readable output from the CLI so you can parse the returned `id` reliably.
+- Read `run-id` from the `ZEALT_RUN_ID` env var **once** at the start, then build the three config names from it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the score configs are actually created in the Langfuse project (real side effect, not mocked).
+- Log file: `/home/user/myproject/output.log`
+- The score configs must be created with the Langfuse CLI (`langfuse api score-configs create ...`).
+- The three config names must be (where `${run-id}` is the value of the `ZEALT_RUN_ID` environment variable):
+  - `quality-score-${run-id}` — `dataType = NUMERIC`, `minValue = 0`, `maxValue = 10`.
+  - `feedback-sentiment-${run-id}` — `dataType = CATEGORICAL`, with the three categories listed in Requirements.
+  - `is-relevant-${run-id}` — `dataType = BOOLEAN`.
+- The log file `/home/user/myproject/output.log` must contain exactly three lines (one per created config), each in the format:
+
+  ```
+  ScoreConfig: <name>=<id>
+  ```
+
+  where `<name>` is the full config name (including the `run-id` suffix) and `<id>` is the `id` field returned by the Langfuse API for that score config.
+
+
+EOF
+Running command: echo zr-ogm3j2e > /logs/artifacts/run-id && echo run_experiment_with_evaluators_t__ogm3j2E > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-6eh5mbx > /logs/artifacts/run-id && echo manage_dataset_cli__6eh5Mbx > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source AI engineering platform that provides observability, prompt management, and evaluation for LLM applications. The TypeScript SDK's `experiment.run` API loops a task function over a dataset, automatically traces every execution, and lets you attach **item-level evaluators** whose results are emitted as scores on each trace in Langfuse.
+
+In this task you will build a small Node.js (TypeScript) project that runs a Langfuse experiment over a **local** dataset using the modular JS/TS SDK packages, with a custom task function and two custom evaluators, and then record the resulting trace IDs so they can be inspected via the Langfuse API.
+
+## Requirements
+- Create a TypeScript Node.js project at `/home/user/myproject` that uses the modular Langfuse JS/TS SDK packages (`@langfuse/client`, `@langfuse/otel`, `@opentelemetry/sdk-node`).
+- Initialize OpenTelemetry with `LangfuseSpanProcessor` before running the experiment so traces are exported to Langfuse.
+- Define an in-process **local** dataset of exactly 3 items, each with an `input` string and an `expectedOutput` string.
+- Define a task function that returns the uppercase form of the item's `input` string. The task function must **not** call any external LLM provider.
+- Define **two** item-level evaluators that are passed to `experiment.run` via the `evaluators` option:
+  - One named `accuracy` that returns numeric value `1` when the task output exactly equals `expectedOutput` (case-sensitive) and `0` otherwise.
+  - One named `response_length` that returns the number of characters of the task `output`.
+- Run the experiment via `langfuse.experiment.run({...})`. The experiment `name` MUST be `harbor-experiment-${ZEALT_RUN_ID}`, where `ZEALT_RUN_ID` is read from the environment variable of the same name.
+- After the experiment completes, ensure all spans are delivered to Langfuse (e.g. by shutting down the OpenTelemetry SDK) and then write a log file describing the run.
+
+## Implementation Hints
+- Read `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment — the Langfuse SDK and the OTel processor pick them up automatically.
+- `LangfuseSpanProcessor` must be wired into a Node OpenTelemetry SDK and started **before** the experiment runs; calling `await otelSdk.shutdown()` at the end is the supported way to flush all spans for short-lived scripts.
+- The `ExperimentResult` returned by `experiment.run` exposes per-item results (`itemResults[]`), and each item result includes the Langfuse `traceId` of the trace that was created for that item.
+- The task may be implemented as plain TypeScript executed with `ts-node`/`tsx` (or compiled with `tsc` and then run with `node`) — either approach is acceptable.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- The executor is responsible for actually running the script so that the experiment runs end-to-end and traces & scores are delivered to Langfuse.
+- Log file: `/home/user/myproject/output.log`
+- The experiment name must be `harbor-experiment-${ZEALT_RUN_ID}` where `ZEALT_RUN_ID` is read from the environment variable of the same name.
+- The log file MUST contain the following lines (each on its own line, in any order):
+  - One line in the exact format: `Experiment name: <experiment_name>`
+  - Exactly 3 lines in the exact format: `Trace ID: <trace_id>` — one per dataset item, in the order the items were processed. Each `<trace_id>` must be a non-empty trace ID returned by Langfuse for that item.
+- The script must use the Langfuse JS/TS SDK's `experiment.run` API (i.e. `langfuse.experiment.run({...})`) on a **local** dataset; do not create a Langfuse-hosted dataset for this task.
+- After the script exits, each recorded trace must exist in Langfuse and have **both** of the following scores attached: a score named `accuracy` and a score named `response_length`.
+
+
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage a Langfuse Evaluation Dataset with the Langfuse CLI
+
+## Background
+Langfuse is an open-source LLM engineering platform. One of its three product surfaces is Evaluation, which is built around versioned datasets, scores, and experiments. The Langfuse CLI (`langfuse-cli`, distributed via npm) dynamically wraps the entire Langfuse Public API, so every dataset and dataset-item endpoint is available as a terminal command. You will use the CLI in scripts/CI-style workflows to seed an evaluation dataset for a small geography QA app.
+
+Your Langfuse project is already provisioned. The credentials are exposed as environment variables (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) inside the task environment. The CLI picks up these env vars automatically (no separate login step).
+
+## Requirements
+- Use the Langfuse CLI exclusively for creating and populating the dataset. Do not use the Python or JS/TS SDK, and do not call the REST API directly with curl/HTTP clients.
+- Create one new Langfuse dataset whose name embeds the current `run-id`.
+- Populate the dataset with exactly three items covering basic geography questions (one per European, Asian, and South American capital).
+- Record the resulting Langfuse identifiers and a brief summary into a log file so that they can be machine-verified.
+
+## Implementation Hints
+- Read the value of `run-id` from the `ZEALT_RUN_ID` environment variable and use it as a suffix on the dataset name.
+- The CLI is published on npm as `langfuse-cli`. You can either install it globally (`npm i -g langfuse-cli`) or invoke it one-off with `npx langfuse-cli`. Use `langfuse api __schema` and `langfuse api <resource> --help` to discover the exact command shapes for dataset and dataset-item resources.
+- The CLI's authentication uses the same environment variables that the SDKs use, so no extra setup is needed once the env vars are present.
+- Each created dataset/dataset-item response includes a unique `id`. Capture those ids and write them to the log file as instructed below.
+- Network access to the Langfuse API host (`LANGFUSE_BASE_URL`) is required. Make sure your final command output is success-checked before writing the log file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the dataset and items are actually created against the live Langfuse API and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Langfuse CLI (`langfuse-cli`) must be used to perform every create operation.
+- The dataset name must be `geography-quiz-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The dataset must have its description set to `Geography QA evaluation dataset` (exactly this string).
+- Exactly three dataset items must exist under the dataset, each with both an `input` field (a question string) and an `expectedOutput` field (the capital city). The three items must cover the following questions and answers, matched case-insensitively for the expected output and exactly for the input string:
+  - input: `What is the capital of France?`  expectedOutput: `Paris`
+  - input: `What is the capital of Japan?`   expectedOutput: `Tokyo`
+  - input: `What is the capital of Brazil?`  expectedOutput: `Brasilia`
+- The log file must contain the following lines (one per line, exact prefixes):
+  - `Dataset name: geography-quiz-<run-id>`
+  - `Dataset id: <dataset_id>`
+  - `Item count: 3`
+  - One `Item id: <id>` line per created dataset item (three lines total).
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__observe_decorator_py: docker inspect returned 1
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-qlwbhgl > /logs/artifacts/run-id && echo create_event_observation_py__qLwBHGL > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Skipping image OS validation for hb__create_text_prompt_cli: docker inspect returned 1
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Emit a Langfuse Event Observation with the Python SDK
+
+## Background
+Langfuse traces are built from `observations`. In addition to generic spans and LLM generations, Langfuse supports a lightweight `event` observation type that represents a single point-in-time action inside a trace (e.g. "user logged in", "cache hit", "tool invoked"). Event observations are first-class observations in Langfuse: they appear in the trace timeline, the public Observations API, and metrics.
+
+In this task, you will write a small Python program that uses the Langfuse Python SDK (v4+, `from langfuse import get_client`) to emit a structured `event`-type observation inside a parent trace, and you will record the resulting Langfuse IDs to a log file so the result can be verified through the Langfuse Cloud Public API.
+
+## Requirements
+- Create a Python script at `/home/user/myproject/main.py` that uses the official Langfuse Python SDK to:
+  - Start a parent observation (span) that becomes the root of a Langfuse trace, named `harbor-event-trace-${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is the value of the `ZEALT_RUN_ID` environment variable).
+  - Inside that trace, create exactly one nested observation whose Langfuse observation type is `event`, named `user-login-event-${ZEALT_RUN_ID}`.
+  - On that event observation, set:
+    - `input` to the JSON object `{"user_id": "u-42"}`
+    - `output` to the JSON object `{"status": "success"}`
+    - `metadata` to a JSON object that contains at least the keys `source` (value `"auth-service"`) and `region` (value `"us-east-1"`).
+  - Make sure all buffered events are flushed to Langfuse Cloud before the script exits.
+  - Append two lines to `/home/user/myproject/output.log` so the verifier can locate the just-created Langfuse objects:
+    - `Trace ID: <trace_id>`
+    - `Observation ID: <event_observation_id>`
+    where `<trace_id>` is the Langfuse trace ID of the parent trace and `<event_observation_id>` is the Langfuse observation ID of the event observation that was just created.
+- The script must be runnable as `python3 /home/user/myproject/main.py`.
+
+## Implementation Hints
+- Use the Langfuse Python SDK's `get_client()` (v4+) and its observation APIs. The SDK supports specifying the observation type with an `as_type` parameter; the value for events is documented in Langfuse's observation-types docs.
+- The Langfuse Python SDK reads credentials from `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. These are already exported in the environment.
+- Read the `ZEALT_RUN_ID` environment variable and use it as a suffix on the trace and event names so that concurrent runs do not collide.
+- The SDK is asynchronous; remember to flush or shut down the client before the process exits, otherwise events may be lost.
+- You can capture the Langfuse trace and observation IDs from the SDK (e.g. via the active span helpers or directly from the returned observation object) and write them to the log file before the script exits.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Script path: /home/user/myproject/main.py
+- Log file: /home/user/myproject/output.log
+- Ensure the script is executed once so that the trace and event observation are actually created in Langfuse Cloud, and the log file is written.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. The created Langfuse trace name must be `harbor-event-trace-${run-id}` and the created event observation name must be `user-login-event-${run-id}`.
+- The log file must contain exactly one line of the form `Trace ID: <trace_id>` and exactly one line of the form `Observation ID: <event_observation_id>`, where the IDs are the real Langfuse IDs returned by the SDK.
+- When the recorded observation is fetched from the Langfuse Public API, it must have observation type `EVENT`, its `name` must equal `user-login-event-${run-id}`, its `traceId` must equal the recorded trace ID, its `input` must be the JSON object `{"user_id": "u-42"}`, its `output` must be the JSON object `{"status": "success"}`, and its `metadata` must include `source = "auth-service"` and `region = "us-east-1"`.
+- When the recorded trace is fetched from the Langfuse Public API, its `name` must equal `harbor-event-trace-${run-id}`.
+
+
+EOF
+Skipping image OS validation for hb__observe_decorator_py: docker inspect returned 1
+Skipping image OS validation for hb__create_text_prompt_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-nnvbpuy > /logs/artifacts/run-id && echo create_score_configs_cli__nnvBpUY > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create Langfuse Score Configurations via the Langfuse CLI
+
+## Background
+Langfuse Score Configs are typed, project-scoped schemas that ensure scores follow a consistent structure (data type, value range, allowed categories). They power both manual annotation in the UI and programmatic score ingestion via the SDKs/API.
+
+In this task you will use the [Langfuse CLI](https://github.com/langfuse/langfuse-cli) — a thin wrapper around the public REST API — to programmatically create three score configurations (one of each non-text data type) in the connected Langfuse project. Because the project may be shared across parallel evaluation runs, every config name must be uniquely suffixed with the current `run-id` to avoid collisions.
+
+## Requirements
+- Project path: `/home/user/myproject`.
+- Use the `langfuse-cli` (already installed globally as `langfuse`) to create three score configurations in the connected Langfuse project. Do **NOT** use the Python SDK, JS SDK, or raw HTTP requests for the creation step.
+- The three score configs must be:
+  1. A **NUMERIC** score config with `minValue = 0` and `maxValue = 10`.
+  2. A **CATEGORICAL** score config with exactly three categories: `positive` (value `1`), `neutral` (value `0`), `negative` (value `-1`).
+  3. A **BOOLEAN** score config (no extra constraints).
+- Each score config name must be suffixed with the current `run-id`, read from the `ZEALT_RUN_ID` environment variable (see Implementation Hints for exact names).
+- Record the returned `id` of every created score config in a structured log file so verification can locate them.
+
+## Implementation Hints
+- The Langfuse CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment — they are already exported for you. You do not need to log in.
+- Discover the relevant resource and its flags with `langfuse api __schema` and `langfuse api score-configs --help` / `langfuse api score-configs create --help`.
+- The CLI maps directly to the public API: `POST /api/public/score-configs`. Required fields are `name` and `dataType`. For `CATEGORICAL`, you must additionally supply a list of `categories` where each entry is `{ "label": string, "value": number }`. For `NUMERIC`, supply `minValue` / `maxValue`. For `BOOLEAN`, no extra fields are needed.
+- Use `--json` to get machine-readable output from the CLI so you can parse the returned `id` reliably.
+- Read `run-id` from the `ZEALT_RUN_ID` env var **once** at the start, then build the three config names from it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the score configs are actually created in the Langfuse project (real side effect, not mocked).
+- Log file: `/home/user/myproject/output.log`
+- The score configs must be created with the Langfuse CLI (`langfuse api score-configs create ...`).
+- The three config names must be (where `${run-id}` is the value of the `ZEALT_RUN_ID` environment variable):
+  - `quality-score-${run-id}` — `dataType = NUMERIC`, `minValue = 0`, `maxValue = 10`.
+  - `feedback-sentiment-${run-id}` — `dataType = CATEGORICAL`, with the three categories listed in Requirements.
+  - `is-relevant-${run-id}` — `dataType = BOOLEAN`.
+- The log file `/home/user/myproject/output.log` must contain exactly three lines (one per created config), each in the format:
+
+  ```
+  ScoreConfig: <name>=<id>
+  ```
+
+  where `<name>` is the full config name (including the `run-id` suffix) and `<id>` is the `id` field returned by the Langfuse API for that score config.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-6ce5zmo > /logs/artifacts/run-id && echo manage_dataset_cli__6cE5Zmo > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage a Langfuse Evaluation Dataset with the Langfuse CLI
+
+## Background
+Langfuse is an open-source LLM engineering platform. One of its three product surfaces is Evaluation, which is built around versioned datasets, scores, and experiments. The Langfuse CLI (`langfuse-cli`, distributed via npm) dynamically wraps the entire Langfuse Public API, so every dataset and dataset-item endpoint is available as a terminal command. You will use the CLI in scripts/CI-style workflows to seed an evaluation dataset for a small geography QA app.
+
+Your Langfuse project is already provisioned. The credentials are exposed as environment variables (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) inside the task environment. The CLI picks up these env vars automatically (no separate login step).
+
+## Requirements
+- Use the Langfuse CLI exclusively for creating and populating the dataset. Do not use the Python or JS/TS SDK, and do not call the REST API directly with curl/HTTP clients.
+- Create one new Langfuse dataset whose name embeds the current `run-id`.
+- Populate the dataset with exactly three items covering basic geography questions (one per European, Asian, and South American capital).
+- Record the resulting Langfuse identifiers and a brief summary into a log file so that they can be machine-verified.
+
+## Implementation Hints
+- Read the value of `run-id` from the `ZEALT_RUN_ID` environment variable and use it as a suffix on the dataset name.
+- The CLI is published on npm as `langfuse-cli`. You can either install it globally (`npm i -g langfuse-cli`) or invoke it one-off with `npx langfuse-cli`. Use `langfuse api __schema` and `langfuse api <resource> --help` to discover the exact command shapes for dataset and dataset-item resources.
+- The CLI's authentication uses the same environment variables that the SDKs use, so no extra setup is needed once the env vars are present.
+- Each created dataset/dataset-item response includes a unique `id`. Capture those ids and write them to the log file as instructed below.
+- Network access to the Langfuse API host (`LANGFUSE_BASE_URL`) is required. Make sure your final command output is success-checked before writing the log file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the dataset and items are actually created against the live Langfuse API and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Langfuse CLI (`langfuse-cli`) must be used to perform every create operation.
+- The dataset name must be `geography-quiz-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The dataset must have its description set to `Geography QA evaluation dataset` (exactly this string).
+- Exactly three dataset items must exist under the dataset, each with both an `input` field (a question string) and an `expectedOutput` field (the capital city). The three items must cover the following questions and answers, matched case-insensitively for the expected output and exactly for the input string:
+  - input: `What is the capital of France?`  expectedOutput: `Paris`
+  - input: `What is the capital of Japan?`   expectedOutput: `Tokyo`
+  - input: `What is the capital of Brazil?`  expectedOutput: `Brasilia`
+- The log file must contain the following lines (one per line, exact prefixes):
+  - `Dataset name: geography-quiz-<run-id>`
+  - `Dataset id: <dataset_id>`
+  - `Item count: 3`
+  - One `Item id: <id>` line per created dataset item (three lines total).
+
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: echo zr-ybaeksy > /logs/artifacts/run-id && echo run_experiment_with_evaluators_t__YBaEkSy > /logs/artifacts/trial_id
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source AI engineering platform that provides observability, prompt management, and evaluation for LLM applications. The TypeScript SDK's `experiment.run` API loops a task function over a dataset, automatically traces every execution, and lets you attach **item-level evaluators** whose results are emitted as scores on each trace in Langfuse.
+
+In this task you will build a small Node.js (TypeScript) project that runs a Langfuse experiment over a **local** dataset using the modular JS/TS SDK packages, with a custom task function and two custom evaluators, and then record the resulting trace IDs so they can be inspected via the Langfuse API.
+
+## Requirements
+- Create a TypeScript Node.js project at `/home/user/myproject` that uses the modular Langfuse JS/TS SDK packages (`@langfuse/client`, `@langfuse/otel`, `@opentelemetry/sdk-node`).
+- Initialize OpenTelemetry with `LangfuseSpanProcessor` before running the experiment so traces are exported to Langfuse.
+- Define an in-process **local** dataset of exactly 3 items, each with an `input` string and an `expectedOutput` string.
+- Define a task function that returns the uppercase form of the item's `input` string. The task function must **not** call any external LLM provider.
+- Define **two** item-level evaluators that are passed to `experiment.run` via the `evaluators` option:
+  - One named `accuracy` that returns numeric value `1` when the task output exactly equals `expectedOutput` (case-sensitive) and `0` otherwise.
+  - One named `response_length` that returns the number of characters of the task `output`.
+- Run the experiment via `langfuse.experiment.run({...})`. The experiment `name` MUST be `harbor-experiment-${ZEALT_RUN_ID}`, where `ZEALT_RUN_ID` is read from the environment variable of the same name.
+- After the experiment completes, ensure all spans are delivered to Langfuse (e.g. by shutting down the OpenTelemetry SDK) and then write a log file describing the run.
+
+## Implementation Hints
+- Read `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment — the Langfuse SDK and the OTel processor pick them up automatically.
+- `LangfuseSpanProcessor` must be wired into a Node OpenTelemetry SDK and started **before** the experiment runs; calling `await otelSdk.shutdown()` at the end is the supported way to flush all spans for short-lived scripts.
+- The `ExperimentResult` returned by `experiment.run` exposes per-item results (`itemResults[]`), and each item result includes the Langfuse `traceId` of the trace that was created for that item.
+- The task may be implemented as plain TypeScript executed with `ts-node`/`tsx` (or compiled with `tsc` and then run with `node`) — either approach is acceptable.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- The executor is responsible for actually running the script so that the experiment runs end-to-end and traces & scores are delivered to Langfuse.
+- Log file: `/home/user/myproject/output.log`
+- The experiment name must be `harbor-experiment-${ZEALT_RUN_ID}` where `ZEALT_RUN_ID` is read from the environment variable of the same name.
+- The log file MUST contain the following lines (each on its own line, in any order):
+  - One line in the exact format: `Experiment name: <experiment_name>`
+  - Exactly 3 lines in the exact format: `Trace ID: <trace_id>` — one per dataset item, in the order the items were processed. Each `<trace_id>` must be a non-empty trace ID returned by Langfuse for that item.
+- The script must use the Langfuse JS/TS SDK's `experiment.run` API (i.e. `langfuse.experiment.run({...})`) on a **local** dataset; do not create a Langfuse-hosted dataset for this task.
+- After the script exits, each recorded trace must exist in Langfuse and have **both** of the following scores attached: a score named `accuracy` and a score named `response_length`.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-k4cjzky > /logs/artifacts/run-id && echo observe_decorator_py__k4CjZKY > /logs/artifacts/trial_id
+Running command: echo zr-v6p2zjm > /logs/artifacts/run-id && echo create_text_prompt_cli__v6P2zjM > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Versioned Text Prompt with the Langfuse CLI
+
+## Background
+Langfuse is an open-source AI engineering platform. It provides first-class versioned prompt management exposed through its public REST API, Python/JS SDKs, **and** an official Node-based CLI (`langfuse-cli`) that dynamically wraps the OpenAPI spec. Your team wants to script the creation of new prompt versions from CI scripts, so they need a reproducible CLI-based workflow that can author a brand new prompt, attach deployment labels, tags, a config blob, and a commit message — all in a single invocation — and then record the result for downstream tooling.
+
+You must complete this prompt-creation flow using the **`langfuse-cli`** (NOT the Python/JS SDKs or raw `curl`). The Langfuse credentials (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) are already exported as environment variables.
+
+## Requirements
+- Install the official `langfuse-cli` from npm so the `langfuse` command is available on the PATH.
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable.
+- Build the prompt name as `welcome-email-${run-id}` (the literal string `welcome-email-` followed by the run-id) and use this exact name when calling the CLI.
+- Use the CLI to create a single new **text** prompt version with:
+  - the prompt body (the text template) set to: `Hello {{name}}, welcome to {{service}}! Your plan is {{plan}}.`
+  - a `config` JSON object with at least `model` = `gpt-4o-mini` and `temperature` = `0.5`
+  - the deployment labels `production` and `staging`
+  - the tag `onboarding`
+  - the commit message `Initial onboarding template`
+- Save a single log line to `/home/user/langfuse-task/output.log` in the exact format:
+  `Prompt created: name=<prompt_name> version=<version>`
+  where `<prompt_name>` is the full prompt name (including the run-id suffix) and `<version>` is the numeric version returned by the API (e.g. `1`).
+
+## Implementation Hints
+- The CLI authenticates from the same env vars as the SDKs; no separate login step is required.
+- The CLI is dynamically generated from the OpenAPI spec. Use `langfuse api prompts create --help` to discover the available flags for the create endpoint, including how to pass the prompt body, labels, tags, config, and commit message.
+- A text prompt is the default prompt type; you do not need a chat-style message array for this task.
+- The CLI prints the created prompt object as JSON; parsing it with `jq` (or another JSON tool) is a convenient way to pick out the `name` and `version` for the log line.
+- Use `langfuse api __schema` or `langfuse api prompts --help` to explore available subcommands if the CLI surface is unfamiliar.
+
+## Acceptance Criteria
+- Project path: /home/user/langfuse-task
+- Ensure the prompt-creation action is actually executed against Langfuse (do not mock it) and the log artifact exists.
+- Log file: /home/user/langfuse-task/output.log
+- The prompt name must be `welcome-email-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt must be of type `text`.
+- The created prompt must have deployment labels that include both `production` and `staging`.
+- The created prompt must have a tag that includes `onboarding`.
+- The created prompt's `config` field must contain the keys `model` (set to `gpt-4o-mini`) and `temperature` (set to `0.5`).
+- The created prompt's `commitMessage` must equal `Initial onboarding template`.
+- The created prompt's `prompt` text must equal `Hello {{name}}, welcome to {{service}}! Your plan is {{plan}}.` exactly.
+- The log file must contain a line in the format: `Prompt created: name=<prompt_name> version=<version>` matching the actually created prompt name and version.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Pipeline with the Langfuse `@observe` Decorator (Python)
+
+## Background
+Your team uses [Langfuse](https://langfuse.com/) for LLM observability. You need to instrument a small multi-step Python pipeline that simulates a user query being processed by an LLM. Instead of manually opening spans with context managers, you must use the Langfuse Python SDK's `@observe()` decorator to automatically capture each step's inputs, outputs, timings, and errors. You must also enrich the resulting Langfuse trace with `user_id`, `session_id`, and `tags` so it can be filtered in the UI and via the public API.
+
+Langfuse credentials are already exported in the environment as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+
+## Requirements
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build collision-free identifiers (see Acceptance Criteria for the exact naming rules).
+- Implement a Python script at `/home/user/myproject/run_pipeline.py` that:
+  - Uses `@observe()` from the Langfuse Python SDK on a top-level pipeline function (a Langfuse-span).
+  - Uses a second `@observe()` on a nested function that simulates an LLM call (a Langfuse-generation). No real LLM call is required — a hard-coded response string is fine.
+  - Propagates `user_id`, `session_id`, and `tags` so they are attached to the resulting Langfuse trace.
+  - Forces all queued events to be delivered to Langfuse before the process exits.
+- After the script finishes, write the Langfuse trace id to a log file so the verifier can fetch the trace from the public API.
+
+## Implementation Hints
+- Install the Langfuse Python SDK with `pip install langfuse`.
+- The `@observe()` decorator and the helpers needed to set the trace attributes are exported from `langfuse` (e.g. `from langfuse import observe, get_client, propagate_attributes`). Read the [Python instrumentation docs](https://langfuse.com/docs/observability/sdk/python/instrumentation) for the exact API.
+- Mark the nested function as a generation observation by passing `as_type="generation"` to `@observe()`, and set a model name on it.
+- Langfuse is asynchronous — short-lived scripts must call `flush()` (or `shutdown()`) on the client before exit, otherwise events are silently dropped.
+- You can obtain the current trace id with `langfuse.get_current_trace_id()` from inside an active observation.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (the verifier will not re-run the pipeline).
+- Log file: /home/user/myproject/output.log
+- The script entrypoint must be `/home/user/myproject/run_pipeline.py` and must be executed once with `python3 /home/user/myproject/run_pipeline.py`.
+- `run-id` MUST be read from the `ZEALT_RUN_ID` environment variable and used to build the identifiers below:
+  - `session_id` MUST equal `obs-deco-session-${run-id}`.
+  - `user_id` MUST equal `obs-deco-user-${run-id}`.
+  - The trace MUST carry the tags `obs-decorator` and `harbor-${run-id}` (both tags required).
+- A Langfuse trace MUST be created such that, when fetched via `GET /api/public/traces/{traceId}`, it satisfies all of:
+  - The trace contains at least two observations.
+  - Exactly one observation has `type` equal to `GENERATION` and a non-empty `model` field.
+  - There is at least one observation with `type` equal to `SPAN` that is the parent of the generation (the generation is nested inside the span observation).
+  - The trace `userId`, `sessionId`, and `tags` match the values defined above.
+- The log file MUST contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace id created by the run.
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__track_generation_token_usage_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__track_generation_token_usage_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-9xpebna > /logs/artifacts/run-id && echo observe_decorator_py__9XpEBnA > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Pipeline with the Langfuse `@observe` Decorator (Python)
+
+## Background
+Your team uses [Langfuse](https://langfuse.com/) for LLM observability. You need to instrument a small multi-step Python pipeline that simulates a user query being processed by an LLM. Instead of manually opening spans with context managers, you must use the Langfuse Python SDK's `@observe()` decorator to automatically capture each step's inputs, outputs, timings, and errors. You must also enrich the resulting Langfuse trace with `user_id`, `session_id`, and `tags` so it can be filtered in the UI and via the public API.
+
+Langfuse credentials are already exported in the environment as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+
+## Requirements
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build collision-free identifiers (see Acceptance Criteria for the exact naming rules).
+- Implement a Python script at `/home/user/myproject/run_pipeline.py` that:
+  - Uses `@observe()` from the Langfuse Python SDK on a top-level pipeline function (a Langfuse-span).
+  - Uses a second `@observe()` on a nested function that simulates an LLM call (a Langfuse-generation). No real LLM call is required — a hard-coded response string is fine.
+  - Propagates `user_id`, `session_id`, and `tags` so they are attached to the resulting Langfuse trace.
+  - Forces all queued events to be delivered to Langfuse before the process exits.
+- After the script finishes, write the Langfuse trace id to a log file so the verifier can fetch the trace from the public API.
+
+## Implementation Hints
+- Install the Langfuse Python SDK with `pip install langfuse`.
+- The `@observe()` decorator and the helpers needed to set the trace attributes are exported from `langfuse` (e.g. `from langfuse import observe, get_client, propagate_attributes`). Read the [Python instrumentation docs](https://langfuse.com/docs/observability/sdk/python/instrumentation) for the exact API.
+- Mark the nested function as a generation observation by passing `as_type="generation"` to `@observe()`, and set a model name on it.
+- Langfuse is asynchronous — short-lived scripts must call `flush()` (or `shutdown()`) on the client before exit, otherwise events are silently dropped.
+- You can obtain the current trace id with `langfuse.get_current_trace_id()` from inside an active observation.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (the verifier will not re-run the pipeline).
+- Log file: /home/user/myproject/output.log
+- The script entrypoint must be `/home/user/myproject/run_pipeline.py` and must be executed once with `python3 /home/user/myproject/run_pipeline.py`.
+- `run-id` MUST be read from the `ZEALT_RUN_ID` environment variable and used to build the identifiers below:
+  - `session_id` MUST equal `obs-deco-session-${run-id}`.
+  - `user_id` MUST equal `obs-deco-user-${run-id}`.
+  - The trace MUST carry the tags `obs-decorator` and `harbor-${run-id}` (both tags required).
+- A Langfuse trace MUST be created such that, when fetched via `GET /api/public/traces/{traceId}`, it satisfies all of:
+  - The trace contains at least two observations.
+  - Exactly one observation has `type` equal to `GENERATION` and a non-empty `model` field.
+  - There is at least one observation with `type` equal to `SPAN` that is the parent of the generation (the generation is nested inside the span observation).
+  - The trace `userId`, `sessionId`, and `tags` match the values defined above.
+- The log file MUST contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace id created by the run.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__create_score_config_py: docker inspect returned 1
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-a82zvwk > /logs/artifacts/run-id && echo track_generation_token_usage_py__a82ZVWk > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Track LLM Generation Token Usage and Cost with the Langfuse Python SDK
+
+## Background
+
+When building production LLM applications, accurately tracking per-call token usage and cost is essential for billing, capacity planning, and cost optimization. [Langfuse](https://langfuse.com/) supports first-class **token & cost tracking** on observations of type `generation` (and `embedding`) via the `usage_details` and `cost_details` parameters, which can be **ingested directly** by your code instead of being inferred from a model definition.
+
+In this task, you will write a small Python script that simulates an LLM call and creates a Langfuse `generation` observation that captures the exact token usage and per-token USD cost reported by the (simulated) provider. The generation must be nested inside a span so that the resulting trace has the structure parent-span → child-generation. After the data has been ingested, your script must flush the SDK and persist the resulting `trace_id` to a log file so that an external verifier can fetch the trace from the Langfuse Public API and confirm that the usage and cost fields were ingested correctly.
+
+## Requirements
+
+- Implement a single-shot Python script that uses the Langfuse Python SDK (v3+, package `langfuse`) and reads credentials from the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and include it in the trace name so that concurrent runs do not collide.
+- Create one parent observation of type `span` named `chat-pipeline-${run-id}` that becomes the root of the trace.
+- Inside the span, create one nested observation of type `generation` named `chat-completion`. The generation MUST set:
+  - `model` = `"gpt-4o-mini"`
+  - `input` = a list of chat messages of the form `[{"role": "user", "content": "Summarize Langfuse in one sentence."}]`
+  - `output` = the string `"Langfuse is an open-source LLM engineering platform for observability, prompts, and evals."`
+  - `usage_details` containing the integer keys `input`, `output`, and `total` with the exact values `25`, `40`, and `65` respectively
+  - `cost_details` containing the numeric keys `input`, `output`, and `total` with the exact USD values `0.000125`, `0.00040`, and `0.000525` respectively
+- Call `langfuse.flush()` (or otherwise block until ingestion has been queued) before the script exits so the data is delivered to the Langfuse backend.
+- Write the resulting Langfuse trace ID to the log file in the format `Trace ID: <trace_id>` (single line, no extra characters around the ID).
+
+## Implementation Hints
+
+- The Python SDK exposes a singleton client through `from langfuse import get_client`; once env vars are set the client picks them up automatically.
+- The primary API for nested instrumentation is the `start_as_current_observation(as_type=..., name=...)` context manager. Use `as_type="span"` for the parent and `as_type="generation"` for the child.
+- `usage_details` and `cost_details` are passed as plain `dict`s and can be supplied either when starting the generation or later via `generation.update(...)`. Langfuse will only persist them if the observation type is `generation` (or `embedding`).
+- Use `langfuse.get_current_trace_id()` (called from inside the active span) to obtain the trace ID that the verifier will look up; do **not** invent an ID yourself.
+- Read `run-id` from `os.environ["ZEALT_RUN_ID"]` and apply it consistently to the span name.
+
+## Acceptance Criteria
+
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (a real trace is ingested into Langfuse Cloud and the log file is written).
+- Log file: /home/user/myproject/output.log
+- The log file must contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse-assigned trace identifier returned by the SDK.
+- The ingested trace must contain an observation of type `GENERATION` named `chat-completion` whose `providedModelName` is `gpt-4o-mini`, whose `usageDetails` map exposes the exact values for the keys `input`, `output`, and `total`, and whose `costDetails` map exposes the exact USD values for the same three keys (as documented in the Requirements section).
+- The ingested trace must contain a parent observation of type `SPAN` whose name is `chat-pipeline-${run-id}` where `run-id` is the value read from the `ZEALT_RUN_ID` environment variable.
+
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__create_score_config_py: docker inspect returned 1
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-etb69ni > /logs/artifacts/run-id && echo create_text_prompt_cli__EtB69Ni > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Versioned Text Prompt with the Langfuse CLI
+
+## Background
+Langfuse is an open-source AI engineering platform. It provides first-class versioned prompt management exposed through its public REST API, Python/JS SDKs, **and** an official Node-based CLI (`langfuse-cli`) that dynamically wraps the OpenAPI spec. Your team wants to script the creation of new prompt versions from CI scripts, so they need a reproducible CLI-based workflow that can author a brand new prompt, attach deployment labels, tags, a config blob, and a commit message — all in a single invocation — and then record the result for downstream tooling.
+
+You must complete this prompt-creation flow using the **`langfuse-cli`** (NOT the Python/JS SDKs or raw `curl`). The Langfuse credentials (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) are already exported as environment variables.
+
+## Requirements
+- Install the official `langfuse-cli` from npm so the `langfuse` command is available on the PATH.
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable.
+- Build the prompt name as `welcome-email-${run-id}` (the literal string `welcome-email-` followed by the run-id) and use this exact name when calling the CLI.
+- Use the CLI to create a single new **text** prompt version with:
+  - the prompt body (the text template) set to: `Hello {{name}}, welcome to {{service}}! Your plan is {{plan}}.`
+  - a `config` JSON object with at least `model` = `gpt-4o-mini` and `temperature` = `0.5`
+  - the deployment labels `production` and `staging`
+  - the tag `onboarding`
+  - the commit message `Initial onboarding template`
+- Save a single log line to `/home/user/langfuse-task/output.log` in the exact format:
+  `Prompt created: name=<prompt_name> version=<version>`
+  where `<prompt_name>` is the full prompt name (including the run-id suffix) and `<version>` is the numeric version returned by the API (e.g. `1`).
+
+## Implementation Hints
+- The CLI authenticates from the same env vars as the SDKs; no separate login step is required.
+- The CLI is dynamically generated from the OpenAPI spec. Use `langfuse api prompts create --help` to discover the available flags for the create endpoint, including how to pass the prompt body, labels, tags, config, and commit message.
+- A text prompt is the default prompt type; you do not need a chat-style message array for this task.
+- The CLI prints the created prompt object as JSON; parsing it with `jq` (or another JSON tool) is a convenient way to pick out the `name` and `version` for the log line.
+- Use `langfuse api __schema` or `langfuse api prompts --help` to explore available subcommands if the CLI surface is unfamiliar.
+
+## Acceptance Criteria
+- Project path: /home/user/langfuse-task
+- Ensure the prompt-creation action is actually executed against Langfuse (do not mock it) and the log artifact exists.
+- Log file: /home/user/langfuse-task/output.log
+- The prompt name must be `welcome-email-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt must be of type `text`.
+- The created prompt must have deployment labels that include both `production` and `staging`.
+- The created prompt must have a tag that includes `onboarding`.
+- The created prompt's `config` field must contain the keys `model` (set to `gpt-4o-mini`) and `temperature` (set to `0.5`).
+- The created prompt's `commitMessage` must equal `Initial onboarding template`.
+- The created prompt's `prompt` text must equal `Hello {{name}}, welcome to {{service}}! Your plan is {{plan}}.` exactly.
+- The log file must contain a line in the format: `Prompt created: name=<prompt_name> version=<version>` matching the actually created prompt name and version.
+
+
+EOF
+Running command: echo zr-9gvgc8h > /logs/artifacts/run-id && echo track_generation_token_usage_py__9Gvgc8h > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Track LLM Generation Token Usage and Cost with the Langfuse Python SDK
+
+## Background
+
+When building production LLM applications, accurately tracking per-call token usage and cost is essential for billing, capacity planning, and cost optimization. [Langfuse](https://langfuse.com/) supports first-class **token & cost tracking** on observations of type `generation` (and `embedding`) via the `usage_details` and `cost_details` parameters, which can be **ingested directly** by your code instead of being inferred from a model definition.
+
+In this task, you will write a small Python script that simulates an LLM call and creates a Langfuse `generation` observation that captures the exact token usage and per-token USD cost reported by the (simulated) provider. The generation must be nested inside a span so that the resulting trace has the structure parent-span → child-generation. After the data has been ingested, your script must flush the SDK and persist the resulting `trace_id` to a log file so that an external verifier can fetch the trace from the Langfuse Public API and confirm that the usage and cost fields were ingested correctly.
+
+## Requirements
+
+- Implement a single-shot Python script that uses the Langfuse Python SDK (v3+, package `langfuse`) and reads credentials from the `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and include it in the trace name so that concurrent runs do not collide.
+- Create one parent observation of type `span` named `chat-pipeline-${run-id}` that becomes the root of the trace.
+- Inside the span, create one nested observation of type `generation` named `chat-completion`. The generation MUST set:
+  - `model` = `"gpt-4o-mini"`
+  - `input` = a list of chat messages of the form `[{"role": "user", "content": "Summarize Langfuse in one sentence."}]`
+  - `output` = the string `"Langfuse is an open-source LLM engineering platform for observability, prompts, and evals."`
+  - `usage_details` containing the integer keys `input`, `output`, and `total` with the exact values `25`, `40`, and `65` respectively
+  - `cost_details` containing the numeric keys `input`, `output`, and `total` with the exact USD values `0.000125`, `0.00040`, and `0.000525` respectively
+- Call `langfuse.flush()` (or otherwise block until ingestion has been queued) before the script exits so the data is delivered to the Langfuse backend.
+- Write the resulting Langfuse trace ID to the log file in the format `Trace ID: <trace_id>` (single line, no extra characters around the ID).
+
+## Implementation Hints
+
+- The Python SDK exposes a singleton client through `from langfuse import get_client`; once env vars are set the client picks them up automatically.
+- The primary API for nested instrumentation is the `start_as_current_observation(as_type=..., name=...)` context manager. Use `as_type="span"` for the parent and `as_type="generation"` for the child.
+- `usage_details` and `cost_details` are passed as plain `dict`s and can be supplied either when starting the generation or later via `generation.update(...)`. Langfuse will only persist them if the observation type is `generation` (or `embedding`).
+- Use `langfuse.get_current_trace_id()` (called from inside the active span) to obtain the trace ID that the verifier will look up; do **not** invent an ID yourself.
+- Read `run-id` from `os.environ["ZEALT_RUN_ID"]` and apply it consistently to the span name.
+
+## Acceptance Criteria
+
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (a real trace is ingested into Langfuse Cloud and the log file is written).
+- Log file: /home/user/myproject/output.log
+- The log file must contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse-assigned trace identifier returned by the SDK.
+- The ingested trace must contain an observation of type `GENERATION` named `chat-completion` whose `providedModelName` is `gpt-4o-mini`, whose `usageDetails` map exposes the exact values for the keys `input`, `output`, and `total`, and whose `costDetails` map exposes the exact USD values for the same three keys (as documented in the Requirements section).
+- The ingested trace must contain a parent observation of type `SPAN` whose name is `chat-pipeline-${run-id}` where `run-id` is the value read from the `ZEALT_RUN_ID` environment variable.
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Not retrying trial because the maximum number of retries has been reached
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__create_chat_prompt_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gkxkmn8 > /logs/artifacts/run-id && echo create_score_config_py__GKxKMN8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Define Score Configs in Langfuse via the Python SDK
+
+## Background
+Your team standardizes how evaluation scores are collected across projects in [Langfuse](https://langfuse.com/). To make sure annotators and automated evaluators submit scores in a consistent shape, you want to predefine two score configurations in the project using the **Langfuse Python SDK** (not the CLI):
+
+- A **NUMERIC** score config (range bounded) used to rate response quality.
+- A **CATEGORICAL** score config used to record sentiment buckets.
+
+The SDK exposes the public API for managing score configs via the `langfuse.api.score_configs.create(...)` method (see [Manage Score Configs](https://langfuse.com/faq/all/manage-score-configs) and the [Public API Reference](https://api.reference.langfuse.com/)).
+
+## Requirements
+- Implement a Python script `create_configs.py` that uses the Langfuse Python SDK (`langfuse` package) to create the two score configs described below in the Langfuse project authenticated by `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` against the host `LANGFUSE_BASE_URL`.
+- The names of both score configs **must** be suffixed with the current `run-id` (read from the `ZEALT_RUN_ID` environment variable) so that parallel runs do not collide.
+- After both configs are created, write the resulting IDs to a log file so that the verifier can locate them.
+
+## Implementation Hints
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable before constructing config names.
+- Initialize the SDK client with `from langfuse import get_client` and call `langfuse.api.score_configs.create(...)` for each config. The request body for the public endpoint is documented in the API reference under `ScoreConfigs / POST /api/public/score-configs`.
+- For the NUMERIC config you must set the data type, a description, and bounded `minValue` / `maxValue`. For the CATEGORICAL config you must set the data type, a description, and the list of allowed `categories` (each with a numeric `value` and string `label`).
+- The response object exposes the new `id` of each config — capture both and write them to the log file in the exact format documented in the Acceptance Criteria.
+- Remember to call `langfuse.flush()` (or rely on the SDK's exit handlers) before the script terminates so all events are delivered.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable and appended to every score config name created by the task.
+- A NUMERIC score config must exist in the Langfuse project with name `quality-${run-id}` and bounded numeric range.
+- A CATEGORICAL score config must exist in the Langfuse project with name `sentiment-${run-id}` and the three sentiment categories defined in the task truth.
+- The log file must contain exactly the following two lines (in any order), where each `<id>` is the `id` returned by the Langfuse API for the corresponding score config:
+  - `Numeric Score Config ID: <id>`
+  - `Categorical Score Config ID: <id>`
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-dmqewtx > /logs/artifacts/run-id && echo create_chat_prompt_cli__dmQeWTx > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Versioned Chat Prompt with the Langfuse CLI
+
+## Background
+Langfuse Prompt Management lets teams version, label, and reuse prompts collaboratively. The `langfuse-cli` (`npm i -g langfuse-cli`) wraps the entire Langfuse public API and is the recommended interface for scripting prompt operations from a terminal or CI pipeline.
+
+Your job is to use the **Langfuse CLI** to create a brand-new **chat-type** prompt in the connected Langfuse project. The prompt must contain a system message and a user message with at least one `{{variable}}` placeholder, must be labelled both `production` and `staging`, must be tagged, and must carry a commit message describing the change.
+
+## Requirements
+- Use the `langfuse-cli` (NOT raw curl, NOT a SDK script) to create the prompt.
+- The CLI must authenticate via the standard Langfuse environment variables already present in the environment.
+- The prompt **type** must be `chat`.
+- The prompt must contain exactly two messages: one with `role="system"` and one with `role="user"`. The user message must contain the `{{topic}}` template variable.
+- The prompt must be created with **both** labels: `production` and `staging`.
+- The prompt must be created with at least one tag: `cli-demo`.
+- The prompt must be created with a non-empty `commitMessage`.
+- Write the created prompt's name and version to a log file so the verifier can find them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` automatically — there is no separate login step.
+- Explore available actions with `langfuse api prompts --help` and inspect the full schema with `langfuse api __schema` if you need to confirm flag names.
+- The CLI accepts complex/nested JSON values (such as the array of chat messages) as JSON strings on the command line.
+- After creation, you can confirm the result with `langfuse api prompts get --prompt-name <name>`.
+- Treat the operation as a one-off side-effecting job: do not wrap it in a long-running app, just run the CLI command(s) and record the outcome.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the real `langfuse-cli` command is executed and the prompt is actually created on the connected Langfuse instance (verified through the Langfuse public API).
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt's name must be `chat-prompt-cli-${run-id}`.
+- The prompt must have `type` = `chat`.
+- The prompt must contain exactly two chat messages with roles `system` and `user` (in that order), and the `user` message content must include the template variable `{{topic}}`.
+- The prompt version returned by Langfuse must carry **both** labels: `production` and `staging`.
+- The prompt version must include the tag `cli-demo`.
+- The prompt version must have a non-empty `commitMessage`.
+- Log file: /home/user/myproject/output.log
+- The log file must contain a line in the exact format: `Prompt name: <prompt_name>` (where `<prompt_name>` matches the `run-id`-scoped name above).
+- The log file must contain a line in the exact format: `Prompt version: <integer_version>` (the integer version number returned by Langfuse).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-zxaft4l > /logs/artifacts/run-id && echo create_score_config_py__zXAft4L > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Define Score Configs in Langfuse via the Python SDK
+
+## Background
+Your team standardizes how evaluation scores are collected across projects in [Langfuse](https://langfuse.com/). To make sure annotators and automated evaluators submit scores in a consistent shape, you want to predefine two score configurations in the project using the **Langfuse Python SDK** (not the CLI):
+
+- A **NUMERIC** score config (range bounded) used to rate response quality.
+- A **CATEGORICAL** score config used to record sentiment buckets.
+
+The SDK exposes the public API for managing score configs via the `langfuse.api.score_configs.create(...)` method (see [Manage Score Configs](https://langfuse.com/faq/all/manage-score-configs) and the [Public API Reference](https://api.reference.langfuse.com/)).
+
+## Requirements
+- Implement a Python script `create_configs.py` that uses the Langfuse Python SDK (`langfuse` package) to create the two score configs described below in the Langfuse project authenticated by `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` against the host `LANGFUSE_BASE_URL`.
+- The names of both score configs **must** be suffixed with the current `run-id` (read from the `ZEALT_RUN_ID` environment variable) so that parallel runs do not collide.
+- After both configs are created, write the resulting IDs to a log file so that the verifier can locate them.
+
+## Implementation Hints
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable before constructing config names.
+- Initialize the SDK client with `from langfuse import get_client` and call `langfuse.api.score_configs.create(...)` for each config. The request body for the public endpoint is documented in the API reference under `ScoreConfigs / POST /api/public/score-configs`.
+- For the NUMERIC config you must set the data type, a description, and bounded `minValue` / `maxValue`. For the CATEGORICAL config you must set the data type, a description, and the list of allowed `categories` (each with a numeric `value` and string `label`).
+- The response object exposes the new `id` of each config — capture both and write them to the log file in the exact format documented in the Acceptance Criteria.
+- Remember to call `langfuse.flush()` (or rely on the SDK's exit handlers) before the script terminates so all events are delivered.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable and appended to every score config name created by the task.
+- A NUMERIC score config must exist in the Langfuse project with name `quality-${run-id}` and bounded numeric range.
+- A CATEGORICAL score config must exist in the Langfuse project with name `sentiment-${run-id}` and the three sentiment categories defined in the task truth.
+- The log file must contain exactly the following two lines (in any order), where each `<id>` is the `id` returned by the Langfuse API for the corresponding score config:
+  - `Numeric Score Config ID: <id>`
+  - `Categorical Score Config ID: <id>`
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__create_chat_prompt_cli: docker inspect returned 1
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__create_annotation_queue_cli: docker inspect returned 1
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__create_annotation_queue_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__mask_sensitive_data_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__mask_sensitive_data_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-lgrssqv > /logs/artifacts/run-id && echo mask_sensitive_data_py__LGrSsqv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Redact PII Before Sending Traces to Langfuse (Python SDK)
+
+## Background
+Your team is shipping an LLM application that processes customer support messages containing personally identifiable information (PII) such as email addresses, phone numbers, and credit-card numbers. Compliance requires that this data never reach the Langfuse server, yet you still want full trace visibility for debugging.
+
+Langfuse supports a server-side masking pattern: the Python SDK accepts a `mask` callable that is applied to every observation's `input`, `output`, and `metadata` **before** the event is exported. Your job is to implement that masking and prove via the Langfuse public API that the sensitive data is gone from the trace.
+
+## Requirements
+- Create a Python project at `/home/user/myproject` with a runnable script `run.py`.
+- The script must initialize the Langfuse Python SDK with a custom `mask` function that, when applied to string data, replaces:
+  - email addresses with the literal token `[REDACTED EMAIL]`
+  - North American phone numbers in the form `NNN-NNN-NNNN` (with `-`, `.`, or space separators) with the literal token `[REDACTED PHONE]`
+  - 13–19 digit credit-card numbers (groups optionally separated by spaces or dashes) with the literal token `[REDACTED CREDIT CARD]`
+- The script must create exactly one Langfuse trace whose top-level (root) observation:
+  - has the name `mask-demo-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable,
+  - has an `input` and `output` that, **before masking**, contain at least one email address, one phone number, and one credit-card number (all three PII types must appear together in both `input` and `output`).
+- The script must create at least one **child generation observation** under the root span; its `input` and `output` must also contain at least one of the PII types above before masking.
+- After all observations are recorded, the script must flush events to Langfuse so the data is persisted server-side.
+- The script must write the trace identifier to a log file using the exact format described in Acceptance Criteria.
+
+## Implementation Hints
+- Install the Langfuse Python SDK (`langfuse`) into the project's virtual environment.
+- Langfuse credentials are already exported as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+- Configure masking by passing a `mask=` callable when constructing the `Langfuse` client, then obtain the active client (e.g. via `get_client()`) and use its context-manager APIs to create the span and nested generation.
+- The mask callable receives the raw value (which may be a string, dict, or list) and should return a sanitized value of the same shape. Recurse into dicts and lists so nested fields are also redacted.
+- The trace ID is the OpenTelemetry trace ID of the root observation. You can obtain it from the span object returned by Langfuse's context manager (e.g. via `trace_id` on the span wrapper).
+- Remember to flush before the process exits, otherwise the events are dropped silently.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the artifacts exist.
+- Log file: `/home/user/myproject/output.log`
+- The script entry point must be runnable as `python3 /home/user/myproject/run.py`.
+- The root trace observation name must be `mask-demo-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- After the script runs, the log file must contain exactly one line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse / OpenTelemetry trace ID of the recorded trace.
+- When fetching the trace via the Langfuse public API endpoint `GET /api/public/traces/{traceId}`, the returned trace and its observations must satisfy all of the following:
+  - The trace `name` equals `mask-demo-${run-id}`.
+  - The trace `input` and `output`, when serialized to a string, contain the literal tokens `[REDACTED EMAIL]`, `[REDACTED PHONE]`, and `[REDACTED CREDIT CARD]`.
+  - The trace `input` and `output`, when serialized to a string, contain none of the original PII values that the agent's script fed in (i.e. no raw email, phone, or credit-card digits leak through).
+  - At least one observation of type `GENERATION` exists, and its `input` and `output`, when serialized to a string, also contain at least one of the `[REDACTED EMAIL]`, `[REDACTED PHONE]`, or `[REDACTED CREDIT CARD]` tokens and none of the original PII values.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-tpi8eni > /logs/artifacts/run-id && echo create_chat_prompt_cli__Tpi8ENi > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Versioned Chat Prompt with the Langfuse CLI
+
+## Background
+Langfuse Prompt Management lets teams version, label, and reuse prompts collaboratively. The `langfuse-cli` (`npm i -g langfuse-cli`) wraps the entire Langfuse public API and is the recommended interface for scripting prompt operations from a terminal or CI pipeline.
+
+Your job is to use the **Langfuse CLI** to create a brand-new **chat-type** prompt in the connected Langfuse project. The prompt must contain a system message and a user message with at least one `{{variable}}` placeholder, must be labelled both `production` and `staging`, must be tagged, and must carry a commit message describing the change.
+
+## Requirements
+- Use the `langfuse-cli` (NOT raw curl, NOT a SDK script) to create the prompt.
+- The CLI must authenticate via the standard Langfuse environment variables already present in the environment.
+- The prompt **type** must be `chat`.
+- The prompt must contain exactly two messages: one with `role="system"` and one with `role="user"`. The user message must contain the `{{topic}}` template variable.
+- The prompt must be created with **both** labels: `production` and `staging`.
+- The prompt must be created with at least one tag: `cli-demo`.
+- The prompt must be created with a non-empty `commitMessage`.
+- Write the created prompt's name and version to a log file so the verifier can find them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` automatically — there is no separate login step.
+- Explore available actions with `langfuse api prompts --help` and inspect the full schema with `langfuse api __schema` if you need to confirm flag names.
+- The CLI accepts complex/nested JSON values (such as the array of chat messages) as JSON strings on the command line.
+- After creation, you can confirm the result with `langfuse api prompts get --prompt-name <name>`.
+- Treat the operation as a one-off side-effecting job: do not wrap it in a long-running app, just run the CLI command(s) and record the outcome.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the real `langfuse-cli` command is executed and the prompt is actually created on the connected Langfuse instance (verified through the Langfuse public API).
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt's name must be `chat-prompt-cli-${run-id}`.
+- The prompt must have `type` = `chat`.
+- The prompt must contain exactly two chat messages with roles `system` and `user` (in that order), and the `user` message content must include the template variable `{{topic}}`.
+- The prompt version returned by Langfuse must carry **both** labels: `production` and `staging`.
+- The prompt version must include the tag `cli-demo`.
+- The prompt version must have a non-empty `commitMessage`.
+- Log file: /home/user/myproject/output.log
+- The log file must contain a line in the exact format: `Prompt name: <prompt_name>` (where `<prompt_name>` matches the `run-id`-scoped name above).
+- The log file must contain a line in the exact format: `Prompt version: <integer_version>` (the integer version number returned by Langfuse).
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-zjlxgne > /logs/artifacts/run-id && echo create_annotation_queue_cli__ZJLxGNe > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Provision a Langfuse Annotation Queue via the Langfuse CLI
+
+## Background
+Langfuse Annotation Queues power human-in-the-loop evaluation workflows: reviewers pull traces or observations from a queue and score them using a predefined score configuration. In this task you must use the [Langfuse CLI](https://langfuse.com/docs/api-and-data-platform/features/cli) (`langfuse-cli`, which dynamically wraps the [Langfuse Public API](https://api.reference.langfuse.com/)) to bootstrap a complete review workflow in the Langfuse project bound to the credentials in the environment.
+
+No Langfuse resources exist for this task yet — you must create them all through the CLI. Concretely, you need to provision **(1) one numeric score configuration** and **(2) one annotation queue** that references that score config, then record both IDs to a log file so they can be verified.
+
+## Requirements
+- Use the `langfuse-cli` (either via `npx langfuse-cli ...` or a global install) for every Langfuse API call. Do not bypass it with `curl`, the SDK, or another HTTP client.
+- Create exactly one **score config** via the CLI's score-config create action (which calls `POST /api/public/score-configs`) with the following properties:
+  - `name`: `answer-quality-${ZEALT_RUN_ID}`
+  - `dataType`: `NUMERIC`
+  - `minValue`: `0`
+  - `maxValue`: `1`
+  - `description`: `Quality score for QA reviewer answers (0=bad, 1=great)`
+- Create exactly one **annotation queue** via the CLI's annotation-queue create action (which calls `POST /api/public/annotation-queues`) with:
+  - `name`: `qa-review-queue-${ZEALT_RUN_ID}`
+  - `description`: `Queue for QA reviewers to score model answers`
+  - `scoreConfigIds`: a list containing exactly the ID of the score config you just created.
+- After both resources are created, append both IDs to a log file so the verifier can locate them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` (or `LANGFUSE_HOST`) from the environment — they are already exported in the task environment.
+- Use `langfuse api __schema`, `langfuse api score-configs --help`, and `langfuse api annotation-queues --help` to discover the exact action and flag names.
+- Pass `--json` to CLI invocations to get machine-parseable output you can inspect (e.g., with `jq` or a small Python helper) to extract the new resource IDs.
+- `CreateAnnotationQueueRequest` has three fields: `name` (string, required), `scoreConfigIds` (array of strings, required), and `description` (string, optional).
+- Make every externally visible identifier unique per concurrent run by reading the `ZEALT_RUN_ID` environment variable and appending it as a suffix (as specified in Requirements).
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse-task`
+- Ensure the real score config and annotation queue are created in Langfuse via the `langfuse-cli` (no mocking, no direct `curl`/SDK workarounds).
+- Log file: `/home/user/langfuse-task/output.log`
+- The score config must exist in Langfuse with the exact `name`, `dataType`, `minValue`, `maxValue`, and `description` specified above.
+- The annotation queue must exist in Langfuse with the exact `name`, `description`, and `scoreConfigIds` (a single-element list containing only the score config's ID) specified above.
+- The log file must contain exactly two lines (any order), each on its own line, matching these formats:
+  - `Score Config ID: <score_config_id>`
+  - `Annotation Queue ID: <annotation_queue_id>`
+  where each `<id>` is the value returned by the Langfuse API for the resource you just created.
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Not retrying trial because the maximum number of retries has been reached
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-cjbemzp > /logs/artifacts/run-id && echo mask_sensitive_data_py__CJBeMZp > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-kqmwlsk > /logs/artifacts/run-id && echo create_annotation_queue_cli__kqMwLsk > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Redact PII Before Sending Traces to Langfuse (Python SDK)
+
+## Background
+Your team is shipping an LLM application that processes customer support messages containing personally identifiable information (PII) such as email addresses, phone numbers, and credit-card numbers. Compliance requires that this data never reach the Langfuse server, yet you still want full trace visibility for debugging.
+
+Langfuse supports a server-side masking pattern: the Python SDK accepts a `mask` callable that is applied to every observation's `input`, `output`, and `metadata` **before** the event is exported. Your job is to implement that masking and prove via the Langfuse public API that the sensitive data is gone from the trace.
+
+## Requirements
+- Create a Python project at `/home/user/myproject` with a runnable script `run.py`.
+- The script must initialize the Langfuse Python SDK with a custom `mask` function that, when applied to string data, replaces:
+  - email addresses with the literal token `[REDACTED EMAIL]`
+  - North American phone numbers in the form `NNN-NNN-NNNN` (with `-`, `.`, or space separators) with the literal token `[REDACTED PHONE]`
+  - 13–19 digit credit-card numbers (groups optionally separated by spaces or dashes) with the literal token `[REDACTED CREDIT CARD]`
+- The script must create exactly one Langfuse trace whose top-level (root) observation:
+  - has the name `mask-demo-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable,
+  - has an `input` and `output` that, **before masking**, contain at least one email address, one phone number, and one credit-card number (all three PII types must appear together in both `input` and `output`).
+- The script must create at least one **child generation observation** under the root span; its `input` and `output` must also contain at least one of the PII types above before masking.
+- After all observations are recorded, the script must flush events to Langfuse so the data is persisted server-side.
+- The script must write the trace identifier to a log file using the exact format described in Acceptance Criteria.
+
+## Implementation Hints
+- Install the Langfuse Python SDK (`langfuse`) into the project's virtual environment.
+- Langfuse credentials are already exported as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+- Configure masking by passing a `mask=` callable when constructing the `Langfuse` client, then obtain the active client (e.g. via `get_client()`) and use its context-manager APIs to create the span and nested generation.
+- The mask callable receives the raw value (which may be a string, dict, or list) and should return a sanitized value of the same shape. Recurse into dicts and lists so nested fields are also redacted.
+- The trace ID is the OpenTelemetry trace ID of the root observation. You can obtain it from the span object returned by Langfuse's context manager (e.g. via `trace_id` on the span wrapper).
+- Remember to flush before the process exits, otherwise the events are dropped silently.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the artifacts exist.
+- Log file: `/home/user/myproject/output.log`
+- The script entry point must be runnable as `python3 /home/user/myproject/run.py`.
+- The root trace observation name must be `mask-demo-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- After the script runs, the log file must contain exactly one line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse / OpenTelemetry trace ID of the recorded trace.
+- When fetching the trace via the Langfuse public API endpoint `GET /api/public/traces/{traceId}`, the returned trace and its observations must satisfy all of the following:
+  - The trace `name` equals `mask-demo-${run-id}`.
+  - The trace `input` and `output`, when serialized to a string, contain the literal tokens `[REDACTED EMAIL]`, `[REDACTED PHONE]`, and `[REDACTED CREDIT CARD]`.
+  - The trace `input` and `output`, when serialized to a string, contain none of the original PII values that the agent's script fed in (i.e. no raw email, phone, or credit-card digits leak through).
+  - At least one observation of type `GENERATION` exists, and its `input` and `output`, when serialized to a string, also contain at least one of the `[REDACTED EMAIL]`, `[REDACTED PHONE]`, or `[REDACTED CREDIT CARD]` tokens and none of the original PII values.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Provision a Langfuse Annotation Queue via the Langfuse CLI
+
+## Background
+Langfuse Annotation Queues power human-in-the-loop evaluation workflows: reviewers pull traces or observations from a queue and score them using a predefined score configuration. In this task you must use the [Langfuse CLI](https://langfuse.com/docs/api-and-data-platform/features/cli) (`langfuse-cli`, which dynamically wraps the [Langfuse Public API](https://api.reference.langfuse.com/)) to bootstrap a complete review workflow in the Langfuse project bound to the credentials in the environment.
+
+No Langfuse resources exist for this task yet — you must create them all through the CLI. Concretely, you need to provision **(1) one numeric score configuration** and **(2) one annotation queue** that references that score config, then record both IDs to a log file so they can be verified.
+
+## Requirements
+- Use the `langfuse-cli` (either via `npx langfuse-cli ...` or a global install) for every Langfuse API call. Do not bypass it with `curl`, the SDK, or another HTTP client.
+- Create exactly one **score config** via the CLI's score-config create action (which calls `POST /api/public/score-configs`) with the following properties:
+  - `name`: `answer-quality-${ZEALT_RUN_ID}`
+  - `dataType`: `NUMERIC`
+  - `minValue`: `0`
+  - `maxValue`: `1`
+  - `description`: `Quality score for QA reviewer answers (0=bad, 1=great)`
+- Create exactly one **annotation queue** via the CLI's annotation-queue create action (which calls `POST /api/public/annotation-queues`) with:
+  - `name`: `qa-review-queue-${ZEALT_RUN_ID}`
+  - `description`: `Queue for QA reviewers to score model answers`
+  - `scoreConfigIds`: a list containing exactly the ID of the score config you just created.
+- After both resources are created, append both IDs to a log file so the verifier can locate them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` (or `LANGFUSE_HOST`) from the environment — they are already exported in the task environment.
+- Use `langfuse api __schema`, `langfuse api score-configs --help`, and `langfuse api annotation-queues --help` to discover the exact action and flag names.
+- Pass `--json` to CLI invocations to get machine-parseable output you can inspect (e.g., with `jq` or a small Python helper) to extract the new resource IDs.
+- `CreateAnnotationQueueRequest` has three fields: `name` (string, required), `scoreConfigIds` (array of strings, required), and `description` (string, optional).
+- Make every externally visible identifier unique per concurrent run by reading the `ZEALT_RUN_ID` environment variable and appending it as a suffix (as specified in Requirements).
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse-task`
+- Ensure the real score config and annotation queue are created in Langfuse via the `langfuse-cli` (no mocking, no direct `curl`/SDK workarounds).
+- Log file: `/home/user/langfuse-task/output.log`
+- The score config must exist in Langfuse with the exact `name`, `dataType`, `minValue`, `maxValue`, and `description` specified above.
+- The annotation queue must exist in Langfuse with the exact `name`, `description`, and `scoreConfigIds` (a single-element list containing only the score config's ID) specified above.
+- The log file must contain exactly two lines (any order), each on its own line, matching these formats:
+  - `Score Config ID: <score_config_id>`
+  - `Annotation Queue ID: <annotation_queue_id>`
+  where each `<id>` is the value returned by the Langfuse API for the resource you just created.
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__instrument_trace_with_scores_py: docker inspect returned 1
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__instrument_trace_with_scores_py: docker inspect returned 1
+Skipping image OS validation for hb__update_trace_with_release_ts: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__update_trace_with_release_ts: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-dj2xvj6 > /logs/artifacts/run-id && echo instrument_trace_with_scores_py__DJ2XVJ6 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+
+## Background
+You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use to namespace the externally visible identifiers so concurrent task runs do not interfere.
+
+## Requirements
+- Write a Python script `instrument.py` that uses the Langfuse Python SDK to:
+  1. Open a root observation of type `span` named `process-document-${ZEALT_RUN_ID}` using `start_as_current_observation` (or an equivalent SDK API).
+  2. Attach `user_id="user-${ZEALT_RUN_ID}"` and `session_id="session-${ZEALT_RUN_ID}"` to the trace this span belongs to (so they appear on the trace returned by the public API).
+  3. Within that span, open a nested observation of type `generation` named `summarize-${ZEALT_RUN_ID}` with `model="gpt-3.5-turbo"`. Set an `input` (any string or list of role/content dicts) and an `output` (any string) on the generation. Do not call a real LLM — fabricate the input/output.
+  4. Capture the **trace ID** of the current trace and the **observation ID** of the nested generation while inside the contexts (e.g. via `langfuse.get_current_trace_id()` and `langfuse.get_current_observation_id()` or by reading the span objects' `.trace_id` / `.id`).
+  5. After both contexts are closed, attach three custom scores using the SDK's `create_score` method (or equivalent):
+     - A **trace-level** score with `name="user_satisfaction"`, `value=0.8`, `data_type="NUMERIC"`, bound to the captured trace ID only (no `observation_id`).
+     - An **observation-level** score with `name="hallucination"`, `value=0`, `data_type="BOOLEAN"`, bound to **both** the captured trace ID and the generation observation ID.
+     - An **observation-level** score with `name="relevance"`, `value="high"`, `data_type="CATEGORICAL"`, bound to both the captured trace ID and the generation observation ID.
+- Call `langfuse.flush()` before the script exits so the trace, observations, and scores are actually delivered.
+- Execute the script so the trace, the nested generation, and the three scores are persisted on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the run.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; `get_client()` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Nested observations can be created by nesting two `start_as_current_observation(as_type=...)` context managers — the inner generation is automatically a child of the outer span.
+- Use `update_current_trace(user_id=..., session_id=...)` (or pass `user_id` / `session_id` on the root observation) so the user and session attributes propagate to the trace.
+- The Python SDK's `create_score` accepts `trace_id`, `observation_id`, `name`, `value`, and `data_type`. Use `data_type="NUMERIC"`, `"BOOLEAN"`, and `"CATEGORICAL"` respectively.
+- Boolean scores must be `0` or `1` (numeric). Categorical scores are passed as strings. Numeric scores are passed as floats.
+- Capture the trace ID and observation ID **before** the context managers exit; once the scores are created you can verify them by calling `GET {LANGFUSE_BASE_URL}/api/public/v2/scores?traceId=...` with HTTP Basic auth.
+- Remember that ingestion is asynchronous — always call `flush()` (or rely on `with langfuse:`) so events are delivered before the process exits.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the trace, generation observation, and the three scores actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The root span name must be `process-document-${ZEALT_RUN_ID}`, the nested generation name must be `summarize-${ZEALT_RUN_ID}`, the trace `userId` must be `user-${ZEALT_RUN_ID}`, and the trace `sessionId` must be `session-${ZEALT_RUN_ID}`, where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The trace must contain at least one observation with `type == "GENERATION"`, the model field equal to `gpt-3.5-turbo`, and the matching generation name.
+- Three scores must be attached to the trace on the Langfuse server (queryable via `GET /api/public/v2/scores?traceId=<trace_id>`):
+  - `user_satisfaction` (NUMERIC, value `0.8`) on the trace (no `observationId`).
+  - `hallucination` (BOOLEAN, value `0`) on the generation observation (`observationId` equals the generation ID).
+  - `relevance` (CATEGORICAL, string value `"high"`) on the generation observation (`observationId` equals the generation ID).
+- The log file must contain the following lines, in any order, one per line, with no other formatting:
+  - `Trace ID: <trace_id>`
+  - `Generation ID: <generation_observation_id>`
+  - `User ID: user-${ZEALT_RUN_ID}`
+  - `Session ID: session-${ZEALT_RUN_ID}`
+  - `Status: OK`
+
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-nplugjy > /logs/artifacts/run-id && echo update_trace_with_release_ts__npLugJy > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Tag a Langfuse Trace with Release, Session, User, and Tags using the JS/TS SDK
+
+## Background
+You are instrumenting an LLM-style application with [Langfuse](https://langfuse.com/) using the JS/TS SDK. To make traces searchable in production, you need to enrich a single trace with release, version, sessionId, userId, tags, and a public visibility flag, and emit the trace to Langfuse via OpenTelemetry.
+
+You are working in an empty Node.js project at `/home/user/myproject`. The Langfuse credentials (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) are already exported in the environment.
+
+## Requirements
+- Build a Node.js script (TypeScript or JavaScript) that uses the Langfuse JS/TS SDK to create exactly one trace and update its top-level trace attributes with the values listed under *Acceptance Criteria*.
+- The trace must be ingested through OpenTelemetry using `LangfuseSpanProcessor`, with the OTel SDK shut down (or flushed) before the process exits so the span is delivered.
+- The Langfuse trace ID created by the run must be written to a log file so verification can fetch the trace via the Langfuse Public API.
+- All externally visible resource names must be scoped by `run-id` to allow concurrent runs.
+
+## Implementation Hints
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build per-run identifiers.
+- Install the Langfuse tracing packages (`@langfuse/tracing`, `@langfuse/otel`) together with the OpenTelemetry Node SDK (`@opentelemetry/sdk-node`).
+- Initialize the OpenTelemetry NodeSDK with a `LangfuseSpanProcessor` **before** any traced code runs.
+- Use `startActiveObservation` from `@langfuse/tracing` to open a root span and `updateActiveTrace` to set the trace-level fields (`name`, `sessionId`, `userId`, `tags`, `release`, `version`, `public`, plus `input`/`output`).
+- Retrieve the active OpenTelemetry trace ID from inside the active span (this is the Langfuse trace ID) and append a line in the form `Trace ID: <trace_id>` to the log file before exiting.
+- Call `sdk.shutdown()` (or the equivalent flush) on the OpenTelemetry SDK before the process exits to guarantee the trace is sent to Langfuse.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed once and the trace is delivered to Langfuse.
+- Log file: /home/user/myproject/output.log
+- The Langfuse JS/TS SDK and `LangfuseSpanProcessor` must be used (no direct REST calls to ingest the trace).
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. All `run-id`-scoped identifiers below MUST be derived from this value.
+- The script must create exactly one Langfuse trace with the following top-level fields:
+    - `name`: `release-test-${run-id}`
+    - `sessionId`: `session-${run-id}`
+    - `userId`: `user-${run-id}`
+    - `tags`: a list that includes both `staging` and `run-${run-id}`
+    - `release`: `v1.2.3`
+    - `version`: `v1.0.0`
+    - `public`: `true`
+    - `input`: any non-empty JSON value
+    - `output`: any non-empty JSON value
+- The log file must contain a line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the 32-hex-character OpenTelemetry/Langfuse trace ID emitted by the run.
+- The trace must be retrievable through the Langfuse Public API at `GET /api/public/traces/{traceId}` and its returned fields must match the values above.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-wwyq9aw > /logs/artifacts/run-id && echo instrument_trace_with_scores_py__WWYq9aW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Workflow with Nested Observations and Custom Scores (Langfuse Python SDK)
+
+## Background
+You are an AI engineer adding [Langfuse](https://langfuse.com/) observability to a small document-processing workflow. The workflow has two logical steps: a top-level processing **span** and a nested LLM **generation**. After running the workflow, the team wants three different kinds of feedback signals attached so they can be analysed in the Langfuse UI: a numeric trace-level satisfaction score, a boolean hallucination score on the generation, and a categorical relevance score on the generation. Your job is to use the **Langfuse Python SDK** (`from langfuse import get_client`) to instrument the workflow, capture the resulting `trace_id` and generation `observation_id`, and attach the three scores via the SDK.
+
+The environment already has the `langfuse` Python SDK installed and the following environment variables exported: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`. The `ZEALT_RUN_ID` environment variable contains a unique run identifier you **must** use to namespace the externally visible identifiers so concurrent task runs do not interfere.
+
+## Requirements
+- Write a Python script `instrument.py` that uses the Langfuse Python SDK to:
+  1. Open a root observation of type `span` named `process-document-${ZEALT_RUN_ID}` using `start_as_current_observation` (or an equivalent SDK API).
+  2. Attach `user_id="user-${ZEALT_RUN_ID}"` and `session_id="session-${ZEALT_RUN_ID}"` to the trace this span belongs to (so they appear on the trace returned by the public API).
+  3. Within that span, open a nested observation of type `generation` named `summarize-${ZEALT_RUN_ID}` with `model="gpt-3.5-turbo"`. Set an `input` (any string or list of role/content dicts) and an `output` (any string) on the generation. Do not call a real LLM — fabricate the input/output.
+  4. Capture the **trace ID** of the current trace and the **observation ID** of the nested generation while inside the contexts (e.g. via `langfuse.get_current_trace_id()` and `langfuse.get_current_observation_id()` or by reading the span objects' `.trace_id` / `.id`).
+  5. After both contexts are closed, attach three custom scores using the SDK's `create_score` method (or equivalent):
+     - A **trace-level** score with `name="user_satisfaction"`, `value=0.8`, `data_type="NUMERIC"`, bound to the captured trace ID only (no `observation_id`).
+     - An **observation-level** score with `name="hallucination"`, `value=0`, `data_type="BOOLEAN"`, bound to **both** the captured trace ID and the generation observation ID.
+     - An **observation-level** score with `name="relevance"`, `value="high"`, `data_type="CATEGORICAL"`, bound to both the captured trace ID and the generation observation ID.
+- Call `langfuse.flush()` before the script exits so the trace, observations, and scores are actually delivered.
+- Execute the script so the trace, the nested generation, and the three scores are persisted on the Langfuse server.
+- Write a log file at `/home/user/langfuse_task/output.log` summarising the run.
+
+## Implementation Hints
+- Initialise the SDK without hardcoding credentials; `get_client()` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment.
+- Nested observations can be created by nesting two `start_as_current_observation(as_type=...)` context managers — the inner generation is automatically a child of the outer span.
+- Use `update_current_trace(user_id=..., session_id=...)` (or pass `user_id` / `session_id` on the root observation) so the user and session attributes propagate to the trace.
+- The Python SDK's `create_score` accepts `trace_id`, `observation_id`, `name`, `value`, and `data_type`. Use `data_type="NUMERIC"`, `"BOOLEAN"`, and `"CATEGORICAL"` respectively.
+- Boolean scores must be `0` or `1` (numeric). Categorical scores are passed as strings. Numeric scores are passed as floats.
+- Capture the trace ID and observation ID **before** the context managers exit; once the scores are created you can verify them by calling `GET {LANGFUSE_BASE_URL}/api/public/v2/scores?traceId=...` with HTTP Basic auth.
+- Remember that ingestion is asynchronous — always call `flush()` (or rely on `with langfuse:`) so events are delivered before the process exits.
+
+## Acceptance Criteria
+- Project path: `/home/user/langfuse_task`
+- Ensure the script is executed and the trace, generation observation, and the three scores actually exist on the Langfuse server.
+- Log file: `/home/user/langfuse_task/output.log`
+- The root span name must be `process-document-${ZEALT_RUN_ID}`, the nested generation name must be `summarize-${ZEALT_RUN_ID}`, the trace `userId` must be `user-${ZEALT_RUN_ID}`, and the trace `sessionId` must be `session-${ZEALT_RUN_ID}`, where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- The trace must contain at least one observation with `type == "GENERATION"`, the model field equal to `gpt-3.5-turbo`, and the matching generation name.
+- Three scores must be attached to the trace on the Langfuse server (queryable via `GET /api/public/v2/scores?traceId=<trace_id>`):
+  - `user_satisfaction` (NUMERIC, value `0.8`) on the trace (no `observationId`).
+  - `hallucination` (BOOLEAN, value `0`) on the generation observation (`observationId` equals the generation ID).
+  - `relevance` (CATEGORICAL, string value `"high"`) on the generation observation (`observationId` equals the generation ID).
+- The log file must contain the following lines, in any order, one per line, with no other formatting:
+  - `Trace ID: <trace_id>`
+  - `Generation ID: <generation_observation_id>`
+  - `User ID: user-${ZEALT_RUN_ID}`
+  - `Session ID: session-${ZEALT_RUN_ID}`
+  - `Status: OK`
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-h44sbcb > /logs/artifacts/run-id && echo update_trace_with_release_ts__H44Sbcb > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Tag a Langfuse Trace with Release, Session, User, and Tags using the JS/TS SDK
+
+## Background
+You are instrumenting an LLM-style application with [Langfuse](https://langfuse.com/) using the JS/TS SDK. To make traces searchable in production, you need to enrich a single trace with release, version, sessionId, userId, tags, and a public visibility flag, and emit the trace to Langfuse via OpenTelemetry.
+
+You are working in an empty Node.js project at `/home/user/myproject`. The Langfuse credentials (`LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`) are already exported in the environment.
+
+## Requirements
+- Build a Node.js script (TypeScript or JavaScript) that uses the Langfuse JS/TS SDK to create exactly one trace and update its top-level trace attributes with the values listed under *Acceptance Criteria*.
+- The trace must be ingested through OpenTelemetry using `LangfuseSpanProcessor`, with the OTel SDK shut down (or flushed) before the process exits so the span is delivered.
+- The Langfuse trace ID created by the run must be written to a log file so verification can fetch the trace via the Langfuse Public API.
+- All externally visible resource names must be scoped by `run-id` to allow concurrent runs.
+
+## Implementation Hints
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build per-run identifiers.
+- Install the Langfuse tracing packages (`@langfuse/tracing`, `@langfuse/otel`) together with the OpenTelemetry Node SDK (`@opentelemetry/sdk-node`).
+- Initialize the OpenTelemetry NodeSDK with a `LangfuseSpanProcessor` **before** any traced code runs.
+- Use `startActiveObservation` from `@langfuse/tracing` to open a root span and `updateActiveTrace` to set the trace-level fields (`name`, `sessionId`, `userId`, `tags`, `release`, `version`, `public`, plus `input`/`output`).
+- Retrieve the active OpenTelemetry trace ID from inside the active span (this is the Langfuse trace ID) and append a line in the form `Trace ID: <trace_id>` to the log file before exiting.
+- Call `sdk.shutdown()` (or the equivalent flush) on the OpenTelemetry SDK before the process exits to guarantee the trace is sent to Langfuse.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed once and the trace is delivered to Langfuse.
+- Log file: /home/user/myproject/output.log
+- The Langfuse JS/TS SDK and `LangfuseSpanProcessor` must be used (no direct REST calls to ingest the trace).
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable. All `run-id`-scoped identifiers below MUST be derived from this value.
+- The script must create exactly one Langfuse trace with the following top-level fields:
+    - `name`: `release-test-${run-id}`
+    - `sessionId`: `session-${run-id}`
+    - `userId`: `user-${run-id}`
+    - `tags`: a list that includes both `staging` and `run-${run-id}`
+    - `release`: `v1.2.3`
+    - `version`: `v1.0.0`
+    - `public`: `true`
+    - `input`: any non-empty JSON value
+    - `output`: any non-empty JSON value
+- The log file must contain a line in the format: `Trace ID: <trace_id>` where `<trace_id>` is the 32-hex-character OpenTelemetry/Langfuse trace ID emitted by the run.
+- The trace must be retrievable through the Langfuse Public API at `GET /api/public/traces/{traceId}` and its returned fields must match the values above.
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__attach_multi_type_scores_ts: docker inspect returned 1
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__attach_multi_type_scores_ts: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__instrument_otel_tracing_ts: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-wquiyg4 > /logs/artifacts/run-id && echo attach_multi_type_scores_ts__wquiyG4 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Attach Numeric, Categorical, and Boolean Scores to a Langfuse Trace via the TypeScript SDK
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that captures OpenTelemetry-based traces for LLM applications and exposes a public REST API plus modular TypeScript SDKs (`@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client`). After a trace is ingested, you can attach **scores** to it with the `LangfuseClient.score.create(...)` method. Scores can be numeric, categorical, boolean, or text and are a primary way of evaluating LLM application quality.
+
+In this task, you will build a small Node.js / TypeScript script that creates a Langfuse trace (with one nested generation observation) and then attaches three scores of different data types to that trace using the Langfuse JS/TS SDK.
+
+## Requirements
+- Initialise the Langfuse OpenTelemetry exporter (`LangfuseSpanProcessor` from `@langfuse/otel`) and the Node OTel SDK before any traced code runs.
+- Create a single trace whose name is `multi-score-demo-${run-id}` (replace `${run-id}` with the value of the `ZEALT_RUN_ID` environment variable).
+- Inside that trace, create one nested observation of type `generation` whose name is `llm-call`.
+- Use `LangfuseClient` from `@langfuse/client` to attach exactly **three** scores to the trace (not the observation) with the following names, data types, and values:
+  - `correctness` — NUMERIC — value `0.92`
+  - `sentiment` — CATEGORICAL — value `"positive"`
+  - `helpfulness` — BOOLEAN — value `1`
+- Flush both the OTel SDK and the Langfuse client so traces and scores are delivered before the process exits.
+- After successful execution, write the trace's ID to a log file so the verifier can find the trace and its scores.
+
+## Implementation Hints
+- Use the modular packages: `@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client`, and `@opentelemetry/sdk-node`.
+- The `LangfuseSpanProcessor` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment automatically.
+- `startActiveObservation` from `@langfuse/tracing` opens a trace-level span; `startObservation` (or another `startActiveObservation`) with `{ asType: "generation" }` creates a nested generation. The OTel trace ID of the active span is the Langfuse trace ID.
+- The `score.create` method on `LangfuseClient` accepts `{ traceId, name, value, dataType, comment? }`. For boolean scores you must pass `dataType: "BOOLEAN"` because numeric values would otherwise be inferred as `NUMERIC`.
+- Remember to `await otelSdk.shutdown()` and `await langfuse.flush()` before exiting; otherwise scores may be silently dropped from a short-lived script.
+- Read the run id from `process.env.ZEALT_RUN_ID` before constructing any names. Do not hardcode it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the real Langfuse ingestion is executed and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The script must read `run-id` from the `ZEALT_RUN_ID` environment variable and use the trace name `multi-score-demo-${run-id}`.
+- A single Langfuse trace named `multi-score-demo-${run-id}` must exist after the script runs, and it must contain a nested observation of type `generation` named `llm-call`.
+- Exactly three scores with names `correctness`, `sentiment`, and `helpfulness` must be attached to that trace; each must carry the correct `dataType` (`NUMERIC`, `CATEGORICAL`, `BOOLEAN`) and value (`0.92`, `"positive"`, `1`) as specified above.
+- The log file must contain a line in the exact format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace ID that was scored.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-vomkbfv > /logs/artifacts/run-id && echo attach_multi_type_scores_ts__vomkBFV > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Attach Numeric, Categorical, and Boolean Scores to a Langfuse Trace via the TypeScript SDK
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that captures OpenTelemetry-based traces for LLM applications and exposes a public REST API plus modular TypeScript SDKs (`@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client`). After a trace is ingested, you can attach **scores** to it with the `LangfuseClient.score.create(...)` method. Scores can be numeric, categorical, boolean, or text and are a primary way of evaluating LLM application quality.
+
+In this task, you will build a small Node.js / TypeScript script that creates a Langfuse trace (with one nested generation observation) and then attaches three scores of different data types to that trace using the Langfuse JS/TS SDK.
+
+## Requirements
+- Initialise the Langfuse OpenTelemetry exporter (`LangfuseSpanProcessor` from `@langfuse/otel`) and the Node OTel SDK before any traced code runs.
+- Create a single trace whose name is `multi-score-demo-${run-id}` (replace `${run-id}` with the value of the `ZEALT_RUN_ID` environment variable).
+- Inside that trace, create one nested observation of type `generation` whose name is `llm-call`.
+- Use `LangfuseClient` from `@langfuse/client` to attach exactly **three** scores to the trace (not the observation) with the following names, data types, and values:
+  - `correctness` — NUMERIC — value `0.92`
+  - `sentiment` — CATEGORICAL — value `"positive"`
+  - `helpfulness` — BOOLEAN — value `1`
+- Flush both the OTel SDK and the Langfuse client so traces and scores are delivered before the process exits.
+- After successful execution, write the trace's ID to a log file so the verifier can find the trace and its scores.
+
+## Implementation Hints
+- Use the modular packages: `@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client`, and `@opentelemetry/sdk-node`.
+- The `LangfuseSpanProcessor` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment automatically.
+- `startActiveObservation` from `@langfuse/tracing` opens a trace-level span; `startObservation` (or another `startActiveObservation`) with `{ asType: "generation" }` creates a nested generation. The OTel trace ID of the active span is the Langfuse trace ID.
+- The `score.create` method on `LangfuseClient` accepts `{ traceId, name, value, dataType, comment? }`. For boolean scores you must pass `dataType: "BOOLEAN"` because numeric values would otherwise be inferred as `NUMERIC`.
+- Remember to `await otelSdk.shutdown()` and `await langfuse.flush()` before exiting; otherwise scores may be silently dropped from a short-lived script.
+- Read the run id from `process.env.ZEALT_RUN_ID` before constructing any names. Do not hardcode it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the real Langfuse ingestion is executed and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The script must read `run-id` from the `ZEALT_RUN_ID` environment variable and use the trace name `multi-score-demo-${run-id}`.
+- A single Langfuse trace named `multi-score-demo-${run-id}` must exist after the script runs, and it must contain a nested observation of type `generation` named `llm-call`.
+- Exactly three scores with names `correctness`, `sentiment`, and `helpfulness` must be attached to that trace; each must carry the correct `dataType` (`NUMERIC`, `CATEGORICAL`, `BOOLEAN`) and value (`0.92`, `"positive"`, `1`) as specified above.
+- The log file must contain a line in the exact format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace ID that was scored.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-rkj5hur > /logs/artifacts/run-id && echo instrument_otel_tracing_ts__rKj5huR > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Custom OTel Tracing of an LLM Agent with the Langfuse JS/TS SDK
+
+## Background
+You are building a small TypeScript Node.js script that simulates a weather assistant. The team wants every run of this script to produce a fully structured Langfuse trace so they can inspect the model call inside the Langfuse UI.
+
+Langfuse's JS/TS SDK is OpenTelemetry-native: spans created with `@langfuse/tracing` are forwarded to Langfuse by the `LangfuseSpanProcessor` from `@langfuse/otel`. This task evaluates whether you can correctly set up OpenTelemetry, create a parent observation and a nested generation observation, and properly flush the spans before the process exits so that they actually arrive in the Langfuse backend.
+
+## Requirements
+- Build a Node.js + TypeScript project under `/home/user/myproject`.
+- Initialize the OpenTelemetry Node SDK with the Langfuse `LangfuseSpanProcessor` so that spans are exported to Langfuse.
+- Create a single root observation ("span") that represents the user request.
+- Inside the root observation, create a nested observation of type `generation` that represents the simulated LLM call (no real model call is needed, simulate the output in code).
+- Tag both observations with the appropriate input/output payloads and the generation must include a model name attribute.
+- Ensure spans are reliably flushed to Langfuse before the process exits (the script is short-lived).
+- Print the resulting trace ID to standard output and to a log file so a human reviewer can find the trace in Langfuse.
+
+## Implementation Hints
+- The required packages are `@langfuse/tracing`, `@langfuse/otel`, and `@opentelemetry/sdk-node`. Pin or install the latest 4.x line of `@langfuse/*` packages.
+- Use `startActiveObservation` from `@langfuse/tracing` to open the root span and `startObservation` (with `{ asType: "generation" }`) to open the nested generation.
+- The OTel SDK must be started before any module that emits spans is imported. The `LangfuseSpanProcessor` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASEURL`/`LANGFUSE_BASE_URL` from the environment.
+- Short-lived processes drop spans unless they call `await sdk.shutdown()` (or an equivalent flush) before exiting. Make sure this happens after the trace is fully ended.
+- You can obtain the current trace ID via `getActiveTraceId` from `@langfuse/tracing` while inside `startActiveObservation`.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and include it in the parent observation name so concurrent task runs do not collide.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the real script is executed at least once and its artifacts exist before verification runs.
+- The script must be runnable from the project root with `npm run start`.
+- Log file: `/home/user/myproject/output.log`
+- The script must read `run-id` from the `ZEALT_RUN_ID` environment variable. All Langfuse-side names that are checked by the verifier must use this `run-id`.
+- After the script finishes, the log file must contain the resulting trace ID on a dedicated line in the format: `Trace ID: <trace_id>`.
+- A trace whose `name` is exactly `weather-assistant-${run-id}` must exist in the configured Langfuse project, reachable via the Langfuse Public API at `GET /api/public/traces` (filtered by `name`) and at `GET /api/public/traces/{traceId}`.
+- The trace must contain at least one nested observation of type `GENERATION` named `llm-call`, with the `model` field set to a non-empty string.
+- Both the root observation and the nested generation must have non-null `input` and `output` payloads as returned by `GET /api/public/traces/{traceId}` (i.e. the `observations` array in the response).
+
+
+EOF
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__instrument_otel_tracing_ts: docker inspect returned 1
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__link_prompt_to_generation_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-jldm8ag > /logs/artifacts/run-id && echo instrument_otel_tracing_ts__jLdM8aG > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Custom OTel Tracing of an LLM Agent with the Langfuse JS/TS SDK
+
+## Background
+You are building a small TypeScript Node.js script that simulates a weather assistant. The team wants every run of this script to produce a fully structured Langfuse trace so they can inspect the model call inside the Langfuse UI.
+
+Langfuse's JS/TS SDK is OpenTelemetry-native: spans created with `@langfuse/tracing` are forwarded to Langfuse by the `LangfuseSpanProcessor` from `@langfuse/otel`. This task evaluates whether you can correctly set up OpenTelemetry, create a parent observation and a nested generation observation, and properly flush the spans before the process exits so that they actually arrive in the Langfuse backend.
+
+## Requirements
+- Build a Node.js + TypeScript project under `/home/user/myproject`.
+- Initialize the OpenTelemetry Node SDK with the Langfuse `LangfuseSpanProcessor` so that spans are exported to Langfuse.
+- Create a single root observation ("span") that represents the user request.
+- Inside the root observation, create a nested observation of type `generation` that represents the simulated LLM call (no real model call is needed, simulate the output in code).
+- Tag both observations with the appropriate input/output payloads and the generation must include a model name attribute.
+- Ensure spans are reliably flushed to Langfuse before the process exits (the script is short-lived).
+- Print the resulting trace ID to standard output and to a log file so a human reviewer can find the trace in Langfuse.
+
+## Implementation Hints
+- The required packages are `@langfuse/tracing`, `@langfuse/otel`, and `@opentelemetry/sdk-node`. Pin or install the latest 4.x line of `@langfuse/*` packages.
+- Use `startActiveObservation` from `@langfuse/tracing` to open the root span and `startObservation` (with `{ asType: "generation" }`) to open the nested generation.
+- The OTel SDK must be started before any module that emits spans is imported. The `LangfuseSpanProcessor` reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASEURL`/`LANGFUSE_BASE_URL` from the environment.
+- Short-lived processes drop spans unless they call `await sdk.shutdown()` (or an equivalent flush) before exiting. Make sure this happens after the trace is fully ended.
+- You can obtain the current trace ID via `getActiveTraceId` from `@langfuse/tracing` while inside `startActiveObservation`.
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and include it in the parent observation name so concurrent task runs do not collide.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the real script is executed at least once and its artifacts exist before verification runs.
+- The script must be runnable from the project root with `npm run start`.
+- Log file: `/home/user/myproject/output.log`
+- The script must read `run-id` from the `ZEALT_RUN_ID` environment variable. All Langfuse-side names that are checked by the verifier must use this `run-id`.
+- After the script finishes, the log file must contain the resulting trace ID on a dedicated line in the format: `Trace ID: <trace_id>`.
+- A trace whose `name` is exactly `weather-assistant-${run-id}` must exist in the configured Langfuse project, reachable via the Langfuse Public API at `GET /api/public/traces` (filtered by `name`) and at `GET /api/public/traces/{traceId}`.
+- The trace must contain at least one nested observation of type `GENERATION` named `llm-call`, with the `model` field set to a non-empty string.
+- Both the root observation and the nested generation must have non-null `input` and `output` payloads as returned by `GET /api/public/traces/{traceId}` (i.e. the `observations` array in the response).
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__link_prompt_to_generation_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-8dzt2cw > /logs/artifacts/run-id && echo link_prompt_to_generation_py__8dzT2CW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Link a Langfuse Prompt to a Generation Observation (Python SDK)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that combines observability, prompt management, and evaluation. Linking a managed prompt to a generation observation enables Langfuse to aggregate metrics (latency, tokens, cost, scores) per prompt version. This is the foundation of the Prompt Metrics view used to compare prompt versions in production.
+
+In this task, you will use the Langfuse Python SDK to (1) create a versioned chat prompt, (2) fetch the production version of that prompt at runtime, and (3) emit a trace whose generation observation is **linked** to that prompt so Langfuse can attribute the generation to the correct prompt version.
+
+## Requirements
+- Write a single, self-contained Python script that, when executed, performs the entire workflow end-to-end against the real Langfuse backend.
+- Create a chat-type prompt in Langfuse and ensure it is labeled `production`.
+- Fetch the `production` version of that prompt and compile it with template variables.
+- Emit one trace that contains a single generation observation linked to the fetched Langfuse prompt object.
+- Flush all telemetry before the script exits so the data is persisted in Langfuse.
+- Write the resulting trace identifier to a log file in the agreed-upon format.
+
+## Implementation Hints
+- Read the Langfuse credentials and base URL from the standard `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables. The Python SDK's `get_client()` helper picks these up automatically.
+- Read the parallel-run identifier from the `ZEALT_RUN_ID` environment variable and incorporate it into all externally visible resource names so concurrent runs do not collide.
+- The Langfuse Python SDK exposes prompt CRUD via `langfuse.create_prompt(...)` and `langfuse.get_prompt(...)`. Use `type="chat"` and supply `labels=["production"]` when creating the prompt.
+- To link a prompt to a generation observation, pass the fetched prompt object via the `prompt=` argument of `start_as_current_observation(as_type="generation", ...)`. See the official guide: <https://langfuse.com/docs/prompt-management/features/link-to-traces>.
+- Use `langfuse.get_current_trace_id()` (inside the active observation context) to capture the trace ID that you will log to disk.
+- Call `langfuse.flush()` before the process exits so the trace and observation reach the Langfuse backend.
+- You may install any extra packages with `pip` if needed, but `langfuse` is already installed in the environment.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the artifacts exist (the verifier will not re-run the side-effecting script).
+- Log file: `/home/user/myproject/output.log`
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable.
+- A chat-type prompt named `movie-critic-chat-${run-id}` must exist in the configured Langfuse project, must have the label `production` on at least one version, and must include the template variables `criticlevel` and `movie`.
+- The trace produced by the script must contain at least one observation whose `type` is `GENERATION` and whose linked prompt has `promptName == movie-critic-chat-${run-id}`.
+- The `promptVersion` recorded on that generation observation must match the version of the prompt that currently carries the `production` label.
+- The log file `/home/user/myproject/output.log` must contain a single line in the exact format `Trace ID: <trace_id>`, where `<trace_id>` is the 32-character hexadecimal OpenTelemetry trace ID returned by `langfuse.get_current_trace_id()` inside the active generation.
+
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-rgtd5vj > /logs/artifacts/run-id && echo link_prompt_to_generation_py__rgTd5VJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Link a Langfuse Prompt to a Generation Observation (Python SDK)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source LLM engineering platform that combines observability, prompt management, and evaluation. Linking a managed prompt to a generation observation enables Langfuse to aggregate metrics (latency, tokens, cost, scores) per prompt version. This is the foundation of the Prompt Metrics view used to compare prompt versions in production.
+
+In this task, you will use the Langfuse Python SDK to (1) create a versioned chat prompt, (2) fetch the production version of that prompt at runtime, and (3) emit a trace whose generation observation is **linked** to that prompt so Langfuse can attribute the generation to the correct prompt version.
+
+## Requirements
+- Write a single, self-contained Python script that, when executed, performs the entire workflow end-to-end against the real Langfuse backend.
+- Create a chat-type prompt in Langfuse and ensure it is labeled `production`.
+- Fetch the `production` version of that prompt and compile it with template variables.
+- Emit one trace that contains a single generation observation linked to the fetched Langfuse prompt object.
+- Flush all telemetry before the script exits so the data is persisted in Langfuse.
+- Write the resulting trace identifier to a log file in the agreed-upon format.
+
+## Implementation Hints
+- Read the Langfuse credentials and base URL from the standard `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` environment variables. The Python SDK's `get_client()` helper picks these up automatically.
+- Read the parallel-run identifier from the `ZEALT_RUN_ID` environment variable and incorporate it into all externally visible resource names so concurrent runs do not collide.
+- The Langfuse Python SDK exposes prompt CRUD via `langfuse.create_prompt(...)` and `langfuse.get_prompt(...)`. Use `type="chat"` and supply `labels=["production"]` when creating the prompt.
+- To link a prompt to a generation observation, pass the fetched prompt object via the `prompt=` argument of `start_as_current_observation(as_type="generation", ...)`. See the official guide: <https://langfuse.com/docs/prompt-management/features/link-to-traces>.
+- Use `langfuse.get_current_trace_id()` (inside the active observation context) to capture the trace ID that you will log to disk.
+- Call `langfuse.flush()` before the process exits so the trace and observation reach the Langfuse backend.
+- You may install any extra packages with `pip` if needed, but `langfuse` is already installed in the environment.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the artifacts exist (the verifier will not re-run the side-effecting script).
+- Log file: `/home/user/myproject/output.log`
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable.
+- A chat-type prompt named `movie-critic-chat-${run-id}` must exist in the configured Langfuse project, must have the label `production` on at least one version, and must include the template variables `criticlevel` and `movie`.
+- The trace produced by the script must contain at least one observation whose `type` is `GENERATION` and whose linked prompt has `promptName == movie-critic-chat-${run-id}`.
+- The `promptVersion` recorded on that generation observation must match the version of the prompt that currently carries the `production` label.
+- The log file `/home/user/myproject/output.log` must contain a single line in the exact format `Trace ID: <trace_id>`, where `<trace_id>` is the 32-character hexadecimal OpenTelemetry trace ID returned by `langfuse.get_current_trace_id()` inside the active generation.
+
+
+EOF
+Command failed
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

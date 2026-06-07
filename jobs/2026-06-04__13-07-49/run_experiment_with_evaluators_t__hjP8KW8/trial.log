@@ -1,0 +1,85 @@
+Skipping image OS validation for hb__run_experiment_with_evaluators_ts: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-hjp8kw8 > /logs/artifacts/run-id && echo run_experiment_with_evaluators_t__hjP8KW8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Run a Langfuse Experiment with Item-Level Evaluators (TypeScript)
+
+## Background
+[Langfuse](https://langfuse.com/) is an open-source AI engineering platform that provides observability, prompt management, and evaluation for LLM applications. The TypeScript SDK's `experiment.run` API loops a task function over a dataset, automatically traces every execution, and lets you attach **item-level evaluators** whose results are emitted as scores on each trace in Langfuse.
+
+In this task you will build a small Node.js (TypeScript) project that runs a Langfuse experiment over a **local** dataset using the modular JS/TS SDK packages, with a custom task function and two custom evaluators, and then record the resulting trace IDs so they can be inspected via the Langfuse API.
+
+## Requirements
+- Create a TypeScript Node.js project at `/home/user/myproject` that uses the modular Langfuse JS/TS SDK packages (`@langfuse/client`, `@langfuse/otel`, `@opentelemetry/sdk-node`).
+- Initialize OpenTelemetry with `LangfuseSpanProcessor` before running the experiment so traces are exported to Langfuse.
+- Define an in-process **local** dataset of exactly 3 items, each with an `input` string and an `expectedOutput` string.
+- Define a task function that returns the uppercase form of the item's `input` string. The task function must **not** call any external LLM provider.
+- Define **two** item-level evaluators that are passed to `experiment.run` via the `evaluators` option:
+  - One named `accuracy` that returns numeric value `1` when the task output exactly equals `expectedOutput` (case-sensitive) and `0` otherwise.
+  - One named `response_length` that returns the number of characters of the task `output`.
+- Run the experiment via `langfuse.experiment.run({...})`. The experiment `name` MUST be `harbor-experiment-${ZEALT_RUN_ID}`, where `ZEALT_RUN_ID` is read from the environment variable of the same name.
+- After the experiment completes, ensure all spans are delivered to Langfuse (e.g. by shutting down the OpenTelemetry SDK) and then write a log file describing the run.
+
+## Implementation Hints
+- Read `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` from the environment — the Langfuse SDK and the OTel processor pick them up automatically.
+- `LangfuseSpanProcessor` must be wired into a Node OpenTelemetry SDK and started **before** the experiment runs; calling `await otelSdk.shutdown()` at the end is the supported way to flush all spans for short-lived scripts.
+- The `ExperimentResult` returned by `experiment.run` exposes per-item results (`itemResults[]`), and each item result includes the Langfuse `traceId` of the trace that was created for that item.
+- The task may be implemented as plain TypeScript executed with `ts-node`/`tsx` (or compiled with `tsc` and then run with `node`) — either approach is acceptable.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- The executor is responsible for actually running the script so that the experiment runs end-to-end and traces & scores are delivered to Langfuse.
+- Log file: `/home/user/myproject/output.log`
+- The experiment name must be `harbor-experiment-${ZEALT_RUN_ID}` where `ZEALT_RUN_ID` is read from the environment variable of the same name.
+- The log file MUST contain the following lines (each on its own line, in any order):
+  - One line in the exact format: `Experiment name: <experiment_name>`
+  - Exactly 3 lines in the exact format: `Trace ID: <trace_id>` — one per dataset item, in the order the items were processed. Each `<trace_id>` must be a non-empty trace ID returned by Langfuse for that item.
+- The script must use the Langfuse JS/TS SDK's `experiment.run` API (i.e. `langfuse.experiment.run({...})`) on a **local** dataset; do not create a Langfuse-hosted dataset for this task.
+- After the script exits, each recorded trace must exist in Langfuse and have **both** of the following scores attached: a score named `accuracy` and a score named `response_length`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

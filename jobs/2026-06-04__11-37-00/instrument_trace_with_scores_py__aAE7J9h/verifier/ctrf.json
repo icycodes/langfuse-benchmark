@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780544593283,
+            "stop": 1780544594742
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_well_formed",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780544593372,
+                "stop": 1780544593373,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_has_expected_user_and_session",
+                "status": "passed",
+                "duration": 817,
+                "start": 1780544593373,
+                "stop": 1780544594190,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_contains_expected_generation_observation",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780544594190,
+                "stop": 1780544594191,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_satisfaction_score_attached_to_trace",
+                "status": "passed",
+                "duration": 545,
+                "start": 1780544594191,
+                "stop": 1780544594736,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hallucination_boolean_score_attached_to_generation",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780544594737,
+                "stop": 1780544594739,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_relevance_categorical_score_attached_to_generation",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780544594740,
+                "stop": 1780544594741,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

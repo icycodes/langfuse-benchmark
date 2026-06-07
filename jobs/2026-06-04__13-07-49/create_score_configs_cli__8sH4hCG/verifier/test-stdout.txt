@@ -1,0 +1,87 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py EEEE                                           [100%]
+
+==================================== ERRORS ====================================
+________ ERROR at setup of test_log_file_contains_three_expected_names _________
+
+    @pytest.fixture(scope="module")
+    def log_entries() -> Dict[str, str]:
+>       return _read_log_entries()
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_entries() -> Dict[str, str]:
+>       assert os.path.isfile(LOG_FILE), f"Expected log file at {LOG_FILE} does not exist."
+E       AssertionError: Expected log file at /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x740e9f910220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x740e9f910220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:42: AssertionError
+_________________ ERROR at setup of test_numeric_score_config __________________
+
+    @pytest.fixture(scope="module")
+    def log_entries() -> Dict[str, str]:
+>       return _read_log_entries()
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_entries() -> Dict[str, str]:
+>       assert os.path.isfile(LOG_FILE), f"Expected log file at {LOG_FILE} does not exist."
+E       AssertionError: Expected log file at /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x740e9f910220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x740e9f910220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:42: AssertionError
+_______________ ERROR at setup of test_categorical_score_config ________________
+
+    @pytest.fixture(scope="module")
+    def log_entries() -> Dict[str, str]:
+>       return _read_log_entries()
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_entries() -> Dict[str, str]:
+>       assert os.path.isfile(LOG_FILE), f"Expected log file at {LOG_FILE} does not exist."
+E       AssertionError: Expected log file at /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x740e9f910220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x740e9f910220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:42: AssertionError
+_________________ ERROR at setup of test_boolean_score_config __________________
+
+    @pytest.fixture(scope="module")
+    def log_entries() -> Dict[str, str]:
+>       return _read_log_entries()
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_entries() -> Dict[str, str]:
+>       assert os.path.isfile(LOG_FILE), f"Expected log file at {LOG_FILE} does not exist."
+E       AssertionError: Expected log file at /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x740e9f910220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x740e9f910220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:42: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_log_file_contains_three_expected_names
+ERROR tests/test_final_state.py::test_numeric_score_config - AssertionError: ...
+ERROR tests/test_final_state.py::test_categorical_score_config - AssertionErr...
+ERROR tests/test_final_state.py::test_boolean_score_config - AssertionError: ...
+============================== 4 errors in 0.15s ===============================

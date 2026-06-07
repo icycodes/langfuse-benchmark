@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780629695744,
+            "stop": 1780629696445
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780629695821,
+                "stop": 1780629695822,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_contains_observations",
+                "status": "passed",
+                "duration": 617,
+                "start": 1780629695822,
+                "stop": 1780629696439,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_span_exists_with_run_id_name",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780629696440,
+                "stop": 1780629696440,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_observation_exists_and_is_child_of_span",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780629696441,
+                "stop": 1780629696441,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_model_name",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780629696442,
+                "stop": 1780629696442,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_usage_details",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780629696443,
+                "stop": 1780629696444,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_cost_details",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780629696444,
+                "stop": 1780629696445,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

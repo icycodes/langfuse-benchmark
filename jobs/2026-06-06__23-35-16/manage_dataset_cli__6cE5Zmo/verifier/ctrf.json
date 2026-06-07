@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780760777119,
+            "stop": 1780760786092
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_contains_dataset_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780760777203,
+                "stop": 1780760777204,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_dataset_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780760777204,
+                "stop": 1780760777205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_item_count",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780760777205,
+                "stop": 1780760777205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_contains_three_item_ids",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780760777205,
+                "stop": 1780760777207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dataset_exists_via_langfuse_api",
+                "status": "passed",
+                "duration": 486,
+                "start": 1780760777207,
+                "stop": 1780760777693,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dataset_items_exist_via_langfuse_api",
+                "status": "passed",
+                "duration": 7815,
+                "start": 1780760777694,
+                "stop": 1780760785509,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_logged_item_ids_match_api_item_ids",
+                "status": "passed",
+                "duration": 582,
+                "start": 1780760785509,
+                "stop": 1780760786091,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

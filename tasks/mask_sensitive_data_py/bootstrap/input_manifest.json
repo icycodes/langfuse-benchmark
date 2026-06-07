@@ -1,0 +1,7 @@
+{
+  "library_name": "Langfuse",
+  "task_name": "mask_sensitive_data_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

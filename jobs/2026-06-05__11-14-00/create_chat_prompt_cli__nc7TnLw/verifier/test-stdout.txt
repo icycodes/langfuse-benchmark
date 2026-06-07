@@ -1,0 +1,262 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 12 items
+
+tests/test_final_state.py FFFEEEEEEEFF                                   [100%]
+
+==================================== ERRORS ====================================
+__________________ ERROR at setup of test_prompt_name_matches __________________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+__________________ ERROR at setup of test_prompt_type_is_chat __________________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+______________ ERROR at setup of test_prompt_version_matches_log _______________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+_______________ ERROR at setup of test_prompt_messages_structure _______________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+________________ ERROR at setup of test_prompt_has_both_labels _________________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+________________ ERROR at setup of test_prompt_has_required_tag ________________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+__________ ERROR at setup of test_prompt_has_non_empty_commit_message __________
+
+    @pytest.fixture(scope="module")
+    def fetched_prompt():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+=================================== FAILURES ===================================
+_____________________________ test_log_file_exists _____________________________
+
+    def test_log_file_exists():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:74: AssertionError
+____________________ test_log_contains_expected_prompt_name ____________________
+
+    def test_log_contains_expected_prompt_name():
+>       name, _ = _parse_log_fields()
+
+tests/test_final_state.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+___________________ test_log_contains_prompt_version_integer ___________________
+
+    def test_log_contains_prompt_version_integer():
+>       _, version = _parse_log_fields()
+
+tests/test_final_state.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+________________ test_production_label_resolves_to_same_version ________________
+
+    def test_production_label_resolves_to_same_version():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+_________________ test_staging_label_resolves_to_same_version __________________
+
+    def test_staging_label_resolves_to_same_version():
+>       name, version = _parse_log_fields()
+
+tests/test_final_state.py:195: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:28: in _parse_log_fields
+    text = _read_log()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log():
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} to exist."
+E       AssertionError: Expected log file /home/user/myproject/output.log to exist.
+E       assert False
+E        +  where False = <function isfile at 0x764cd6b9c220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x764cd6b9c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_prompt_name_matches - AssertionError: E...
+ERROR tests/test_final_state.py::test_prompt_type_is_chat - AssertionError: E...
+ERROR tests/test_final_state.py::test_prompt_version_matches_log - AssertionE...
+ERROR tests/test_final_state.py::test_prompt_messages_structure - AssertionEr...
+ERROR tests/test_final_state.py::test_prompt_has_both_labels - AssertionError...
+ERROR tests/test_final_state.py::test_prompt_has_required_tag - AssertionErro...
+ERROR tests/test_final_state.py::test_prompt_has_non_empty_commit_message - A...
+FAILED tests/test_final_state.py::test_log_file_exists - AssertionError: Expe...
+FAILED tests/test_final_state.py::test_log_contains_expected_prompt_name - As...
+FAILED tests/test_final_state.py::test_log_contains_prompt_version_integer - ...
+FAILED tests/test_final_state.py::test_production_label_resolves_to_same_version
+FAILED tests/test_final_state.py::test_staging_label_resolves_to_same_version
+========================= 5 failed, 7 errors in 0.17s ==========================

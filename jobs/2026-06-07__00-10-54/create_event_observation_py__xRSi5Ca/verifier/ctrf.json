@@ -1,0 +1,52 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780762599983,
+            "stop": 1780762601925
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_ids",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780762600061,
+                "stop": 1780762600062,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_observation_via_langfuse_api",
+                "status": "passed",
+                "duration": 950,
+                "start": 1780762600062,
+                "stop": 1780762601012,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_trace_name_via_langfuse_api",
+                "status": "passed",
+                "duration": 913,
+                "start": 1780762601012,
+                "stop": 1780762601925,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

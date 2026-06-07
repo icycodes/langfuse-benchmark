@@ -1,0 +1,57 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py ...F...                                        [100%]
+
+=================================== FAILURES ===================================
+_____________ test_trace_has_generation_observation_named_llm_call _____________
+
+trace_id = 'bf3f1c89342aa3d5528a73b3324330a9'
+
+    def test_trace_has_generation_observation_named_llm_call(trace_id):
+        trace = _get_trace(trace_id)
+        observations = trace.get("observations") or []
+        # The trace endpoint may return observations either as full objects or as
+        # plain string IDs depending on the response shape. Handle both.
+        matches = []
+        for obs in observations:
+            if isinstance(obs, dict):
+                obs_type = (obs.get("type") or "").upper()
+                obs_name = obs.get("name")
+                if obs_type == "GENERATION" and obs_name == "llm-call":
+                    matches.append(obs)
+        # Fallback: if observations is a list of IDs, query the observations API.
+        if not matches and observations and all(
+            isinstance(o, str) for o in observations
+        ):
+            for obs_id in observations:
+                url = f"{LANGFUSE_BASE_URL}/api/public/observations/{obs_id}"
+                r = requests.get(url, auth=AUTH, timeout=30)
+                if r.status_code == 200:
+                    obs = r.json()
+                    if (
+                        (obs.get("type") or "").upper() == "GENERATION"
+                        and obs.get("name") == "llm-call"
+                    ):
+                        matches.append(obs)
+>       assert matches, (
+            "Expected the trace to include a nested observation with name='llm-call' and "
+            f"type='GENERATION'. Observations: {observations!r}"
+        )
+E       AssertionError: Expected the trace to include a nested observation with name='llm-call' and type='GENERATION'. Observations: [{'id': '9a269a8761cf8c08', 'traceId': 'bf3f1c89342aa3d5528a73b3324330a9', 'startTime': '2026-06-06T15:56:54.321Z', 'endTime': '2026-06-06T15:56:54.323Z', 'projectId': 'cmpy7umub0b79ad0ibhxui1ku', 'parentObservationId': None, 'type': 'SPAN', 'environment': 'default', 'name': 'multi-score-demo-zr-wquiyg4', 'level': 'DEFAULT', 'statusMessage': None, 'version': None, 'createdAt': '2026-06-06T15:56:55.307Z', 'updatedAt': '2026-06-06T15:56:55.307Z', 'input': None, 'output': None, 'metadata': {'resourceAttributes': {'host.name': 'c547c877ec85', 'host.arch': 'amd64', 'host.id': '', 'process.pid': 1556, 'process.executable.name': 'node', 'process.executable.path': '/usr/bin/node', 'process.command_args': ['/home/user/myproject/node_modules/.bin/ts-node', '/home/user/myproject/node_modules/ts-node/dist/bin.js', '/home/user/myproject/index.ts'], 'process.runtime.version': '24.15.0', 'process.runtime.name': 'nodejs', 'process.runtime.description': 'Node.js', 'process.command': '/home/user/myproject/index.ts', 'process.owner': 'root', 'service.name': 'unknown_service:node', 'telemetry.sdk.language': 'nodejs', 'telemetry.sdk.name': 'opentelemetry', 'telemetry.sdk.version': '2.7.1'}, 'scope': {'name': 'langfuse-sdk', 'version': '5.4.1', 'attributes': {}}}, 'model': None, 'modelParameters': None, 'completionStartTime': None, 'promptId': None, 'promptName': None, 'promptVersion': None, 'latency': 0.002, 'timeToFirstToken': None, 'usageDetails': {}, 'costDetails': {}, 'usagePricingTierId': None, 'usagePricingTierName': None, 'inputPrice': 0, 'outputPrice': 0, 'totalPrice': 0, 'calculatedInputCost': None, 'calculatedOutputCost': None, 'calculatedTotalCost': 0, 'unit': 'TOKENS', 'promptTokens': 0, 'completionTokens': 0, 'totalTokens': 0, 'modelId': None, 'usage': {'unit': 'TOKENS', 'input': 0, 'output': 0, 'total': 0}}, {'id': 'f8a2133085bc429e', 'traceId': 'bf3f1c89342aa3d5528a73b3324330a9', 'startTime': '2026-06-06T15:56:54.322Z', 'endTime': '2026-06-06T15:56:54.322Z', 'projectId': 'cmpy7umub0b79ad0ibhxui1ku', 'parentObservationId': '9a269a8761cf8c08', 'type': 'SPAN', 'environment': 'default', 'name': 'llm-call', 'level': 'DEFAULT', 'statusMessage': None, 'version': None, 'createdAt': '2026-06-06T15:56:55.307Z', 'updatedAt': '2026-06-06T15:56:55.307Z', 'input': None, 'output': None, 'metadata': {'resourceAttributes': {'host.name': 'c547c877ec85', 'host.arch': 'amd64', 'host.id': '', 'process.pid': 1556, 'process.executable.name': 'node', 'process.executable.path': '/usr/bin/node', 'process.command_args': ['/home/user/myproject/node_modules/.bin/ts-node', '/home/user/myproject/node_modules/ts-node/dist/bin.js', '/home/user/myproject/index.ts'], 'process.runtime.version': '24.15.0', 'process.runtime.name': 'nodejs', 'process.runtime.description': 'Node.js', 'process.command': '/home/user/myproject/index.ts', 'process.owner': 'root', 'service.name': 'unknown_service:node', 'telemetry.sdk.language': 'nodejs', 'telemetry.sdk.name': 'opentelemetry', 'telemetry.sdk.version': '2.7.1'}, 'scope': {'name': 'langfuse-sdk', 'version': '5.4.1', 'attributes': {}}}, 'model': None, 'modelParameters': None, 'completionStartTime': None, 'promptId': None, 'promptName': None, 'promptVersion': None, 'latency': 0, 'timeToFirstToken': None, 'usageDetails': {}, 'costDetails': {}, 'usagePricingTierId': None, 'usagePricingTierName': None, 'inputPrice': 0, 'outputPrice': 0, 'totalPrice': 0, 'calculatedInputCost': None, 'calculatedOutputCost': None, 'calculatedTotalCost': 0, 'unit': 'TOKENS', 'promptTokens': 0, 'completionTokens': 0, 'totalTokens': 0, 'modelId': None, 'usage': {'unit': 'TOKENS', 'input': 0, 'output': 0, 'total': 0}}]
+E       assert []
+
+tests/test_final_state.py:140: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_trace_id
+PASSED tests/test_final_state.py::test_run_id_is_set
+PASSED tests/test_final_state.py::test_trace_exists_with_expected_name
+PASSED tests/test_final_state.py::test_correctness_numeric_score_attached
+PASSED tests/test_final_state.py::test_sentiment_categorical_score_attached
+PASSED tests/test_final_state.py::test_helpfulness_boolean_score_attached
+FAILED tests/test_final_state.py::test_trace_has_generation_observation_named_llm_call
+========================= 1 failed, 6 passed in 6.65s ==========================

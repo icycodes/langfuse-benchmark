@@ -1,0 +1,163 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py EEEEEEEE                                       [100%]
+
+==================================== ERRORS ====================================
+______ ERROR at setup of test_log_file_records_prompt_name_matches_run_id ______
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+_________________ ERROR at setup of test_prompt_exists_via_api _________________
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+__________________ ERROR at setup of test_prompt_is_text_type __________________
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+__________________ ERROR at setup of test_prompt_body_matches __________________
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+_____ ERROR at setup of test_prompt_labels_include_production_and_staging ______
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+____________ ERROR at setup of test_prompt_tags_include_onboarding _____________
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+_____________ ERROR at setup of test_prompt_commit_message_matches _____________
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+_____ ERROR at setup of test_prompt_config_contains_model_and_temperature ______
+
+    @pytest.fixture(scope="module")
+    def created_prompt_log():
+>       return _read_log_line()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_log_line():
+>       assert os.path.isfile(LOG_PATH), f"Expected log file {LOG_PATH} to exist after the task."
+E       AssertionError: Expected log file /home/user/langfuse-task/output.log to exist after the task.
+E       assert False
+E        +  where False = <function isfile at 0x770bf91d4220>('/home/user/langfuse-task/output.log')
+E        +    where <function isfile at 0x770bf91d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_log_file_records_prompt_name_matches_run_id
+ERROR tests/test_final_state.py::test_prompt_exists_via_api - AssertionError:...
+ERROR tests/test_final_state.py::test_prompt_is_text_type - AssertionError: E...
+ERROR tests/test_final_state.py::test_prompt_body_matches - AssertionError: E...
+ERROR tests/test_final_state.py::test_prompt_labels_include_production_and_staging
+ERROR tests/test_final_state.py::test_prompt_tags_include_onboarding - Assert...
+ERROR tests/test_final_state.py::test_prompt_commit_message_matches - Asserti...
+ERROR tests/test_final_state.py::test_prompt_config_contains_model_and_temperature
+============================== 8 errors in 0.13s ===============================

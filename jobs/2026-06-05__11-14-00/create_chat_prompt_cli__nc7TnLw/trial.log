@@ -1,0 +1,87 @@
+Skipping image OS validation for hb__create_chat_prompt_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-nc7tnlw > /logs/artifacts/run-id && echo create_chat_prompt_cli__nc7TnLw > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Versioned Chat Prompt with the Langfuse CLI
+
+## Background
+Langfuse Prompt Management lets teams version, label, and reuse prompts collaboratively. The `langfuse-cli` (`npm i -g langfuse-cli`) wraps the entire Langfuse public API and is the recommended interface for scripting prompt operations from a terminal or CI pipeline.
+
+Your job is to use the **Langfuse CLI** to create a brand-new **chat-type** prompt in the connected Langfuse project. The prompt must contain a system message and a user message with at least one `{{variable}}` placeholder, must be labelled both `production` and `staging`, must be tagged, and must carry a commit message describing the change.
+
+## Requirements
+- Use the `langfuse-cli` (NOT raw curl, NOT a SDK script) to create the prompt.
+- The CLI must authenticate via the standard Langfuse environment variables already present in the environment.
+- The prompt **type** must be `chat`.
+- The prompt must contain exactly two messages: one with `role="system"` and one with `role="user"`. The user message must contain the `{{topic}}` template variable.
+- The prompt must be created with **both** labels: `production` and `staging`.
+- The prompt must be created with at least one tag: `cli-demo`.
+- The prompt must be created with a non-empty `commitMessage`.
+- Write the created prompt's name and version to a log file so the verifier can find them.
+
+## Implementation Hints
+- The CLI reads `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` automatically — there is no separate login step.
+- Explore available actions with `langfuse api prompts --help` and inspect the full schema with `langfuse api __schema` if you need to confirm flag names.
+- The CLI accepts complex/nested JSON values (such as the array of chat messages) as JSON strings on the command line.
+- After creation, you can confirm the result with `langfuse api prompts get --prompt-name <name>`.
+- Treat the operation as a one-off side-effecting job: do not wrap it in a long-running app, just run the CLI command(s) and record the outcome.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the real `langfuse-cli` command is executed and the prompt is actually created on the connected Langfuse instance (verified through the Langfuse public API).
+- The `run-id` must be read from the `ZEALT_RUN_ID` environment variable.
+- The created prompt's name must be `chat-prompt-cli-${run-id}`.
+- The prompt must have `type` = `chat`.
+- The prompt must contain exactly two chat messages with roles `system` and `user` (in that order), and the `user` message content must include the template variable `{{topic}}`.
+- The prompt version returned by Langfuse must carry **both** labels: `production` and `staging`.
+- The prompt version must include the tag `cli-demo`.
+- The prompt version must have a non-empty `commitMessage`.
+- Log file: /home/user/myproject/output.log
+- The log file must contain a line in the exact format: `Prompt name: <prompt_name>` (where `<prompt_name>` matches the `run-id`-scoped name above).
+- The log file must contain a line in the exact format: `Prompt version: <integer_version>` (the integer version number returned by Langfuse).
+
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

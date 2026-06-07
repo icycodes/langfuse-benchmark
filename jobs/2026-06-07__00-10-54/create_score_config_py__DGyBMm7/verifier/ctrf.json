@@ -1,0 +1,58 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 1,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780762608608,
+            "stop": 1780762614295
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_numeric_score_config_via_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 502,
+                "start": 1780762608683,
+                "stop": 1780762609185,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-dgybmm7', numeric_id = 'ffecdf8e-c106-4ac2-bf31-061c4f1265ae'\n\n    def test_numeric_score_config_via_api(run_id: str, numeric_id: str):\n        expected_name = f\"quality-{run_id}\"\n        response = _api_get(f\"/api/public/score-configs/{numeric_id}\")\n        assert response.status_code == 200, (\n            f\"GET /api/public/score-configs/{numeric_id} returned \"\n            f\"{response.status_code}: {response.text}\"\n        )\n        payload = response.json()\n        assert payload.get(\"id\") == numeric_id, (\n            f\"Score config id mismatch in API response: expected {numeric_id}, \"\n            f\"got {payload.get('id')!r}.\"\n        )\n        assert payload.get(\"name\") == expected_name, (\n            f\"Numeric score config name mismatch: expected {expected_name!r}, \"\n            f\"got {payload.get('name')!r}.\"\n        )\n        assert payload.get(\"dataType\") == \"NUMERIC\", (\n            \"Numeric score config has unexpected dataType: \"\n            f\"expected 'NUMERIC', got {payload.get('dataType')!r}.\"\n        )\n>       assert payload.get(\"minValue\") == 0, (\n            f\"Numeric score config minValue mismatch: expected 0, \"\n            f\"got {payload.get('minValue')!r}.\"\n        )\nE       AssertionError: Numeric score config minValue mismatch: expected 0, got 1.\nE       assert 1 == 0\nE        +  where 1 = <built-in method get of dict object at 0x70e40e80de40>('minValue')\nE        +    where <built-in method get of dict object at 0x70e40e80de40> = {'categories': None, 'createdAt': '2026-06-06T16:16:03.260Z', 'dataType': 'NUMERIC', 'description': 'Bounded numeric response quality rating for this evaluation run.', ...}.get\n\ntests/test_final_state.py:82: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_categorical_score_config_via_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4597,
+                "start": 1780762609185,
+                "stop": 1780762613782,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_id = 'zr-dgybmm7', categorical_id = '225e1525-6b5e-415d-b465-83b6bfd44d01'\n\n    def test_categorical_score_config_via_api(run_id: str, categorical_id: str):\n        expected_name = f\"sentiment-{run_id}\"\n        response = _api_get(f\"/api/public/score-configs/{categorical_id}\")\n        assert response.status_code == 200, (\n            f\"GET /api/public/score-configs/{categorical_id} returned \"\n            f\"{response.status_code}: {response.text}\"\n        )\n        payload = response.json()\n        assert payload.get(\"id\") == categorical_id, (\n            f\"Score config id mismatch in API response: expected {categorical_id}, \"\n            f\"got {payload.get('id')!r}.\"\n        )\n        assert payload.get(\"name\") == expected_name, (\n            f\"Categorical score config name mismatch: expected {expected_name!r}, \"\n            f\"got {payload.get('name')!r}.\"\n        )\n        assert payload.get(\"dataType\") == \"CATEGORICAL\", (\n            \"Categorical score config has unexpected dataType: \"\n            f\"expected 'CATEGORICAL', got {payload.get('dataType')!r}.\"\n        )\n        categories = payload.get(\"categories\")\n        assert isinstance(categories, list), (\n            \"Categorical score config 'categories' must be a list, \"\n            f\"got {type(categories).__name__}.\"\n        )\n        actual = {(int(cat[\"value\"]), cat[\"label\"]) for cat in categories}\n        expected = {(0, \"negative\"), (1, \"neutral\"), (2, \"positive\")}\n>       assert actual == expected, (\n            \"Categorical score config categories do not match the required \"\n            f\"sentiment buckets. Expected {expected!r}, got {actual!r}.\"\n        )\nE       AssertionError: Categorical score config categories do not match the required sentiment buckets. Expected {(0, 'negative'), (1, 'neutral'), (2, 'positive')}, got {(0, 'neutral'), (-1, 'negative'), (1, 'positive')}.\nE       assert {(-1, 'negati..., 'positive')} == {(0, 'negativ..., 'positive')}\nE         Extra items in the left set:\nE         (0, 'neutral')\nE         (-1, 'negative')\nE         (1, 'positive')\nE         Extra items in the right set:\nE         (0, 'negative')\nE         (1, 'neutral')\nE         (2, 'positive')\nE         Use -v to get more diff\n\ntests/test_final_state.py:124: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_configs_listed_via_api",
+                "status": "passed",
+                "duration": 513,
+                "start": 1780762613782,
+                "stop": 1780762614295,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
