@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ....FF                                         [100%]
+
+=================================== FAILURES ===================================
+___________ test_hallucination_boolean_score_attached_to_generation ____________
+
+scores_response = [{'authorUserId': None, 'comment': None, 'configId': None, 'createdAt': '2026-06-06T15:55:32.000Z', ...}]
+parsed_log = {'generation_id': '60eaf968fffef74a', 'session_id': 'session-zr-dj2xvj6', 'trace_id': '8335be6284ce43c2a06209a4af35e7b0', 'user_id': 'user-zr-dj2xvj6'}
+
+    def test_hallucination_boolean_score_attached_to_generation(scores_response, parsed_log):
+        matching = [s for s in scores_response if s.get("name") == "hallucination"]
+>       assert len(matching) == 1, (
+            f"Expected exactly 1 'hallucination' score on the trace, found {len(matching)}: {matching}"
+        )
+E       AssertionError: Expected exactly 1 'hallucination' score on the trace, found 0: []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_final_state.py:173: AssertionError
+___________ test_relevance_categorical_score_attached_to_generation ____________
+
+scores_response = [{'authorUserId': None, 'comment': None, 'configId': None, 'createdAt': '2026-06-06T15:55:32.000Z', ...}]
+parsed_log = {'generation_id': '60eaf968fffef74a', 'session_id': 'session-zr-dj2xvj6', 'trace_id': '8335be6284ce43c2a06209a4af35e7b0', 'user_id': 'user-zr-dj2xvj6'}
+
+    def test_relevance_categorical_score_attached_to_generation(scores_response, parsed_log):
+        matching = [s for s in scores_response if s.get("name") == "relevance"]
+>       assert len(matching) == 1, (
+            f"Expected exactly 1 'relevance' score on the trace, found {len(matching)}: {matching}"
+        )
+E       AssertionError: Expected exactly 1 'relevance' score on the trace, found 0: []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_final_state.py:193: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_well_formed
+PASSED tests/test_final_state.py::test_trace_has_expected_user_and_session
+PASSED tests/test_final_state.py::test_trace_contains_expected_generation_observation
+PASSED tests/test_final_state.py::test_user_satisfaction_score_attached_to_trace
+FAILED tests/test_final_state.py::test_hallucination_boolean_score_attached_to_generation
+FAILED tests/test_final_state.py::test_relevance_categorical_score_attached_to_generation
+========================= 2 failed, 4 passed in 1.24s ==========================

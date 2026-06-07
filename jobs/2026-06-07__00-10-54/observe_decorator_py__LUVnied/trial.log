@@ -1,0 +1,89 @@
+Skipping image OS validation for hb__observe_decorator_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-luvnied > /logs/artifacts/run-id && echo observe_decorator_py__LUVnied > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.5 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Instrument a Pipeline with the Langfuse `@observe` Decorator (Python)
+
+## Background
+Your team uses [Langfuse](https://langfuse.com/) for LLM observability. You need to instrument a small multi-step Python pipeline that simulates a user query being processed by an LLM. Instead of manually opening spans with context managers, you must use the Langfuse Python SDK's `@observe()` decorator to automatically capture each step's inputs, outputs, timings, and errors. You must also enrich the resulting Langfuse trace with `user_id`, `session_id`, and `tags` so it can be filtered in the UI and via the public API.
+
+Langfuse credentials are already exported in the environment as `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL`.
+
+## Requirements
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable and use it to build collision-free identifiers (see Acceptance Criteria for the exact naming rules).
+- Implement a Python script at `/home/user/myproject/run_pipeline.py` that:
+  - Uses `@observe()` from the Langfuse Python SDK on a top-level pipeline function (a Langfuse-span).
+  - Uses a second `@observe()` on a nested function that simulates an LLM call (a Langfuse-generation). No real LLM call is required — a hard-coded response string is fine.
+  - Propagates `user_id`, `session_id`, and `tags` so they are attached to the resulting Langfuse trace.
+  - Forces all queued events to be delivered to Langfuse before the process exits.
+- After the script finishes, write the Langfuse trace id to a log file so the verifier can fetch the trace from the public API.
+
+## Implementation Hints
+- Install the Langfuse Python SDK with `pip install langfuse`.
+- The `@observe()` decorator and the helpers needed to set the trace attributes are exported from `langfuse` (e.g. `from langfuse import observe, get_client, propagate_attributes`). Read the [Python instrumentation docs](https://langfuse.com/docs/observability/sdk/python/instrumentation) for the exact API.
+- Mark the nested function as a generation observation by passing `as_type="generation"` to `@observe()`, and set a model name on it.
+- Langfuse is asynchronous — short-lived scripts must call `flush()` (or `shutdown()`) on the client before exit, otherwise events are silently dropped.
+- You can obtain the current trace id with `langfuse.get_current_trace_id()` from inside an active observation.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (the verifier will not re-run the pipeline).
+- Log file: /home/user/myproject/output.log
+- The script entrypoint must be `/home/user/myproject/run_pipeline.py` and must be executed once with `python3 /home/user/myproject/run_pipeline.py`.
+- `run-id` MUST be read from the `ZEALT_RUN_ID` environment variable and used to build the identifiers below:
+  - `session_id` MUST equal `obs-deco-session-${run-id}`.
+  - `user_id` MUST equal `obs-deco-user-${run-id}`.
+  - The trace MUST carry the tags `obs-decorator` and `harbor-${run-id}` (both tags required).
+- A Langfuse trace MUST be created such that, when fetched via `GET /api/public/traces/{traceId}`, it satisfies all of:
+  - The trace contains at least two observations.
+  - Exactly one observation has `type` equal to `GENERATION` and a non-empty `model` field.
+  - There is at least one observation with `type` equal to `SPAN` that is the parent of the generation (the generation is nested inside the span observation).
+  - The trace `userId`, `sessionId`, and `tags` match the values defined above.
+- The log file MUST contain exactly one line in the format `Trace ID: <trace_id>` where `<trace_id>` is the Langfuse trace id created by the run.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

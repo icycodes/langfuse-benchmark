@@ -1,0 +1,101 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 12 items
+
+tests/test_final_state.py ........F.FF                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ test_annotation_queue_has_expected_name ____________________
+
+annotation_queue_body = {'createdAt': '2026-06-05T03:37:08.055Z', 'description': 'Queue for QA reviewers to score model answers', 'id': 'cmq0di1uf06g2ad0kohmrgc64', 'name': 'qa-review-queue-zr-6ju2luu', ...}
+
+    def test_annotation_queue_has_expected_name(annotation_queue_body):
+        expected = _expected_queue_name()
+>       assert annotation_queue_body.get("name") == expected, (
+            f"Annotation queue name mismatch. Expected {expected!r}, "
+            f"got {annotation_queue_body.get('name')!r}."
+        )
+E       AssertionError: Annotation queue name mismatch. Expected 'qa-review-queue-zr-tsukrdb', got 'qa-review-queue-zr-6ju2luu'.
+E       assert 'qa-review-queue-zr-6ju2luu' == 'qa-review-queue-zr-tsukrdb'
+E         - qa-review-queue-zr-tsukrdb
+E         ?                    ^^ ^^^^
+E         + qa-review-queue-zr-6ju2luu
+E         ?                    ^^ ^^^^
+
+tests/test_final_state.py:185: AssertionError
+_____________ test_annotation_queue_references_logged_score_config _____________
+
+logged_ids = ('349130bc-4747-4b64-a867-675605539746', 'cmq0di1uf06g2ad0kohmrgc64')
+annotation_queue_body = {'createdAt': '2026-06-05T03:37:08.055Z', 'description': 'Queue for QA reviewers to score model answers', 'id': 'cmq0di1uf06g2ad0kohmrgc64', 'name': 'qa-review-queue-zr-6ju2luu', ...}
+
+    def test_annotation_queue_references_logged_score_config(
+        logged_ids, annotation_queue_body
+    ):
+        score_config_id, _ = logged_ids
+        score_config_ids = annotation_queue_body.get("scoreConfigIds")
+        assert isinstance(score_config_ids, list), (
+            f"Expected 'scoreConfigIds' to be a list, got {type(score_config_ids).__name__}."
+        )
+>       assert score_config_ids == [score_config_id], (
+            f"Annotation queue scoreConfigIds mismatch. Expected "
+            f"[{score_config_id!r}], got {score_config_ids!r}."
+        )
+E       AssertionError: Annotation queue scoreConfigIds mismatch. Expected ['349130bc-4747-4b64-a867-675605539746'], got ['8dc4265d-aa97-4996-9996-57a0826f1d9b'].
+E       assert ['8dc4265d-aa...57a0826f1d9b'] == ['349130bc-47...675605539746']
+E         At index 0 diff: '8dc4265d-aa97-4996-9996-57a0826f1d9b' != '349130bc-4747-4b64-a867-675605539746'
+E         Use -v to get more diff
+
+tests/test_final_state.py:207: AssertionError
+________________ test_annotation_queue_visible_in_list_endpoint ________________
+
+    def test_annotation_queue_visible_in_list_endpoint():
+        expected_name = _expected_queue_name()
+        base_url = _langfuse_base_url()
+        auth = _langfuse_auth()
+    
+        found = False
+        page = 1
+        for _ in range(20):
+            response = httpx.get(
+                f"{base_url}/api/public/annotation-queues",
+                params={"page": page, "limit": 100},
+                auth=auth,
+                timeout=30.0,
+            )
+            assert response.status_code == 200, (
+                f"Listing annotation queues failed on page {page}: "
+                f"HTTP {response.status_code}: {response.text}"
+            )
+            data = response.json().get("data") or []
+            if not data:
+                break
+            if any(item.get("name") == expected_name for item in data):
+                found = True
+                break
+            page += 1
+    
+>       assert found, (
+            f"Annotation queue named {expected_name!r} was not found in any page of "
+            f"GET /api/public/annotation-queues."
+        )
+E       AssertionError: Annotation queue named 'qa-review-queue-zr-tsukrdb' was not found in any page of GET /api/public/annotation-queues.
+E       assert False
+
+tests/test_final_state.py:239: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_format_captures_both_ids
+PASSED tests/test_final_state.py::test_score_config_id_matches_api
+PASSED tests/test_final_state.py::test_score_config_has_expected_name
+PASSED tests/test_final_state.py::test_score_config_has_expected_data_type
+PASSED tests/test_final_state.py::test_score_config_has_expected_min_value
+PASSED tests/test_final_state.py::test_score_config_has_expected_max_value
+PASSED tests/test_final_state.py::test_score_config_has_expected_description
+PASSED tests/test_final_state.py::test_annotation_queue_id_matches_api
+PASSED tests/test_final_state.py::test_annotation_queue_has_expected_description
+FAILED tests/test_final_state.py::test_annotation_queue_has_expected_name - A...
+FAILED tests/test_final_state.py::test_annotation_queue_references_logged_score_config
+FAILED tests/test_final_state.py::test_annotation_queue_visible_in_list_endpoint
+========================= 3 failed, 9 passed in 2.03s ==========================

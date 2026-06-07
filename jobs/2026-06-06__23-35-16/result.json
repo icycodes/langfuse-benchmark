@@ -1,0 +1,113 @@
+{
+    "id": "b77e5a23-252e-4867-92ab-bc4c7f3eda5f",
+    "started_at": "2026-06-06T23:35:16.391563",
+    "updated_at": "2026-06-06T23:59:10.157738",
+    "finished_at": "2026-06-06T23:59:10.157738",
+    "n_total_trials": 32,
+    "stats": {
+        "n_completed_trials": 32,
+        "n_errored_trials": 18,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 16,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.6875
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "create_event_observation_py__qLwBHGL",
+                            "create_score_configs_cli__nnvBpUY",
+                            "manage_dataset_cli__6cE5Zmo",
+                            "run_experiment_with_evaluators_t__YBaEkSy",
+                            "observe_decorator_py__9XpEBnA",
+                            "create_text_prompt_cli__EtB69Ni",
+                            "track_generation_token_usage_py__a82ZVWk",
+                            "mask_sensitive_data_py__LGrSsqv",
+                            "update_trace_with_release_ts__npLugJy",
+                            "instrument_otel_tracing_ts__rKj5huR",
+                            "link_prompt_to_generation_py__8dzT2CW"
+                        ],
+                        "0.0": [
+                            "create_score_config_py__GKxKMN8",
+                            "create_chat_prompt_cli__dmQeWTx",
+                            "create_annotation_queue_cli__kqMwLsk",
+                            "instrument_trace_with_scores_py__DJ2XVJ6",
+                            "attach_multi_type_scores_ts__wquiyG4"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "create_chat_prompt_cli__dmQeWTx",
+                        "create_annotation_queue_cli__kqMwLsk"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 16,
+                "n_errors": 16,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "create_event_observation_py__Yfejgkf",
+                            "create_score_configs_cli__2nnNvGz",
+                            "manage_dataset_cli__6eh5Mbx",
+                            "run_experiment_with_evaluators_t__ogm3j2E",
+                            "observe_decorator_py__k4CjZKY",
+                            "create_text_prompt_cli__v6P2zjM",
+                            "track_generation_token_usage_py__9Gvgc8h",
+                            "create_score_config_py__zXAft4L",
+                            "create_chat_prompt_cli__Tpi8ENi",
+                            "create_annotation_queue_cli__ZJLxGNe",
+                            "mask_sensitive_data_py__CJBeMZp",
+                            "instrument_trace_with_scores_py__WWYq9aW",
+                            "update_trace_with_release_ts__H44Sbcb",
+                            "attach_multi_type_scores_ts__vomkBFV",
+                            "instrument_otel_tracing_ts__jLdM8aG",
+                            "link_prompt_to_generation_py__rgTd5VJ"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "create_event_observation_py__Yfejgkf",
+                        "create_score_configs_cli__2nnNvGz",
+                        "manage_dataset_cli__6eh5Mbx",
+                        "run_experiment_with_evaluators_t__ogm3j2E",
+                        "observe_decorator_py__k4CjZKY",
+                        "create_text_prompt_cli__v6P2zjM",
+                        "track_generation_token_usage_py__9Gvgc8h",
+                        "create_score_config_py__zXAft4L",
+                        "create_chat_prompt_cli__Tpi8ENi",
+                        "create_annotation_queue_cli__ZJLxGNe",
+                        "mask_sensitive_data_py__CJBeMZp",
+                        "instrument_trace_with_scores_py__WWYq9aW",
+                        "update_trace_with_release_ts__H44Sbcb",
+                        "attach_multi_type_scores_ts__vomkBFV",
+                        "instrument_otel_tracing_ts__jLdM8aG",
+                        "link_prompt_to_generation_py__rgTd5VJ"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 427183,
+        "cost_usd": null
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780760748155,
+            "stop": 1780760756252
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_trace_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780760748241,
+                "stop": 1780760748242,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_contains_observations",
+                "status": "passed",
+                "duration": 8000,
+                "start": 1780760748242,
+                "stop": 1780760756242,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parent_span_exists_with_run_id_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780760756243,
+                "stop": 1780760756244,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_observation_exists_and_is_child_of_span",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780760756245,
+                "stop": 1780760756247,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_model_name",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780760756247,
+                "stop": 1780760756249,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_usage_details",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780760756249,
+                "stop": 1780760756250,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_generation_cost_details",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780760756250,
+                "stop": 1780760756251,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

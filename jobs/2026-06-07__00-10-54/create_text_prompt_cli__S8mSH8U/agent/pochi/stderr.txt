@@ -1,0 +1,120 @@
+[37m2026-06-06 16:15:38.599[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.12
+[37m2026-06-06 16:15:38.892[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521107[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-06-06 16:15:38.894[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521108[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-06-06 16:15:38.971[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:448506[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-06-06 16:15:40.774[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419064[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-06-06 16:15:40.775[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419176[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-06-06 16:15:41.165[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-06-06 16:15:41.231[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # Create a Versioned Text Prompt with the Langfuse CLI
+[37m2026-06-06 16:15:57.338[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # Create a Versioned Text Prompt with the Langfuse CLI, new: Create a versioned Langfuse text prompt with the CLI
+[37m2026-06-06 16:15:59.685[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:467270[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /home and recursive [33mfalse[39m
+[37m2026-06-06 16:16:07.891[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:467270[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /home/user and recursive [33mfalse[39m
+[37m2026-06-06 16:16:47.232[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:467270[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/lib/node_modules/langfuse-cli and recursive [33mfalse[39m
+[37m2026-06-06 16:16:53.798[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/README.md" resolvedPath="/usr/lib/node_modules/langfuse-cli/README.md" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=200
+[37m2026-06-06 16:16:53.799[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:16:53.800[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:466965[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/lib/node_modules/langfuse-cli prompts/create|Create a new version|commitMessage|labels|config *.yml
+[37m2026-06-06 16:16:53.801[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:466965[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified --glob '*.yml' 'prompts/create|Create a new version|commitMessage|labels|config' '/usr/lib/node_modules/langfuse-cli'
+[37m2026-06-06 16:16:53.807[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/README.md" mtime=1780762572412 contentLen=2924
+[37m2026-06-06 16:16:56.951[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/openapi.yml" resolvedPath="/usr/lib/node_modules/langfuse-cli/openapi.yml" isVirtual=false cacheExists=true shouldCache=true startLine=4680 endLine=4755
+[37m2026-06-06 16:16:56.952[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:16:56.983[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/openapi.yml" mtime=1780762572415 contentLen=1883
+[37m2026-06-06 16:17:02.594[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/openapi.yml" resolvedPath="/usr/lib/node_modules/langfuse-cli/openapi.yml" isVirtual=false cacheExists=true shouldCache=true startLine=11160 endLine=11355
+[37m2026-06-06 16:17:02.594[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState={startLine=4680, endLine=4755, timestamp=1780762572415}
+[37m2026-06-06 16:17:02.628[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/openapi.yml" mtime=1780762572415 contentLen=5036
+[37m2026-06-06 16:17:11.014[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:467270[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/lib/node_modules/langfuse-cli/dist and recursive [33mtrue[39m
+[37m2026-06-06 16:17:17.629[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/dist/cli.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/dist/cli.js" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=240
+[37m2026-06-06 16:17:17.629[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:17:17.655[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/dist/cli.js" mtime=1780762572411 contentLen=6814
+[37m2026-06-06 16:17:25.472[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:467270[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/lib/node_modules/langfuse-cli/node_modules/specli and recursive [33mtrue[39m
+[37m2026-06-06 16:17:31.072[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/README.md" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/README.md" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=220
+[37m2026-06-06 16:17:31.072[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:17:31.104[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/README.md" mtime=1780762573047 contentLen=5161
+[37m2026-06-06 16:17:35.011[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/README.md" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/README.md" isVirtual=false cacheExists=true shouldCache=true startLine=220 endLine=440
+[37m2026-06-06 16:17:35.011[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState={startLine=1, endLine=220, timestamp=1780762573047}
+[37m2026-06-06 16:17:35.046[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/README.md" mtime=1780762573047 contentLen=4872
+[37m2026-06-06 16:17:50.523[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:466965[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli data|file|content-type|body|unknown option *.js
+[37m2026-06-06 16:17:50.523[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:466965[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified --glob '*.js' 'data|file|content-type|body|unknown option' '/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli'
+[37m2026-06-06 16:17:56.679[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/generated.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/generated.js" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=210
+[37m2026-06-06 16:17:56.679[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:17:56.679[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/parse/request-body.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/parse/request-body.js" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=120
+[37m2026-06-06 16:17:56.679[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:17:56.679[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/body-flags.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/body-flags.js" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=240
+[37m2026-06-06 16:17:56.679[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:17:56.702[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/generated.js" mtime=1780762572884 contentLen=7274
+[37m2026-06-06 16:17:56.706[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/parse/request-body.js" mtime=1780762573010 contentLen=1766
+[37m2026-06-06 16:17:56.709[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/body-flags.js" mtime=1780762572796 contentLen=3990
+[37m2026-06-06 16:22:38.632[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:437624[39m[0m[0m[1m[37m	LiveChatKit[39m[22m[0m[0m	onError
+
+[97m[101m[1m Error [22m[49m[39m[0m[0m The operation timed out., 434396, 49, 434396, 49, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:434396[39m[0m[0m
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:433913[39m[0m[0m
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:437080[39m[0m[0m
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:437078[39m[0m[0m
+  • [33mpochi[39m[0m[0m	processQueue[0m[0m
+	[37m$bunfs/root/pochi:437071[39m[0m[0m
+  • [33mpochi[39m[0m[0m	processQueue[0m[0m
+	[37m$bunfs/root/pochi:437065[39m[0m[0m
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:437086[39m[0m[0m
+  • [33mnative[39m[0m[0m	new Promise[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mpochi[39m[0m[0m	run[0m[0m
+	[37m$bunfs/root/pochi:437077[39m[0m[0m
+  • [33mpochi[39m[0m[0m	run[0m[0m
+	[37m$bunfs/root/pochi:437076[39m[0m[0m
+  • [33mpochi[39m[0m[0m	transform[0m[0m
+	[37m$bunfs/root/pochi:433913[39m[0m[0m
+  • [33mpochi[39m[0m[0m	transform[0m[0m
+	[37m$bunfs/root/pochi:433912[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:1[39m[0m[0m
+  • [33mnative[39m[0m[0m	<anonymous>[0m[0m
+	[37mnative:7[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-06-06 16:22:38.660[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:520601[39m[0m[0m[1m[37m	TaskRunner[39m[22m[0m[0m	Task is failed, trying to resend last message to resume it. {
+  kind: [32m'InternalError'[39m,
+  message: [32m'The operation timed out.'[39m
+}
+[37m2026-06-06 16:23:01.395[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" isVirtual=false cacheExists=true shouldCache=true startLine=160 endLine=230
+[37m2026-06-06 16:23:01.395[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:23:01.481[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" mtime=1780762573017 contentLen=3194
+[37m2026-06-06 16:23:08.862[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=40
+[37m2026-06-06 16:23:08.862[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState={startLine=160, endLine=230, timestamp=1780762573017}
+[37m2026-06-06 16:23:08.989[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" mtime=1780762573017 contentLen=1518
+[37m2026-06-06 16:23:30.771[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/generated.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/generated.js" isVirtual=false cacheExists=true shouldCache=true startLine=120 endLine=150
+[37m2026-06-06 16:23:30.772[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:23:30.871[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/generated.js" mtime=1780762572884 contentLen=1646
+[37m2026-06-06 16:23:37.994[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=230
+[37m2026-06-06 16:23:37.995[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState={startLine=1, endLine=40, timestamp=1780762573017}
+[37m2026-06-06 16:23:37.997[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" mtime=1780762573017 contentLen=9732
+[37m2026-06-06 16:23:57.924[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" isVirtual=false cacheExists=true shouldCache=true startLine=220 endLine=290
+[37m2026-06-06 16:23:57.924[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState={startLine=undefined, endLine=undefined, timestamp=1780763031679}
+[37m2026-06-06 16:23:58.003[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" mtime=1780763031679 contentLen=2952
+[37m2026-06-06 16:24:16.284[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" resolvedPath="/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" isVirtual=false cacheExists=true shouldCache=true startLine=195 endLine=235
+[37m2026-06-06 16:24:16.284[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState={startLine=undefined, endLine=undefined, timestamp=1780763049060}
+[37m2026-06-06 16:24:16.588[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/lib/node_modules/langfuse-cli/node_modules/specli/dist/cli/runtime/request.js" mtime=1780763049060 contentLen=2037
+[37m2026-06-06 16:25:01.501[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/langfuse-task/output.log" resolvedPath="/home/user/langfuse-task/output.log" isVirtual=false cacheExists=true shouldCache=true startLine=1 endLine=1
+[37m2026-06-06 16:25:01.501[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-06 16:25:01.521[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/langfuse-task/output.log" mtime=1780763087855 contentLen=55
+[37m2026-06-06 16:25:16.250[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-06-06 16:25:16.250[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-06-06 16:25:16.600[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-06-06 16:25:16.600[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

@@ -1,0 +1,19 @@
+{
+  "name": "langfuse-weather-assistant-tracing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@langfuse/otel": "^4.6.1",
+    "@langfuse/tracing": "^4.6.1",
+    "@opentelemetry/sdk-node": "^0.203.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}

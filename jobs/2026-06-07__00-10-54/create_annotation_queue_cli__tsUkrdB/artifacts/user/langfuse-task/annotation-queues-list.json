@@ -1,0 +1,1 @@
+{"ok":true,"status":200,"body":{"data":[{"id":"cmq0di1uf06g2ad0kohmrgc64","name":"qa-review-queue-zr-6ju2luu","description":"Queue for QA reviewers to score model answers","scoreConfigIds":["8dc4265d-aa97-4996-9996-57a0826f1d9b"],"createdAt":"2026-06-05T03:37:08.055Z","updatedAt":"2026-06-05T03:37:08.055Z"}],"meta":{"page":1,"limit":50,"totalItems":1,"totalPages":1}}}

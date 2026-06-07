@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780763118757,
+            "stop": 1780763119324
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_records_prompt_name_matches_run_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780763118835,
+                "stop": 1780763118836,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_exists_via_api",
+                "status": "passed",
+                "duration": 476,
+                "start": 1780763118836,
+                "stop": 1780763119312,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_is_text_type",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780763119313,
+                "stop": 1780763119314,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_body_matches",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780763119315,
+                "stop": 1780763119316,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_labels_include_production_and_staging",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780763119317,
+                "stop": 1780763119318,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_tags_include_onboarding",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780763119318,
+                "stop": 1780763119320,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_commit_message_matches",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780763119320,
+                "stop": 1780763119321,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prompt_config_contains_model_and_temperature",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780763119322,
+                "stop": 1780763119324,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

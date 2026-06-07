@@ -1,0 +1,85 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 4,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780761348173,
+            "stop": 1780761349416
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_well_formed",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780761348261,
+                "stop": 1780761348262,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_has_expected_user_and_session",
+                "status": "passed",
+                "duration": 580,
+                "start": 1780761348263,
+                "stop": 1780761348843,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trace_contains_expected_generation_observation",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780761348844,
+                "stop": 1780761348846,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_satisfaction_score_attached_to_trace",
+                "status": "passed",
+                "duration": 528,
+                "start": 1780761348846,
+                "stop": 1780761349374,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hallucination_boolean_score_attached_to_generation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 36,
+                "start": 1780761349375,
+                "stop": 1780761349411,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "scores_response = [{'authorUserId': None, 'comment': None, 'configId': None, 'createdAt': '2026-06-06T15:55:32.000Z', ...}]\nparsed_log = {'generation_id': '60eaf968fffef74a', 'session_id': 'session-zr-dj2xvj6', 'trace_id': '8335be6284ce43c2a06209a4af35e7b0', 'user_id': 'user-zr-dj2xvj6'}\n\n    def test_hallucination_boolean_score_attached_to_generation(scores_response, parsed_log):\n        matching = [s for s in scores_response if s.get(\"name\") == \"hallucination\"]\n>       assert len(matching) == 1, (\n            f\"Expected exactly 1 'hallucination' score on the trace, found {len(matching)}: {matching}\"\n        )\nE       AssertionError: Expected exactly 1 'hallucination' score on the trace, found 0: []\nE       assert 0 == 1\nE        +  where 0 = len([])\n\ntests/test_final_state.py:173: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_relevance_categorical_score_attached_to_generation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780761349411,
+                "stop": 1780761349416,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "scores_response = [{'authorUserId': None, 'comment': None, 'configId': None, 'createdAt': '2026-06-06T15:55:32.000Z', ...}]\nparsed_log = {'generation_id': '60eaf968fffef74a', 'session_id': 'session-zr-dj2xvj6', 'trace_id': '8335be6284ce43c2a06209a4af35e7b0', 'user_id': 'user-zr-dj2xvj6'}\n\n    def test_relevance_categorical_score_attached_to_generation(scores_response, parsed_log):\n        matching = [s for s in scores_response if s.get(\"name\") == \"relevance\"]\n>       assert len(matching) == 1, (\n            f\"Expected exactly 1 'relevance' score on the trace, found {len(matching)}: {matching}\"\n        )\nE       AssertionError: Expected exactly 1 'relevance' score on the trace, found 0: []\nE       assert 0 == 1\nE        +  where 0 = len([])\n\ntests/test_final_state.py:193: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
